@@ -15,6 +15,9 @@
 		031247BF2028D1530048BBFB /* ParseableStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031247BE2028D1530048BBFB /* ParseableStruct.swift */; };
 		031247C12028F0B50048BBFB /* Int+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031247C02028F0B50048BBFB /* Int+Parseable.swift */; };
 		031247C32028F1950048BBFB /* String+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031247C22028F1950048BBFB /* String+Parseable.swift */; };
+		03CC4FEE20291A2200269CC7 /* ParseableSubStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC4FED20291A2200269CC7 /* ParseableSubStruct.swift */; };
+		03CC4FF02029232900269CC7 /* ParseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC4FEF2029232900269CC7 /* ParseError.swift */; };
+		03CC4FF2202925CC00269CC7 /* JSONRawValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +42,9 @@
 		031247BE2028D1530048BBFB /* ParseableStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseableStruct.swift; sourceTree = "<group>"; };
 		031247C02028F0B50048BBFB /* Int+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Parseable.swift"; sourceTree = "<group>"; };
 		031247C22028F1950048BBFB /* String+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Parseable.swift"; sourceTree = "<group>"; };
+		03CC4FED20291A2200269CC7 /* ParseableSubStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseableSubStruct.swift; sourceTree = "<group>"; };
+		03CC4FEF2029232900269CC7 /* ParseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseError.swift; sourceTree = "<group>"; };
+		03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRawValueType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,12 +87,12 @@
 		031247A22028CC780048BBFB /* Parser */ = {
 			isa = PBXGroup;
 			children = (
+				03CC4FF3202926D200269CC7 /* Foundation Extensions */,
 				031247A32028CC780048BBFB /* Parser.h */,
 				031247A42028CC780048BBFB /* Info.plist */,
 				031247BA2028CCCF0048BBFB /* Parser.swift */,
 				031247BC2028CE360048BBFB /* PathNode.swift */,
-				031247C02028F0B50048BBFB /* Int+Parseable.swift */,
-				031247C22028F1950048BBFB /* String+Parseable.swift */,
+				03CC4FEF2029232900269CC7 /* ParseError.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -96,9 +102,20 @@
 			children = (
 				031247AE2028CC780048BBFB /* ParserTests.swift */,
 				031247BE2028D1530048BBFB /* ParseableStruct.swift */,
+				03CC4FED20291A2200269CC7 /* ParseableSubStruct.swift */,
 				031247B02028CC780048BBFB /* Info.plist */,
 			);
 			path = ParserTests;
+			sourceTree = "<group>";
+		};
+		03CC4FF3202926D200269CC7 /* Foundation Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				031247C02028F0B50048BBFB /* Int+Parseable.swift */,
+				031247C22028F1950048BBFB /* String+Parseable.swift */,
+				03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */,
+			);
+			path = "Foundation Extensions";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,6 +233,8 @@
 				031247BD2028CE360048BBFB /* PathNode.swift in Sources */,
 				031247C32028F1950048BBFB /* String+Parseable.swift in Sources */,
 				031247BB2028CCCF0048BBFB /* Parser.swift in Sources */,
+				03CC4FF2202925CC00269CC7 /* JSONRawValueType.swift in Sources */,
+				03CC4FF02029232900269CC7 /* ParseError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03CC4FEE20291A2200269CC7 /* ParseableSubStruct.swift in Sources */,
 				031247BF2028D1530048BBFB /* ParseableStruct.swift in Sources */,
 				031247AF2028CC780048BBFB /* ParserTests.swift in Sources */,
 			);

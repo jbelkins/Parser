@@ -14,6 +14,7 @@ struct ParseableStruct: Equatable {
     let id: Int
     let name: String
     let optionalDescription: String?
+    var substruct: ParseableSubStruct?
 }
 
 
@@ -24,12 +25,13 @@ extension ParseableStruct: Parseable {
         let id = parser.parseRequired(type: Int.self, atKey: "id")
         let name = parser.parseRequired(type: String.self, atKey: "name")
         let optionalDescription = parser.parseOptional(type: String.self, atKey: "description")
+        let substruct = parser.parseOptional(type: ParseableSubStruct.self, atKey: "substruct")
         guard parser.succeeded() else { return nil }
-        self.init(id: id!, name: name!, optionalDescription: optionalDescription)
+        self.init(id: id!, name: name!, optionalDescription: optionalDescription, substruct: substruct)
     }
 }
 
 
 func ==(lhs: ParseableStruct, rhs: ParseableStruct) -> Bool {
-    return lhs.id == rhs.id && lhs.name == rhs.name && lhs.optionalDescription == rhs.optionalDescription
+    return lhs.id == rhs.id && lhs.name == rhs.name && lhs.optionalDescription == rhs.optionalDescription && lhs.substruct == rhs.substruct
 }

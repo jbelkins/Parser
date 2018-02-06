@@ -9,11 +9,7 @@
 import Foundation
 
 
-extension String: Parseable {
+extension String: Parseable, JSONRawValueType {
     static var idKey: String? = nil
-
-    init?(parser: inout Parser) {
-        guard let string = parser.json as? String else { return nil }
-        self = string
-    }
 }
+
