@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@testable import Parser
+import Parser
 
 
 struct ParseableSubStruct: Equatable {
@@ -18,9 +18,9 @@ struct ParseableSubStruct: Equatable {
 
 extension ParseableSubStruct: Parseable {
 
-    init?(parser: inout Parser) {
-        let identifier = parser.parseRequired(type: String.self, atKey: "identifier")
-        guard parser.succeeded() else { return nil }
+    init?(parser: Parser) {
+        let identifier = parser["identifier"].required(String.self)
+        guard parser.succeeded else { return nil }
         self.init(identifier: identifier!)
     }
 }

@@ -9,18 +9,21 @@
 import Foundation
 
 
-struct PathNode {
-    let jsonKey: String
-    let arrayIndex: Int?
-    let dictionaryKey: String?
-    let swiftType: Parseable.Type?
-    var idKey: String?
-    var id: String?
+public struct PathNode {
+    public let hashKey: String?
+    public let arrayIndex: Int?
+    public let swiftType: Parseable.Type?
+    public var idKey: String?
+    public var id: String?
 }
 
 extension PathNode {
 
-    init(jsonKey: String, swiftType: Parseable.Type?) {
-        self.init(jsonKey: jsonKey, arrayIndex: nil, dictionaryKey: nil, swiftType: swiftType, idKey: nil, id: nil)
+    init(hashKey: String, swiftType: Parseable.Type?) {
+        self.init(hashKey: hashKey, arrayIndex: nil, swiftType: swiftType, idKey: nil, id: nil)
+    }
+
+    init(arrayIndex: Int, swiftType: Parseable.Type?) {
+        self.init(hashKey: nil, arrayIndex: arrayIndex, swiftType: swiftType, idKey: nil, id: nil)
     }
 }

@@ -14,15 +14,15 @@ protocol JSONRawValueType {}
 
 extension JSONRawValueType {
 
-    init?(parser: inout Parser) {
+    public init?(parser: Parser) {
         guard parser.json != nil else {
             let error = ParseError(path: parser.path, message: "Nil value")
-            parser.errors.append(error)
+            parser.errorTarget?.receiveErrors([error])
             return nil
         }
         guard let value = parser.json as? Self else {
             let error = ParseError(path: parser.path, message: "Not a \(Self.self)")
-            parser.errors.append(error)
+            parser.errorTarget?.receiveErrors([error])
             return nil
         }
         self = value

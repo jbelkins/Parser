@@ -7,7 +7,8 @@
 //
 
 import XCTest
-@testable import Parser
+import Parser
+
 
 class ParserTests: XCTestCase {
     let testJSON1: [String: Any] = [
@@ -16,9 +17,13 @@ class ParserTests: XCTestCase {
         "description": "Cool structure",
         "substruct": [
             "identifier": "Cool sub structure"
+        ],
+        "substructs": [
+            ["identifier": "Cool array element 0"],
+            ["identifier": "Cool array element 1"]
         ]
     ]
-    var testStruct1 = ParseableStruct(id: 8675309, name: "test struct 1", optionalDescription: "Cool structure", substruct: ParseableSubStruct(identifier: "Cool sub structure"))
+    var testStruct1 = ParseableStruct(id: 8675309, name: "test struct 1", first: ParseableSubStruct(identifier: "Cool array element 0"), optionalDescription: "Cool structure", substruct: ParseableSubStruct(identifier: "Cool sub structure"))
 
     override func setUp() {
         super.setUp()
@@ -31,15 +36,15 @@ class ParserTests: XCTestCase {
     
     func testDeserializesAStruct() {
         let data = jsonData(from: testJSON1)
-        var parser = try! Parser(data: data)
-        let newStruct = parser.parse(rootType: ParseableStruct.self)
+        let parser = try! DataParser(data: data)
+        let newStruct = parser.parse(ParseableStruct.self)
         XCTAssertEqual(newStruct, testStruct1)
     }
 
     func testDeserializesAStructWithSubStruct() {
         let data = jsonData(from: testJSON1)
-        var parser = try! Parser(data: data)
-        let newStruct = parser.parse(rootType: ParseableStruct.self)
+        let parser = try! DataParser(data: data)
+        let newStruct = parser.parse(ParseableStruct.self)
         XCTAssertEqual(newStruct, testStruct1)
     }
 
@@ -47,13 +52,13 @@ class ParserTests: XCTestCase {
         var badTestJSON1 = testJSON1
         badTestJSON1.removeValue(forKey: "name")
         let data = jsonData(from: badTestJSON1)
-        var parser = try! Parser(data: data)
-        let newStruct = parser.parse(rootType: ParseableStruct.self)
+        let parser = try! DataParser(data: data)
+        let newStruct = parser.parse(ParseableStruct.self)
         XCTAssertNil(newStruct)
         print(parser.errors.first!)
         XCTAssertTrue(parser.errors.count == 1)
         XCTAssertEqual(parser.errors.first!.message, "Missing String")
-        XCTAssertEqual(parser.errors.first!.path.map { $0.jsonKey }, ["root", "name"])
+        XCTAssertEqual(parser.errors.first!.path.map { $0.hashKey! }, ["root", "name"])
         XCTAssertEqual(parser.errors.first!.path.first!.id, "8675309")
     }
     

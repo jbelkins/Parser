@@ -7,12 +7,14 @@
 //
 
 import Foundation
-@testable import Parser
+import Parser
 
 
 struct ParseableStruct: Equatable {
     let id: Int
     let name: String
+    let first: ParseableSubStruct
+
     let optionalDescription: String?
     var substruct: ParseableSubStruct?
 }
@@ -21,13 +23,14 @@ struct ParseableStruct: Equatable {
 extension ParseableStruct: Parseable {
     static var idKey: String? = "id"
 
-    init?(parser: inout Parser) {
-        let id = parser.parseRequired(type: Int.self, atKey: "id")
-        let name = parser.parseRequired(type: String.self, atKey: "name")
-        let optionalDescription = parser.parseOptional(type: String.self, atKey: "description")
-        let substruct = parser.parseOptional(type: ParseableSubStruct.self, atKey: "substruct")
-        guard parser.succeeded() else { return nil }
-        self.init(id: id!, name: name!, optionalDescription: optionalDescription, substruct: substruct)
+    init?(parser: Parser) {
+        let id = parser["id"].required(Int.self)
+        let name = parser["name"].required(String.self)
+        let first = parser["substructs"][0].required(ParseableSubStruct.self)
+        let optionalDescription = parser["description"].optional(String.self)
+        let substruct = parser["substruct"].optional(ParseableSubStruct.self)
+        guard parser.succeeded else { return nil }
+        self.init(id: id!, name: name!, first: first!, optionalDescription: optionalDescription, substruct: substruct)
     }
 }
 

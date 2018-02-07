@@ -10,5 +10,5 @@ import Foundation
 
 
 extension Int: Parseable, JSONRawValueType {
-    static var idKey: String? = nil
+    public static var idKey: String? = nil
 }

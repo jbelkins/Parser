@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct ParseError {
-    let path: [PathNode]
-    let message: String
+public struct ParseError {
+    public let path: [PathNode]
+    public let message: String
 }
