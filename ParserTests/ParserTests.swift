@@ -55,11 +55,31 @@ class ParserTests: XCTestCase {
         let parser = try! DataParser(data: data)
         let newStruct = parser.parse(ParseableStruct.self)
         XCTAssertNil(newStruct)
-        print(parser.errors.first!)
         XCTAssertTrue(parser.errors.count == 1)
         XCTAssertEqual(parser.errors.first!.message, "Missing String")
         XCTAssertEqual(parser.errors.first!.path.map { $0.hashKey! }, ["root", "name"])
-        XCTAssertEqual(parser.errors.first!.path.first!.id, "8675309")
+    }
+
+    func testParsesAnErrorInAnOptional() {
+        let badTestJSON1: [String: Any] = [
+            "id": 8675309,
+            "name": "test struct 1",
+            "description": "Cool structure",
+            "substruct": [
+                "identifier": 123321
+            ],
+            "substructs": [
+                ["identifier": "Cool array element 0"],
+                ["identifier": "Cool array element 1"]
+            ]
+        ]
+        let data = jsonData(from: badTestJSON1)
+        let parser = try! DataParser(data: data)
+        let newStruct = parser.parse(ParseableStruct.self)
+        XCTAssertNotNil(newStruct)
+        XCTAssertTrue(parser.errors.count == 1)
+        XCTAssertTrue(parser.errors.first!.message.hasPrefix("Not a String"))
+        XCTAssertEqual(parser.errors.first!.path.map { $0.hashKey! }, ["root", "substruct", "identifier"])
     }
     
     func jsonData(from object: Any?) -> Data {
