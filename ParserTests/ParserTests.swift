@@ -13,19 +13,15 @@ class ParserTests: XCTestCase {
     let testJSON1: [String: Any] = [
         "id": 8675309,
         "name": "test struct 1",
-        "description": "Cool structure"
+        "description": "Cool structure",
+        "substruct": [
+            "identifier": "Cool sub structure"
+        ]
     ]
-    var testStruct1 = ParseableStruct(id: 8675309, name: "test struct 1", optionalDescription: "Cool structure", substruct: nil)
-    let testSubStruct1 = ParseableSubStruct(identifier: "Cool sub structure")
-    let testSubJSON1: [String: Any] = [
-        "identifier": "Cool sub structure"
-    ]
-    var testJSON2: [String: Any]!
-    
+    var testStruct1 = ParseableStruct(id: 8675309, name: "test struct 1", optionalDescription: "Cool structure", substruct: ParseableSubStruct(identifier: "Cool sub structure"))
+
     override func setUp() {
         super.setUp()
-        testJSON2 = testJSON1
-        testJSON2["substruct"] = testSubJSON1
     }
     
     override func tearDown() {
@@ -41,9 +37,8 @@ class ParserTests: XCTestCase {
     }
 
     func testDeserializesAStructWithSubStruct() {
-        let data = jsonData(from: testJSON2)
+        let data = jsonData(from: testJSON1)
         var parser = try! Parser(data: data)
-        testStruct1.substruct = testSubStruct1
         let newStruct = parser.parse(rootType: ParseableStruct.self)
         XCTAssertEqual(newStruct, testStruct1)
     }
