@@ -9,70 +9,89 @@
 import Foundation
 
 
-open class Parser: ErrorTarget {
-    var path: [PathNode]
+public class Parser {
+    var node: PathNode
     let json: Any?
     let isRequired: Bool
-    public var succeeded = true {
-        didSet { succeededTarget?.succeeded = succeeded }
-    }
-    weak var succeededTarget: Parser?
-    weak var errorTarget: ErrorTarget?
+    public var succeeded = true
+    var errors = [ParseError]()
+    let parent: Parser?
 
-    init(path: [PathNode], json: Any?, isRequired: Bool, errorTarget: ErrorTarget? = nil, succeededTarget: Parser? = nil) {
-        self.path = path
+    init(node: PathNode, json: Any?, isRequired: Bool, parent: Parser?) {
+        self.node = node
         self.json = json
         self.isRequired = isRequired
-        self.errorTarget = errorTarget
-        self.succeededTarget = succeededTarget
+        self.parent = parent
     }
 
     // MARK: - Creating parsers for JSON sub-elements
 
     public subscript(key: String) -> Parser {
         let newNode = PathNode(hashKey: key, swiftType: nil)
-        let newJSON = Parser.traverseJSON(json: json, across: [newNode])
-        return Parser(path: path + [newNode], json: newJSON, isRequired: isRequired, errorTarget: self, succeededTarget: self)
+        let newJSON = Parser.traverseJSON(json: json, at: newNode)
+        return Parser(node: newNode, json: newJSON, isRequired: isRequired, parent: self)
     }
 
     public subscript(index: Int) -> Parser {
         let newNode = PathNode(arrayIndex: index, swiftType: nil)
-        let newJSON = Parser.traverseJSON(json: json, across: [newNode])
-        return Parser(path: path + [newNode], json: newJSON, isRequired: isRequired, errorTarget: self, succeededTarget: self)
+        let newJSON = Parser.traverseJSON(json: json, at: newNode)
+        return Parser(node: newNode, json: newJSON, isRequired: isRequired, parent: self)
     }
 
     // MARK: - Parsing
 
     public func required<ParsedType: Parseable>(_ type: ParsedType.Type) -> ParsedType! {
         let element = parse(type: type, required: true)
-        if element == nil { succeeded = false }
+        if element == nil { swiftParent?.succeeded = false }
         return element
     }
 
     public func optional<ParsedType: Parseable>(_ type: ParsedType.Type) -> ParsedType? {
-        return parse(type: ParsedType.self, required: false)
-    }
-
-    public func addError(_ error: ParseError) {
-        errorTarget?.receiveErrors([error])
+        return parse(type: type, required: false)
     }
 
     // MARK: - ErrorTarget protocol
 
-    func receiveErrors(_ receivedErrors: [ParseError]) {
-        errorTarget?.receiveErrors(receivedErrors)
+    func recordError(_ error: ParseError) {
+        if let parent = parent {
+            parent.recordError(error)
+        } else {
+            errors.append(error)
+        }
+    }
+
+    // MARK: - Path retrieval
+
+    var path: [PathNode] {
+        if let parent = parent {
+            return parent.path + [node]
+        } else {
+            return [node]
+        }
+    }
+
+    var swiftParent: Parser? {
+        if let parent = parent {
+            if parent.node.swiftType != nil {
+                return parent
+            } else {
+                return parent.swiftParent
+            }
+        } else {
+            return nil
+        }
     }
 
     // MARK: - Private methods
 
     private func parse<ParsedType: Parseable>(type: ParsedType.Type, required: Bool) -> ParsedType? {
-        tag(type: ParsedType.self)
+        tagNode(type: type)
         let element: ParsedType?
         if json == nil {
             element = nil
             if required {
                 let error = ParseError(path: path, message: "Missing \(ParsedType.self)")
-                errorTarget?.receiveErrors([error])
+                recordError(error)
             }
         } else {
             element = ParsedType.init(parser: self)
@@ -80,25 +99,21 @@ open class Parser: ErrorTarget {
         return element
     }
 
-    private func tag(type: Parseable.Type) {
-        if var lastNode = path.last, let lastIndex = path.indices.last {
-            lastNode.idKey = type.idKey
-            lastNode.id = type.id(from: json)
-            path[lastIndex] = lastNode
-        }
+    private func tagNode(type: Parseable.Type) {
+        node.swiftType = type
+        node.idKey = type.idKey
+        node.id = type.id(from: json)
     }
 
-    private static func traverseJSON(json: Any?, across nodes: [PathNode]) -> Any? {
+    private static func traverseJSON(json: Any?, at node: PathNode) -> Any? {
         var localJSON = json
-        for node in nodes {
-            if let hashKey = node.hashKey {
-                guard let localJSONDict = localJSON as? [String: Any] else { localJSON = nil; break }
-                localJSON = localJSONDict[hashKey]
-            } else if let arrayIndex = node.arrayIndex {
-                guard let localJSONArray = localJSON as? [Any] else { localJSON = nil; break }
-                guard arrayIndex < localJSONArray.count else { localJSON = nil; break }
-                localJSON = localJSONArray[arrayIndex]
-            }
+        if let hashKey = node.hashKey {
+            guard let localJSONDict = localJSON as? [String: Any] else { return nil }
+            localJSON = localJSONDict[hashKey]
+        } else if let arrayIndex = node.arrayIndex {
+            guard let localJSONArray = localJSON as? [Any] else { return nil }
+            guard arrayIndex < localJSONArray.count else { return nil }
+            localJSON = localJSONArray[arrayIndex]
         }
         return localJSON
     }

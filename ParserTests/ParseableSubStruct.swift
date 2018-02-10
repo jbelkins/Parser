@@ -11,15 +11,15 @@ import Parser
 
 
 struct ParseableSubStruct: Equatable {
-    static var idKey: String? = "identifier"
-
     let identifier: String
 }
 
+
 extension ParseableSubStruct: Parseable {
+    static var idKey: String? = "identifier"
 
     init?(parser: Parser) {
-        let identifier = parser["identifier"].required(String.self)
+        let identifier = parser["identifier"] --> String.self
         guard parser.succeeded else { return nil }
         self.init(identifier: identifier!)
     }

@@ -12,7 +12,7 @@ import Foundation
 public struct PathNode {
     public let hashKey: String?
     public let arrayIndex: Int?
-    public let swiftType: Parseable.Type?
+    public var swiftType: Parseable.Type?
     public var idKey: String?
     public var id: String?
 }

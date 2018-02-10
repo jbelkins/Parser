@@ -9,22 +9,17 @@
 import Foundation
 
 
-open class DataParser: ErrorTarget {
+open class DataParser {
     public var errors = [ParseError]()
-    private var parser: Parser
 
-    public init(data: Data) throws {
+    public init() {}
+
+    public func parse<ParsedType: Parseable>(data: Data, to type: ParsedType.Type) throws -> ParsedType? {
         let json = try JSONSerialization.jsonObject(with: data, options: [])
-        let path = [PathNode(hashKey: "root", swiftType: nil)]
-        parser = Parser(path: path, json: json, isRequired: true)
-    }
-
-    public func parse<ParsedType: Parseable>(_ type: ParsedType.Type) -> ParsedType? {
-        parser.errorTarget = self
-        return parser.optional(type)
-    }
-
-    public func receiveErrors(_ receivedErrors: [ParseError]) {
-        errors += receivedErrors
+        let rootNode = PathNode(hashKey: "root", swiftType: nil)
+        let parser = Parser(node: rootNode, json: json, isRequired: true, parent: nil)
+        let result = parser.optional(type)
+        errors = parser.errors
+        return result
     }
 }

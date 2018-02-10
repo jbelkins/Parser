@@ -23,7 +23,7 @@ class ParserTests: XCTestCase {
             ["identifier": "Cool array element 1"]
         ]
     ]
-    var testStruct1 = ParseableStruct(id: 8675309, name: "test struct 1", first: ParseableSubStruct(identifier: "Cool array element 0"), optionalDescription: "Cool structure", substruct: ParseableSubStruct(identifier: "Cool sub structure"))
+    var testStruct1 = ParseableStruct(id: 8675309, name: "test struct 1", first: ParseableSubStruct(identifier: "Cool array element 0"), description: "Cool structure", substruct: ParseableSubStruct(identifier: "Cool sub structure"))
 
     override func setUp() {
         super.setUp()
@@ -36,15 +36,15 @@ class ParserTests: XCTestCase {
     
     func testDeserializesAStruct() {
         let data = jsonData(from: testJSON1)
-        let parser = try! DataParser(data: data)
-        let newStruct = parser.parse(ParseableStruct.self)
+        let parser = DataParser()
+        let newStruct = try! parser.parse(data: data, to: ParseableStruct.self)
         XCTAssertEqual(newStruct, testStruct1)
     }
 
     func testDeserializesAStructWithSubStruct() {
         let data = jsonData(from: testJSON1)
-        let parser = try! DataParser(data: data)
-        let newStruct = parser.parse(ParseableStruct.self)
+        let parser = DataParser()
+        let newStruct = try! parser.parse(data: data, to: ParseableStruct.self)
         XCTAssertEqual(newStruct, testStruct1)
     }
 
@@ -52,10 +52,10 @@ class ParserTests: XCTestCase {
         var badTestJSON1 = testJSON1
         badTestJSON1.removeValue(forKey: "name")
         let data = jsonData(from: badTestJSON1)
-        let parser = try! DataParser(data: data)
-        let newStruct = parser.parse(ParseableStruct.self)
+        let parser = DataParser()
+        let newStruct = try! parser.parse(data: data, to: ParseableStruct.self)
         XCTAssertNil(newStruct)
-        XCTAssertTrue(parser.errors.count == 1)
+        XCTAssertEqual(parser.errors.count, 1)
         XCTAssertEqual(parser.errors.first!.message, "Missing String")
         XCTAssertEqual(parser.errors.first!.path.map { $0.hashKey! }, ["root", "name"])
     }
@@ -74,10 +74,10 @@ class ParserTests: XCTestCase {
             ]
         ]
         let data = jsonData(from: badTestJSON1)
-        let parser = try! DataParser(data: data)
-        let newStruct = parser.parse(ParseableStruct.self)
+        let parser = DataParser()
+        let newStruct = try! parser.parse(data: data, to: ParseableStruct.self)
         XCTAssertNotNil(newStruct)
-        XCTAssertTrue(parser.errors.count == 1)
+        XCTAssertEqual(parser.errors.count, 1)
         XCTAssertTrue(parser.errors.first!.message.hasPrefix("Not a String"))
         XCTAssertEqual(parser.errors.first!.path.map { $0.hashKey! }, ["root", "substruct", "identifier"])
     }
