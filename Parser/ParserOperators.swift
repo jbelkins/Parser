@@ -30,5 +30,5 @@ public func !-><ParsedType: Parseable>(lhs: Parser, rhs: ParsedType.Type) -> Par
 infix operator ?->
 
 public func ?-><ParsedType: Parseable>(lhs: Parser, rhs: ParsedType.Type) -> ParsedType? {
-    return lhs.optional(ParsedType.self)
+    return lhs.optional(rhs)
 }
