@@ -23,8 +23,8 @@ public enum JSONElement: String {
         switch json {
         case is [String: Any]: self = .object
         case is [Any]: self = .array
-        case is Int: self = .int
         case is Bool: self = .bool
+        case is Int: self = .int
         case is Double: self = .double
         case is String: self = .string
         case is NSNull: self = .null

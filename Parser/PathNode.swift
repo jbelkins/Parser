@@ -13,7 +13,7 @@ public struct PathNode {
     public let hashKey: String?
     public let arrayIndex: Int?
     public var jsonType: JSONElement
-    public var swiftType: Parseable.Type?
+    public var swiftType: Any.Type?
     public var idKey: String?
     public var id: String?
 }

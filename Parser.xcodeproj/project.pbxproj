@@ -17,6 +17,7 @@
 		031247C32028F1950048BBFB /* String+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031247C22028F1950048BBFB /* String+Parseable.swift */; };
 		031A45A2202EB62900C706CB /* ParserOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031A45A1202EB62900C706CB /* ParserOperators.swift */; };
 		031A45A4202EC67E00C706CB /* JSONElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031A45A3202EC67E00C706CB /* JSONElement.swift */; };
+		03221267202FF81700D8CE84 /* NSNull+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03221266202FF81700D8CE84 /* NSNull+Parseable.swift */; };
 		03A7B5FC202AD917005A4BA2 /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FB202AD917005A4BA2 /* DataParser.swift */; };
 		03A7B5FE202ADAE3005A4BA2 /* Double+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FD202ADAE3005A4BA2 /* Double+Parseable.swift */; };
 		03A7B600202ADB25005A4BA2 /* Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FF202ADB25005A4BA2 /* Parseable.swift */; };
@@ -51,6 +52,7 @@
 		031247C22028F1950048BBFB /* String+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Parseable.swift"; sourceTree = "<group>"; };
 		031A45A1202EB62900C706CB /* ParserOperators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserOperators.swift; sourceTree = "<group>"; };
 		031A45A3202EC67E00C706CB /* JSONElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONElement.swift; sourceTree = "<group>"; };
+		03221266202FF81700D8CE84 /* NSNull+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNull+Parseable.swift"; sourceTree = "<group>"; };
 		03A7B5FB202AD917005A4BA2 /* DataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
 		03A7B5FD202ADAE3005A4BA2 /* Double+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Parseable.swift"; sourceTree = "<group>"; };
 		03A7B5FF202ADB25005A4BA2 /* Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parseable.swift; sourceTree = "<group>"; };
@@ -105,7 +107,6 @@
 				031247A42028CC780048BBFB /* Info.plist */,
 				03A7B5FF202ADB25005A4BA2 /* Parseable.swift */,
 				03A7B5FB202AD917005A4BA2 /* DataParser.swift */,
-				031247BA2028CCCF0048BBFB /* Parser.swift */,
 				031A45A3202EC67E00C706CB /* JSONElement.swift */,
 				031247BA2028CCCF0048BBFB /* NodeParser.swift */,
 				03BD255A202F54CB004B9F06 /* Parser.swift */,
@@ -135,6 +136,7 @@
 				031247C02028F0B50048BBFB /* Int+Parseable.swift */,
 				031247C22028F1950048BBFB /* String+Parseable.swift */,
 				03A7B5FD202ADAE3005A4BA2 /* Double+Parseable.swift */,
+				03221266202FF81700D8CE84 /* NSNull+Parseable.swift */,
 				03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */,
 			);
 			path = "Foundation Extensions";
@@ -258,6 +260,7 @@
 				03A7B600202ADB25005A4BA2 /* Parseable.swift in Sources */,
 				031247C32028F1950048BBFB /* String+Parseable.swift in Sources */,
 				031247BB2028CCCF0048BBFB /* NodeParser.swift in Sources */,
+				03221267202FF81700D8CE84 /* NSNull+Parseable.swift in Sources */,
 				03CC4FF2202925CC00269CC7 /* JSONRawValueType.swift in Sources */,
 				031A45A4202EC67E00C706CB /* JSONElement.swift in Sources */,
 				03BD255B202F54CB004B9F06 /* Parser.swift in Sources */,

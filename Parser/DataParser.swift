@@ -10,16 +10,12 @@ import Foundation
 
 
 open class DataParser {
-    public var errors = [ParseError]()
 
-    public init() {}
-
-    public func parse<ParsedType: Parseable>(data: Data, options: JSONSerialization.ReadingOptions = [], to type: ParsedType.Type) throws -> ParsedType? {
+    public static func parse<ParsedType: Parseable>(data: Data, options: JSONSerialization.ReadingOptions = [], to type: ParsedType.Type) throws -> (ParsedType?, [ParseError]) {
         let json = try JSONSerialization.jsonObject(with: data, options: options)
         let rootNode = PathNode(hashKey: "root", swiftType: nil)
-        let parser = NodeParser(node: rootNode, json: json, isRequired: true, parent: nil)
-        let result = parser.optional(type)
-        errors = parser.errors
-        return result
+        let parser = NodeParser(node: rootNode, json: json, parent: nil)
+        let result = parser.required(type)
+        return (result, parser.errors)
     }
 }

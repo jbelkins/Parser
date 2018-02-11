@@ -12,30 +12,37 @@ import Foundation
 public class NodeParser: Parser {
     public var node: PathNode
     public let json: Any?
-    let isRequired: Bool
     public var succeeded = true
     var errors = [ParseError]()
-    let parent: NodeParser?
+    let parent: Parser?
 
-    init(node: PathNode, json: Any?, isRequired: Bool, parent: NodeParser?) {
+    init(node: PathNode, json: Any?, parent: Parser?) {
         self.node = node
+        self.node.jsonType = JSONElement(json: json)
         self.json = json
-        self.isRequired = isRequired
         self.parent = parent
+    }
+
+    convenience init(index: Int, parent: Parser) {
+        let newNode = PathNode(arrayIndex: index, swiftType: nil)
+        let json = JSONTools.traverseJSON(json: parent.json, at: newNode)
+        self.init(node: newNode, json: json, parent: parent)
+    }
+
+    convenience init(key: String, parent: Parser) {
+        let newNode = PathNode(hashKey: key, swiftType: nil)
+        let json = JSONTools.traverseJSON(json: parent.json, at: newNode)
+        self.init(node: newNode, json: json, parent: parent)
     }
 
     // MARK: - Creating parsers for JSON sub-elements
 
-    public subscript(key: String) -> NodeParser {
-        let newNode = PathNode(hashKey: key, swiftType: nil)
-        let newJSON = JSONTools.traverseJSON(json: json, at: newNode)
-        return NodeParser(node: newNode, json: newJSON, isRequired: isRequired, parent: self)
+    public subscript(key: String) -> Parser {
+        return NodeParser(key: key, parent: self)
     }
 
-    public subscript(index: Int) -> NodeParser {
-        let newNode = PathNode(arrayIndex: index, swiftType: nil)
-        let newJSON = JSONTools.traverseJSON(json: json, at: newNode)
-        return NodeParser(node: newNode, json: newJSON, isRequired: isRequired, parent: self)
+    public subscript(index: Int) -> Parser {
+        return NodeParser(index: index, parent: self)
     }
 
     // MARK: - Parsing
@@ -46,7 +53,17 @@ public class NodeParser: Parser {
         return element
     }
 
+    public func required<ParsedType: Parseable>(_ type: [ParsedType].Type) -> [ParsedType]! {
+        let element = parse(type: type, required: true)
+        if element == nil { swiftParent?.succeeded = false }
+        return element
+    }
+
     public func optional<ParsedType: Parseable>(_ type: ParsedType.Type) -> ParsedType? {
+        return parse(type: type, required: false)
+    }
+
+    public func optional<ParsedType: Parseable>(_ type: [ParsedType].Type) -> [ParsedType]? {
         return parse(type: type, required: false)
     }
 
@@ -68,7 +85,7 @@ public class NodeParser: Parser {
         }
     }
 
-    var swiftParent: NodeParser? {
+    public var swiftParent: Parser? {
         if let parent = parent {
             if parent.node.swiftType != nil {
                 return parent
@@ -84,22 +101,46 @@ public class NodeParser: Parser {
 
     private func parse<ParsedType: Parseable>(type: ParsedType.Type, required: Bool) -> ParsedType? {
         tagNode(type: type)
-        let element: ParsedType?
-        if json == nil {
-            element = nil
+        guard allowedJSONTypes(for: type).contains(node.jsonType) else {
             if required {
-                let error = ParseError(path: path, message: "Missing \(ParsedType.self)")
-                recordError(error)
+                let message = "Expected \(type.jsonType.rawValue), got \(node.jsonType.rawValue)"
+                recordError(ParseError(path: path, message: message))
             }
-        } else {
-            element = ParsedType.init(parser: self)
+            return nil
         }
-        return element
+        return ParsedType.init(parser: self)
     }
 
-    private func tagNode(type: Parseable.Type) {
+    private func parse<ParsedType: Parseable>(type: [ParsedType].Type, required: Bool) -> [ParsedType]? {
+        tagNode(type: [ParsedType].self)
+        var array: [ParsedType?] = []
+        guard let arrayJSON = json as? [Any] else {
+            if required {
+                let message = "Expected \(ParsedType.jsonType.rawValue), got \(node.jsonType.rawValue)"
+                let error = ParseError(path: path, message: message)
+                recordError(error)
+            }
+            return nil
+        }
+        for index in 0...arrayJSON.count - 1 {
+            array.append(NodeParser(index: index, parent: self).required(ParsedType.self))
+        }
+        return array.filter { $0 != nil }.map { $0! }
+    }
+
+    private func tagNode(type: Any.Type) {
         node.swiftType = type
-        node.idKey = type.idKey
-        node.id = type.id(from: json)
+        if let parseableType = type as? Parseable.Type {
+            node.idKey = parseableType.idKey
+            node.id = parseableType.id(from: json)
+        }
+    }
+
+    private func allowedJSONTypes(`for` type: Parseable.Type) -> [JSONElement] {
+        var types = [type.jsonType]
+        if let jsonRawValueType = type as? JSONRawValueType.Type {
+            types += jsonRawValueType.extraJSONTypes
+        }
+        return types
     }
 }

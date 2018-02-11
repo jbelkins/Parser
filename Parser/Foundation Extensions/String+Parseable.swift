@@ -9,8 +9,9 @@
 import Foundation
 
 
-extension String: Parseable, JSONRawValueType {
+extension String: JSONRawValueType {
+    static var extraJSONTypes = [JSONElement]()
     public static var idKey: String? = nil
-    public static var jsonType: JSONElement = .string
+    public static var jsonType = JSONElement.string
 }
 

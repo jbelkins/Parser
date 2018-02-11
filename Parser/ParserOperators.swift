@@ -19,6 +19,14 @@ public func --><ParsedType: Parseable>(lhs: Parser, rhs: Optional<ParsedType>.Ty
     return lhs.optional(ParsedType.self)
 }
 
+public func --><ParsedType: Parseable>(lhs: Parser, rhs: [ParsedType].Type) -> [ParsedType]! {
+    return lhs.required(rhs)
+}
+
+public func --><ParsedType: Parseable>(lhs: Parser, rhs: Optional<[ParsedType]>.Type) -> [ParsedType]? {
+    return lhs.optional([ParsedType].self)
+}
+
 
 infix operator !->
 

@@ -9,14 +9,17 @@
 import Foundation
 
 
-public protocol Parser {
+public protocol Parser: class {
     var node: PathNode { get }
     var path: [PathNode] { get }
     var json: Any? { get }
-    subscript(key: String) -> NodeParser { get }
-    subscript(index: Int) -> NodeParser { get }
+    var swiftParent: Parser? { get }
+    subscript(key: String) -> Parser { get }
+    subscript(index: Int) -> Parser { get }
     func required<ParsedType: Parseable>(_ type: ParsedType.Type) -> ParsedType!
     func optional<ParsedType: Parseable>(_ type: ParsedType.Type) -> ParsedType?
+    func required<ParsedType: Parseable>(_ type: [ParsedType].Type) -> [ParsedType]!
+    func optional<ParsedType: Parseable>(_ type: [ParsedType].Type) -> [ParsedType]?
     func recordError(_ error: ParseError)
-    var succeeded: Bool { get }
+    var succeeded: Bool { get set }
 }
