@@ -19,6 +19,7 @@ public class Parser {
 
     init(node: PathNode, json: Any?, isRequired: Bool, parent: Parser?) {
         self.node = node
+        self.node.jsonType = JSONElement(json: json)
         self.json = json
         self.isRequired = isRequired
         self.parent = parent
@@ -84,17 +85,18 @@ public class Parser {
 
     // MARK: - Private methods
 
-    private func parse<ParsedType: Parseable>(type: ParsedType.Type, required: Bool) -> ParsedType? {
-        tagNode(type: type)
+    private func parse<ParsedType: Parseable>(type parsedType: ParsedType.Type, required: Bool) -> ParsedType? {
+        tagNode(type: parsedType)
         let element: ParsedType?
-        if json == nil {
+        if node.jsonType == parsedType.jsonType || (node.jsonType == .int && parsedType.jsonType == .double) {
+            element = ParsedType.init(parser: self)
+        } else {
             element = nil
             if required {
-                let error = ParseError(path: path, message: "Missing \(ParsedType.self)")
+                let description = json != nil ? "\(node.jsonType.rawValue)" : "nil"
+                let error = ParseError(path: path, message: "Expected JSON \(ParsedType.jsonType.rawValue), got \(description)")
                 recordError(error)
             }
-        } else {
-            element = ParsedType.init(parser: self)
         }
         return element
     }

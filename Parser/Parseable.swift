@@ -11,6 +11,8 @@ import Foundation
 
 public protocol Parseable {
     static var idKey: String? { get }
+    static var jsonType: JSONElement { get }
+
     init?(parser: Parser)
 }
 

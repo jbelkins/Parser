@@ -15,24 +15,27 @@ struct ParseableStruct: Equatable {
     let name: String
     let first: ParseableSubStruct
 
+    let decimal: Double?
     let description: String?
     var substruct: ParseableSubStruct?
 }
 
 
 extension ParseableStruct: Parseable {
-    static var idKey: String? = "id"
+    static let idKey: String? = "id"
+    static let jsonType: JSONElement = .object
 
     init?(parser: Parser) {
         let id =          parser["id"]            --> Int.self
         let name =        parser["name"]          --> String.self
         let first =       parser["substructs"][0] --> ParseableSubStruct.self
 
+        let decimal =     parser["decimal"]       --> Double?.self
         let description = parser["description"]   --> String?.self
         let substruct =   parser["substruct"]     --> ParseableSubStruct?.self
 
         guard parser.succeeded else { return nil }
-        self.init(id: id!, name: name!, first: first!, description: description, substruct: substruct)
+        self.init(id: id!, name: name!, first: first!, decimal: decimal, description: description, substruct: substruct)
     }
 }
 

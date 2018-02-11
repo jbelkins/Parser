@@ -15,16 +15,7 @@ protocol JSONRawValueType {}
 extension JSONRawValueType {
 
     public init?(parser: Parser) {
-        guard let nonNilJSON = parser.json else {
-            let error = ParseError(path: parser.path, message: "Nil value")
-            parser.recordError(error)
-            return nil
-        }
-        guard let value = nonNilJSON as? Self else {
-            let error = ParseError(path: parser.path, message: "Not a \(Self.self), is a \(type(of: nonNilJSON))")
-            parser.recordError(error)
-            return nil
-        }
+        guard let value = parser.json as? Self else { return nil }
         self = value
     }
 }

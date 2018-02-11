@@ -11,4 +11,5 @@ import Foundation
 
 extension Int: Parseable, JSONRawValueType {
     public static var idKey: String? = nil
+    public static let jsonType: JSONElement = .int
 }
