@@ -30,11 +30,17 @@ class ParserTests: XCTestCase {
             "substructs": [
                 ["identifier": "Cool array element 0"],
                 ["identifier": "Cool array element 1"]
+            ],
+            "indexed": [
+                "onesy": ["identifier": "Cool array element 0"],
+                "twosy": ["identifier": "Cool array element 1"]
             ]
         ]
         subStruct1 = ParseableSubStruct(identifier: "Cool array element 0")
         subStruct2 = ParseableSubStruct(identifier: "Cool array element 1")
-        testStruct1 = ParseableStruct(id: 8675309, name: "test struct 1", subArray: [subStruct1, subStruct2], null: NSNull(), decimal: 3.776, description: "Cool structure", substruct: ParseableSubStruct(identifier: "Cool sub structure"))
+        let subArray = [subStruct1!, subStruct2!]
+        let subDict = ["onesy": subStruct1!, "twosy": subStruct2!]
+        testStruct1 = ParseableStruct(id: 8675309, name: "test struct 1", subArray: subArray, null: NSNull(), indexed: subDict, decimal: 3.776, description: "Cool structure", substruct: ParseableSubStruct(identifier: "Cool sub structure"))
     }
 
     func testDeserializesAStruct() {
@@ -80,13 +86,17 @@ class ParserTests: XCTestCase {
             "substructs": [
                 ["identifier": "Cool array element 0"],
                 ["identifier": "Cool array element 1"]
+            ],
+            "indexed": [
+                "onesy": ["identifier": "Cool array element 0"],
+                "twosy": ["identifier": "Cool array element 1"]
             ]
         ]
         let data = jsonData(from: badTestJSON1)
         let (newStruct, errors) = try! DataParser.parse(data: data, to: ParseableStruct.self)
         XCTAssertNotNil(newStruct)
         XCTAssertEqual(errors.count, 1)
-        XCTAssertEqual(errors.first?.message, "Expected String, got Int")
+        XCTAssertEqual(errors.first?.message, "Expected String, got Int, Double")
         XCTAssertEqual(errors.map { $0.path.jsonPath }, ["root[\"substruct\"][\"identifier\"]"])
     }
 
@@ -103,13 +113,17 @@ class ParserTests: XCTestCase {
             "substructs": [
                 ["identifier": "Cool array element 0"],
                 ["identifier": "Cool array element 1"]
+            ],
+            "indexed": [
+                "onesy": ["identifier": "Cool array element 0"],
+                "twosy": ["identifier": "Cool array element 1"]
             ]
         ]
         let data = jsonData(from: badTestJSON1)
         let (newStruct, errors) = try! DataParser.parse(data: data, to: ParseableStruct.self)
         XCTAssertNil(newStruct)
         XCTAssertEqual(errors.count, 2)
-        XCTAssertEqual(errors.map { $0.message }, ["Expected String, got Double", "Expected String, got Int"])
+        XCTAssertEqual(errors.map { $0.message }, ["Expected String, got Double", "Expected String, got Int, Double"])
         XCTAssertEqual(errors.map { $0.path.jsonPath }, ["root[\"name\"]", "root[\"substruct\"][\"identifier\"]"])
     }
 
@@ -127,12 +141,16 @@ class ParserTests: XCTestCase {
                 ["identifier": "Cool array element 0"],
                 ["identifier": "Cool array element 1"],
                 true
+            ],
+            "indexed": [
+                "onesy": ["identifier": "Cool array element 0"],
+                "twosy": ["identifier": "Cool array element 1"]
             ]
         ]
         let data = jsonData(from: badTestJSON1)
         let (newStruct, errors) = try! DataParser.parse(data: data, to: ParseableStruct.self)
         XCTAssertEqual(errors.count, 1)
-        XCTAssertEqual(errors.first?.message, "Expected [String: Any], got Bool")
+        XCTAssertEqual(errors.first?.message, "Expected [String: Any], got Int, Bool, Double")
         XCTAssertEqual(errors.first?.path.jsonPath, "root[\"substructs\"][2]")
         XCTAssertEqual(newStruct?.subArray.count, 2)
     }
@@ -150,6 +168,10 @@ class ParserTests: XCTestCase {
             "substructs": [
                 ["identifier": "Cool array element 0"],
                 ["identifier": "Cool array element 1"]
+            ],
+            "indexed": [
+                "onesy": ["identifier": "Cool array element 0"],
+                "twosy": ["identifier": "Cool array element 1"]
             ]
         ]
         let data = jsonData(from: badTestJSON1)

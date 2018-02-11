@@ -19,16 +19,15 @@ public enum JSONElement: String {
     case null = "NSNull"
     case absent = "absent"
 
-    init(json: Any?) {
-        switch json {
-        case is [String: Any]: self = .object
-        case is [Any]: self = .array
-        case is Bool: self = .bool
-        case is Int: self = .int
-        case is Double: self = .double
-        case is String: self = .string
-        case is NSNull: self = .null
-        default: self = .absent
-        }
+    static func types(`for` json: Any?) -> [JSONElement] {
+        var types = [JSONElement]()
+        if let _ = json as? [String: Any] { types.append(.object) }
+        if let _ = json as? [Any] { types.append(.array) }
+        if let _ = json as? Int { types.append(.int) }
+        if let _ = json as? Bool { types.append(.bool) }
+        if let _ = json as? Double { types.append(.double) }
+        if let _ = json as? String { types.append(.string) }
+        if let _ = json as? NSNull { types.append(.null) }
+        return types.isEmpty ? [.absent] : types
     }
 }

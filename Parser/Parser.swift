@@ -20,6 +20,8 @@ public protocol Parser: class {
     func optional<ParsedType: Parseable>(_ type: ParsedType.Type) -> ParsedType?
     func required<ParsedType: Parseable>(_ type: [ParsedType].Type) -> [ParsedType]!
     func optional<ParsedType: Parseable>(_ type: [ParsedType].Type) -> [ParsedType]?
+    func required<ParsedType: Parseable>(_ type: [String: ParsedType].Type) -> [String: ParsedType]!
+    func optional<ParsedType: Parseable>(_ type: [String: ParsedType].Type) -> [String: ParsedType]?
     func recordError(_ error: ParseError)
     var succeeded: Bool { get set }
 }
