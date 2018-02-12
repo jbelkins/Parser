@@ -30,14 +30,14 @@ extension ParseableStruct: Parseable {
     static let jsonType: JSONElement = .object
 
     init?(parser: Parser) {
-        let id =          parser["id"]            --> Int.self
+        let id =          parser["id"]            --> Create<Int>()
         let name =        parser["name"]          --> String.self
-        let subArray =    parser["substructs"]    --> [ParseableSubStruct].self
+        let subArray =    parser["substructs"]    --> Create<[ParseableSubStruct]>(min: 1)
         let null =        parser["null"]          --> NSNull.self
         let indexed =     parser["indexed"]       --> [String: ParseableSubStruct].self
         let truthy =      parser["truthy"]        --> Bool.self
 
-        let falsey =      parser["falsey"]        --> Bool?.self
+        let falsey =      parser["falsey"]        --> Create<Bool?>()
         let decimal =     parser["decimal"]       --> Double?.self
         let description = parser["description"]   --> String?.self
         let substruct =   parser["substruct"]     --> ParseableSubStruct?.self

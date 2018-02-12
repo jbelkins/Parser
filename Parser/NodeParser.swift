@@ -138,10 +138,12 @@ public class NodeParser: Parser {
         if let min = min, arrayWithoutNils.count < min {
             let message = "Array has \(arrayWithoutNils.count) valid \(ParsedType.self) elements, less than min of \(min)"
             recordError(ParseError(path: path, message: message))
+            return nil
         }
         if let max = max, arrayWithoutNils.count > max {
             let message = "Array has \(arrayWithoutNils.count) valid \(ParsedType.self) elements, more than max of \(max)"
             recordError(ParseError(path: path, message: message))
+            return nil
         }
         return arrayWithoutNils
     }
@@ -163,10 +165,12 @@ public class NodeParser: Parser {
         if let min = min, dictionaryWithoutNilValues.count < min {
             let message = "Array has \(dictionaryWithoutNilValues.count) valid \(ParsedType.self) elements, less than min of \(min)"
             recordError(ParseError(path: path, message: message))
+            return nil
         }
         if let max = max, dictionaryWithoutNilValues.count > max {
             let message = "Array has \(dictionaryWithoutNilValues.count) valid \(ParsedType.self) elements, more than max of \(max)"
             recordError(ParseError(path: path, message: message))
+            return nil
         }
         return dictionaryWithoutNilValues
     }
