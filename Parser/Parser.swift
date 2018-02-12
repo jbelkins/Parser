@@ -25,23 +25,3 @@ public protocol Parser: class {
     func recordError(_ error: ParseError)
     var succeeded: Bool { get set }
 }
-
-
-public extension Parser {
-
-    func required<ParsedType: Parseable>(_ type: [ParsedType].Type, min: Int? = nil, max: Int? = nil) -> [ParsedType]! {
-        return required(type, min: min, max: max)
-    }
-
-    func optional<ParsedType: Parseable>(_ type: [ParsedType].Type, min: Int? = nil, max: Int? = nil) -> [ParsedType]? {
-        return optional(type, min: min, max: max)
-    }
-
-    func required<ParsedType: Parseable>(_ type: [String: ParsedType].Type, min: Int? = nil, max: Int? = nil) -> [String: ParsedType]! {
-        return required(type, min: min, max: max)
-    }
-
-    func optional<ParsedType: Parseable>(_ type: [String: ParsedType].Type, min: Int? = nil, max: Int? = nil) -> [String: ParsedType]? {
-        return optional(type, min: min, max: max)
-    }
-}

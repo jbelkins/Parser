@@ -12,26 +12,26 @@ import Foundation
 open class DataParser {
 
     public static func parse<ParsedType: Parseable>(data: Data, options: JSONSerialization.ReadingOptions = [], to type: ParsedType.Type) throws -> (ParsedType?, [ParseError]) {
-        let json = try JSONSerialization.jsonObject(with: data, options: options)
-        let rootNode = PathNode(hashKey: "root", swiftType: nil)
-        let parser = NodeParser(node: rootNode, json: json, parent: nil)
+        let parser = try rootParser(data: data, options: options)
         let result = parser.required(type)
         return (result, parser.errors)
     }
 
     public static func parse<ParsedType: Parseable>(data: Data, options: JSONSerialization.ReadingOptions = [], to type: [ParsedType].Type) throws -> ([ParsedType]?, [ParseError]) {
-        let json = try JSONSerialization.jsonObject(with: data, options: options)
-        let rootNode = PathNode(hashKey: "root", swiftType: nil)
-        let parser = NodeParser(node: rootNode, json: json, parent: nil)
-        let result = parser.required(type)
+        let parser = try rootParser(data: data, options: options)
+        let result = parser.required(type, min: nil, max: nil)
         return (result, parser.errors)
     }
 
     public static func parse<ParsedType: Parseable>(data: Data, options: JSONSerialization.ReadingOptions = [], to type: [String: ParsedType].Type) throws -> ([String: ParsedType]?, [ParseError]) {
+        let parser = try rootParser(data: data, options: options)
+        let result = parser.required(type, min: nil, max: nil)
+        return (result, parser.errors)
+    }
+
+    private static func rootParser(data: Data, options: JSONSerialization.ReadingOptions) throws -> NodeParser {
         let json = try JSONSerialization.jsonObject(with: data, options: options)
         let rootNode = PathNode(hashKey: "root", swiftType: nil)
-        let parser = NodeParser(node: rootNode, json: json, parent: nil)
-        let result = parser.required(type)
-        return (result, parser.errors)
+        return NodeParser(node: rootNode, json: json, parent: nil)
     }
 }
