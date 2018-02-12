@@ -32,7 +32,7 @@ extension ParseableStruct: Parseable {
     init?(parser: Parser) {
         let id =          parser["id"]            --> Create<Int>()
         let name =        parser["name"]          --> String.self
-        let subArray =    parser["substructs"]    --> Create<[ParseableSubStruct]>(min: 1)
+        let subArray =    parser["substructs"]    --> Create<[ParseableSubStruct]>(exactly: 2)
         let null =        parser["null"]          --> NSNull.self
         let indexed =     parser["indexed"]       --> [String: ParseableSubStruct].self
         let truthy =      parser["truthy"]        --> Bool.self

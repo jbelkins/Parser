@@ -13,8 +13,18 @@ public struct Create<TargetType> {
     let min: Int?
     let max: Int?
 
-    public init(max: Int? = nil, min: Int? = nil) {
+    public init() {
+        self.min = nil
+        self.max = nil
+    }
+
+    public init(min: Int? = nil, max: Int? = nil) {
         self.min = min
         self.max = max
+    }
+
+    public init(exactly: Int) {
+        self.min = exactly
+        self.max = exactly
     }
 }
