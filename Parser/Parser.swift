@@ -10,18 +10,38 @@ import Foundation
 
 
 public protocol Parser: class {
-    var node: PathNode { get }
-    var path: [PathNode] { get }
     var json: Any? { get }
+    var path: [PathNode] { get }
+    var node: PathNode { get }
     var swiftParent: Parser? { get }
     subscript(key: String) -> Parser { get }
     subscript(index: Int) -> Parser { get }
     func required<ParsedType: Parseable>(_ type: ParsedType.Type) -> ParsedType!
     func optional<ParsedType: Parseable>(_ type: ParsedType.Type) -> ParsedType?
-    func required<ParsedType: Parseable>(_ type: [ParsedType].Type) -> [ParsedType]!
-    func optional<ParsedType: Parseable>(_ type: [ParsedType].Type) -> [ParsedType]?
-    func required<ParsedType: Parseable>(_ type: [String: ParsedType].Type) -> [String: ParsedType]!
-    func optional<ParsedType: Parseable>(_ type: [String: ParsedType].Type) -> [String: ParsedType]?
+    func required<ParsedType: Parseable>(_ type: [ParsedType].Type, min: Int?, max: Int?) -> [ParsedType]!
+    func optional<ParsedType: Parseable>(_ type: [ParsedType].Type, min: Int?, max: Int?) -> [ParsedType]?
+    func required<ParsedType: Parseable>(_ type: [String: ParsedType].Type, min: Int?, max: Int?) -> [String: ParsedType]!
+    func optional<ParsedType: Parseable>(_ type: [String: ParsedType].Type, min: Int?, max: Int?) -> [String: ParsedType]?
     func recordError(_ error: ParseError)
     var succeeded: Bool { get set }
+}
+
+
+public extension Parser {
+
+    func required<ParsedType: Parseable>(_ type: [ParsedType].Type, min: Int? = nil, max: Int? = nil) -> [ParsedType]! {
+        return required(type, min: min, max: max)
+    }
+
+    func optional<ParsedType: Parseable>(_ type: [ParsedType].Type, min: Int? = nil, max: Int? = nil) -> [ParsedType]? {
+        return optional(type, min: min, max: max)
+    }
+
+    func required<ParsedType: Parseable>(_ type: [String: ParsedType].Type, min: Int? = nil, max: Int? = nil) -> [String: ParsedType]! {
+        return required(type, min: min, max: max)
+    }
+
+    func optional<ParsedType: Parseable>(_ type: [String: ParsedType].Type, min: Int? = nil, max: Int? = nil) -> [String: ParsedType]? {
+        return optional(type, min: min, max: max)
+    }
 }

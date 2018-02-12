@@ -18,4 +18,20 @@ open class DataParser {
         let result = parser.required(type)
         return (result, parser.errors)
     }
+
+    public static func parse<ParsedType: Parseable>(data: Data, options: JSONSerialization.ReadingOptions = [], to type: [ParsedType].Type) throws -> ([ParsedType]?, [ParseError]) {
+        let json = try JSONSerialization.jsonObject(with: data, options: options)
+        let rootNode = PathNode(hashKey: "root", swiftType: nil)
+        let parser = NodeParser(node: rootNode, json: json, parent: nil)
+        let result = parser.required(type)
+        return (result, parser.errors)
+    }
+
+    public static func parse<ParsedType: Parseable>(data: Data, options: JSONSerialization.ReadingOptions = [], to type: [String: ParsedType].Type) throws -> ([String: ParsedType]?, [ParseError]) {
+        let json = try JSONSerialization.jsonObject(with: data, options: options)
+        let rootNode = PathNode(hashKey: "root", swiftType: nil)
+        let parser = NodeParser(node: rootNode, json: json, parent: nil)
+        let result = parser.required(type)
+        return (result, parser.errors)
+    }
 }

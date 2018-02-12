@@ -53,14 +53,14 @@ public class NodeParser: Parser {
         return element
     }
 
-    public func required<ParsedType: Parseable>(_ type: [ParsedType].Type) -> [ParsedType]! {
-        let element = parse(type: type, required: true)
+    public func required<ParsedType: Parseable>(_ type: [ParsedType].Type, min: Int?, max: Int?) -> [ParsedType]! {
+        let element = parse(type: type, required: true, min: min, max: max)
         if element == nil { swiftParent?.succeeded = false }
         return element
     }
 
-    public func required<ParsedType: Parseable>(_ type: [String: ParsedType].Type) -> [String: ParsedType]! {
-        let element = parse(type: type, required: true)
+    public func required<ParsedType: Parseable>(_ type: [String: ParsedType].Type, min: Int?, max: Int?) -> [String: ParsedType]! {
+        let element = parse(type: type, required: true, min: min, max: max)
         if element == nil { swiftParent?.succeeded = false }
         return element
     }
@@ -69,12 +69,12 @@ public class NodeParser: Parser {
         return parse(type: type, required: false)
     }
 
-    public func optional<ParsedType: Parseable>(_ type: [ParsedType].Type) -> [ParsedType]? {
-        return parse(type: type, required: false)
+    public func optional<ParsedType: Parseable>(_ type: [ParsedType].Type, min: Int?, max: Int?) -> [ParsedType]? {
+        return parse(type: type, required: false, min: min, max: max)
     }
 
-    public func optional<ParsedType: Parseable>(_ type: [String: ParsedType].Type) -> [String: ParsedType]? {
-        return parse(type: type, required: false)
+    public func optional<ParsedType: Parseable>(_ type: [String: ParsedType].Type, min: Int?, max: Int?) -> [String: ParsedType]? {
+        return parse(type: type, required: false, min: min, max: max)
     }
 
     public func recordError(_ error: ParseError) {
@@ -121,7 +121,7 @@ public class NodeParser: Parser {
         return ParsedType.init(parser: self)
     }
 
-    private func parse<ParsedType: Parseable>(type: [ParsedType].Type, required: Bool) -> [ParsedType]? {
+    private func parse<ParsedType: Parseable>(type: [ParsedType].Type, required: Bool, min: Int?, max: Int?) -> [ParsedType]? {
         tagNode(arrayElementType: ParsedType.self)
         guard let arrayJSON = json as? [Any] else {
             if required {
@@ -134,10 +134,19 @@ public class NodeParser: Parser {
         for index in 0...arrayJSON.count - 1 {
             array.append(NodeParser(index: index, parent: self).required(ParsedType.self))
         }
-        return array.filter { $0 != nil }.map { $0! }
+        let arrayWithoutNils = array.filter { $0 != nil }.map { $0! }
+        if let min = min, arrayWithoutNils.count < min {
+            let message = "Array has \(arrayWithoutNils.count) valid \(ParsedType.self) elements, less than min of \(min)"
+            recordError(ParseError(path: path, message: message))
+        }
+        if let max = max, arrayWithoutNils.count > max {
+            let message = "Array has \(arrayWithoutNils.count) valid \(ParsedType.self) elements, more than max of \(max)"
+            recordError(ParseError(path: path, message: message))
+        }
+        return arrayWithoutNils
     }
 
-    private func parse<ParsedType: Parseable>(type: [String: ParsedType].Type, required: Bool) -> [String: ParsedType]? {
+    private func parse<ParsedType: Parseable>(type: [String: ParsedType].Type, required: Bool, min: Int?, max: Int?) -> [String: ParsedType]? {
         tagNode(dictionaryElementType: ParsedType.self)
         guard let dictJSON = json as? [String: Any] else {
             if required {
@@ -150,7 +159,16 @@ public class NodeParser: Parser {
         for key in dictJSON.keys {
             dict[key] = NodeParser(key: key, parent: self).required(ParsedType.self)
         }
-        return dict.filter { $0.value != nil }.mapValues { $0! }
+        let dictionaryWithoutNilValues = dict.filter { $0.value != nil }.mapValues { $0! }
+        if let min = min, dictionaryWithoutNilValues.count < min {
+            let message = "Array has \(dictionaryWithoutNilValues.count) valid \(ParsedType.self) elements, less than min of \(min)"
+            recordError(ParseError(path: path, message: message))
+        }
+        if let max = max, dictionaryWithoutNilValues.count > max {
+            let message = "Array has \(dictionaryWithoutNilValues.count) valid \(ParsedType.self) elements, more than max of \(max)"
+            recordError(ParseError(path: path, message: message))
+        }
+        return dictionaryWithoutNilValues
     }
 
     private func tagNode(type: Parseable.Type) {

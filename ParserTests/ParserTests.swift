@@ -34,13 +34,15 @@ class ParserTests: XCTestCase {
             "indexed": [
                 "onesy": ["identifier": "Cool array element 0"],
                 "twosy": ["identifier": "Cool array element 1"]
-            ]
+            ],
+            "truthy": false,
+            "falsey": true
         ]
         subStruct1 = ParseableSubStruct(identifier: "Cool array element 0")
         subStruct2 = ParseableSubStruct(identifier: "Cool array element 1")
         let subArray = [subStruct1!, subStruct2!]
         let subDict = ["onesy": subStruct1!, "twosy": subStruct2!]
-        testStruct1 = ParseableStruct(id: 8675309, name: "test struct 1", subArray: subArray, null: NSNull(), indexed: subDict, decimal: 3.776, description: "Cool structure", substruct: ParseableSubStruct(identifier: "Cool sub structure"))
+        testStruct1 = ParseableStruct(id: 8675309, name: "test struct 1", subArray: subArray, null: NSNull(), indexed: subDict, truthy: false, falsey: true, decimal: 3.776, description: "Cool structure", substruct: ParseableSubStruct(identifier: "Cool sub structure"))
     }
 
     func testDeserializesAStruct() {
@@ -90,7 +92,9 @@ class ParserTests: XCTestCase {
             "indexed": [
                 "onesy": ["identifier": "Cool array element 0"],
                 "twosy": ["identifier": "Cool array element 1"]
-            ]
+            ],
+            "truthy": false,
+            "falsey": true
         ]
         let data = jsonData(from: badTestJSON1)
         let (newStruct, errors) = try! DataParser.parse(data: data, to: ParseableStruct.self)
@@ -117,7 +121,9 @@ class ParserTests: XCTestCase {
             "indexed": [
                 "onesy": ["identifier": "Cool array element 0"],
                 "twosy": ["identifier": "Cool array element 1"]
-            ]
+            ],
+            "truthy": false,
+            "falsey": true
         ]
         let data = jsonData(from: badTestJSON1)
         let (newStruct, errors) = try! DataParser.parse(data: data, to: ParseableStruct.self)
@@ -145,7 +151,9 @@ class ParserTests: XCTestCase {
             "indexed": [
                 "onesy": ["identifier": "Cool array element 0"],
                 "twosy": ["identifier": "Cool array element 1"]
-            ]
+            ],
+            "truthy": false,
+            "falsey": true
         ]
         let data = jsonData(from: badTestJSON1)
         let (newStruct, errors) = try! DataParser.parse(data: data, to: ParseableStruct.self)
@@ -172,7 +180,9 @@ class ParserTests: XCTestCase {
             "indexed": [
                 "onesy": ["identifier": "Cool array element 0"],
                 "twosy": ["identifier": "Cool array element 1"]
-            ]
+            ],
+            "truthy": false,
+            "falsey": true
         ]
         let data = jsonData(from: badTestJSON1)
         let (newStruct, _) = try! DataParser.parse(data: data, to: ParseableStruct.self)

@@ -18,6 +18,7 @@
 		031A45A2202EB62900C706CB /* ParserOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031A45A1202EB62900C706CB /* ParserOperators.swift */; };
 		031A45A4202EC67E00C706CB /* JSONElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031A45A3202EC67E00C706CB /* JSONElement.swift */; };
 		03221267202FF81700D8CE84 /* NSNull+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03221266202FF81700D8CE84 /* NSNull+Parseable.swift */; };
+		035A3BCA203148F900DDBAB5 /* Bool+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */; };
 		03A7B5FC202AD917005A4BA2 /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FB202AD917005A4BA2 /* DataParser.swift */; };
 		03A7B5FE202ADAE3005A4BA2 /* Double+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FD202ADAE3005A4BA2 /* Double+Parseable.swift */; };
 		03A7B600202ADB25005A4BA2 /* Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FF202ADB25005A4BA2 /* Parseable.swift */; };
@@ -53,6 +54,7 @@
 		031A45A1202EB62900C706CB /* ParserOperators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserOperators.swift; sourceTree = "<group>"; };
 		031A45A3202EC67E00C706CB /* JSONElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONElement.swift; sourceTree = "<group>"; };
 		03221266202FF81700D8CE84 /* NSNull+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNull+Parseable.swift"; sourceTree = "<group>"; };
+		035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Parseable.swift"; sourceTree = "<group>"; };
 		03A7B5FB202AD917005A4BA2 /* DataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
 		03A7B5FD202ADAE3005A4BA2 /* Double+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Parseable.swift"; sourceTree = "<group>"; };
 		03A7B5FF202ADB25005A4BA2 /* Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parseable.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				031247C02028F0B50048BBFB /* Int+Parseable.swift */,
+				035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */,
 				031247C22028F1950048BBFB /* String+Parseable.swift */,
 				03A7B5FD202ADAE3005A4BA2 /* Double+Parseable.swift */,
 				03221266202FF81700D8CE84 /* NSNull+Parseable.swift */,
@@ -257,6 +260,7 @@
 				031247C12028F0B50048BBFB /* Int+Parseable.swift in Sources */,
 				03BD2559202F53D9004B9F06 /* JSONTools.swift in Sources */,
 				031247BD2028CE360048BBFB /* PathNode.swift in Sources */,
+				035A3BCA203148F900DDBAB5 /* Bool+Parseable.swift in Sources */,
 				03A7B600202ADB25005A4BA2 /* Parseable.swift in Sources */,
 				031247C32028F1950048BBFB /* String+Parseable.swift in Sources */,
 				031247BB2028CCCF0048BBFB /* NodeParser.swift in Sources */,

@@ -21,10 +21,8 @@ extension Parseable {
 
     static func id(from json: Any?) -> String? {
         guard let idKey = idKey, let jsonDictionary = json as? [String: Any] else { return nil }
-        if let int = jsonDictionary[idKey] as? Int {
-            return String(describing: int)
-        } else if let string = jsonDictionary[idKey] as? String {
-            return string
+        if let id: CustomStringConvertible = jsonDictionary[idKey] as? Int ?? jsonDictionary[idKey] as? String {
+            return String(describing: id)
         }
         return nil
     }
