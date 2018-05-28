@@ -24,6 +24,11 @@
 		03A7B5FC202AD917005A4BA2 /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FB202AD917005A4BA2 /* DataParser.swift */; };
 		03A7B5FE202ADAE3005A4BA2 /* Double+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FD202ADAE3005A4BA2 /* Double+Parseable.swift */; };
 		03A7B600202ADB25005A4BA2 /* Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FF202ADB25005A4BA2 /* Parseable.swift */; };
+		03AACD9620BC5A9C007624F7 /* ObjectSingleValueContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AACD9520BC5A9C007624F7 /* ObjectSingleValueContainer.swift */; };
+		03AACD9820BC5AD5007624F7 /* ObjectUnkeyedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AACD9720BC5AD5007624F7 /* ObjectUnkeyedContainer.swift */; };
+		03AACD9920BC5D2B007624F7 /* ObjectDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C6D6182048FADC001993D6 /* ObjectDecoder.swift */; };
+		03AACD9A20BC5D2F007624F7 /* ObjectKeyedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C6D61A2048FB9A001993D6 /* ObjectKeyedContainer.swift */; };
+		03AACD9C20BC8578007624F7 /* ObjectDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AACD9B20BC8578007624F7 /* ObjectDecoderTests.swift */; };
 		03BD2559202F53D9004B9F06 /* JSONTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BD2558202F53D9004B9F06 /* JSONTools.swift */; };
 		03BD255B202F54CB004B9F06 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BD255A202F54CB004B9F06 /* Parser.swift */; };
 		03CC4FEE20291A2200269CC7 /* ParseableSubStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC4FED20291A2200269CC7 /* ParseableSubStruct.swift */; };
@@ -62,8 +67,13 @@
 		03A7B5FB202AD917005A4BA2 /* DataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
 		03A7B5FD202ADAE3005A4BA2 /* Double+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Parseable.swift"; sourceTree = "<group>"; };
 		03A7B5FF202ADB25005A4BA2 /* Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parseable.swift; sourceTree = "<group>"; };
+		03AACD9520BC5A9C007624F7 /* ObjectSingleValueContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSingleValueContainer.swift; sourceTree = "<group>"; };
+		03AACD9720BC5AD5007624F7 /* ObjectUnkeyedContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectUnkeyedContainer.swift; sourceTree = "<group>"; };
+		03AACD9B20BC8578007624F7 /* ObjectDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDecoderTests.swift; sourceTree = "<group>"; };
 		03BD2558202F53D9004B9F06 /* JSONTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTools.swift; sourceTree = "<group>"; };
 		03BD255A202F54CB004B9F06 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		03C6D6182048FADC001993D6 /* ObjectDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDecoder.swift; sourceTree = "<group>"; };
+		03C6D61A2048FB9A001993D6 /* ObjectKeyedContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectKeyedContainer.swift; sourceTree = "<group>"; };
 		03CC4FED20291A2200269CC7 /* ParseableSubStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseableSubStruct.swift; sourceTree = "<group>"; };
 		03CC4FEF2029232900269CC7 /* ParseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseError.swift; sourceTree = "<group>"; };
 		03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRawValueType.swift; sourceTree = "<group>"; };
@@ -109,6 +119,7 @@
 		031247A22028CC780048BBFB /* Parser */ = {
 			isa = PBXGroup;
 			children = (
+				03C6D6172048FABC001993D6 /* ObjectDecoder */,
 				03316C4F203173B000F87765 /* Public */,
 				031A45A3202EC67E00C706CB /* JSONElement.swift */,
 				031247BA2028CCCF0048BBFB /* NodeParser.swift */,
@@ -129,6 +140,7 @@
 				031247AE2028CC780048BBFB /* ParserTests.swift */,
 				031247BE2028D1530048BBFB /* ParseableStruct.swift */,
 				03CC4FED20291A2200269CC7 /* ParseableSubStruct.swift */,
+				03AACD9B20BC8578007624F7 /* ObjectDecoderTests.swift */,
 				031247B02028CC780048BBFB /* Info.plist */,
 			);
 			path = ParserTests;
@@ -152,6 +164,17 @@
 				0382444020315CA7008B3F3A /* Create.swift */,
 			);
 			path = Syntax;
+			sourceTree = "<group>";
+		};
+		03C6D6172048FABC001993D6 /* ObjectDecoder */ = {
+			isa = PBXGroup;
+			children = (
+				03C6D6182048FADC001993D6 /* ObjectDecoder.swift */,
+				03C6D61A2048FB9A001993D6 /* ObjectKeyedContainer.swift */,
+				03AACD9720BC5AD5007624F7 /* ObjectUnkeyedContainer.swift */,
+				03AACD9520BC5A9C007624F7 /* ObjectSingleValueContainer.swift */,
+			);
+			path = ObjectDecoder;
 			sourceTree = "<group>";
 		};
 		03CC4FF3202926D200269CC7 /* Foundation Extensions */ = {
@@ -224,7 +247,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Parser;
 				TargetAttributes = {
 					0312479F2028CC780048BBFB = {
@@ -282,17 +305,21 @@
 				031247C12028F0B50048BBFB /* Int+Parseable.swift in Sources */,
 				03BD2559202F53D9004B9F06 /* JSONTools.swift in Sources */,
 				031247BD2028CE360048BBFB /* PathNode.swift in Sources */,
+				03AACD9920BC5D2B007624F7 /* ObjectDecoder.swift in Sources */,
+				03AACD9A20BC5D2F007624F7 /* ObjectKeyedContainer.swift in Sources */,
 				035A3BCA203148F900DDBAB5 /* Bool+Parseable.swift in Sources */,
 				03A7B600202ADB25005A4BA2 /* Parseable.swift in Sources */,
 				031247C32028F1950048BBFB /* String+Parseable.swift in Sources */,
 				031247BB2028CCCF0048BBFB /* NodeParser.swift in Sources */,
 				0382444120315CA7008B3F3A /* Create.swift in Sources */,
+				03AACD9620BC5A9C007624F7 /* ObjectSingleValueContainer.swift in Sources */,
 				03221267202FF81700D8CE84 /* NSNull+Parseable.swift in Sources */,
 				03316C4E203171E700F87765 /* JSONParser.swift in Sources */,
 				03CC4FF2202925CC00269CC7 /* JSONRawValueType.swift in Sources */,
 				031A45A4202EC67E00C706CB /* JSONElement.swift in Sources */,
 				03BD255B202F54CB004B9F06 /* Parser.swift in Sources */,
 				03A7B5FC202AD917005A4BA2 /* DataParser.swift in Sources */,
+				03AACD9820BC5AD5007624F7 /* ObjectUnkeyedContainer.swift in Sources */,
 				03A7B5FE202ADAE3005A4BA2 /* Double+Parseable.swift in Sources */,
 				03CC4FF02029232900269CC7 /* ParseError.swift in Sources */,
 			);
@@ -304,6 +331,7 @@
 			files = (
 				03CC4FEE20291A2200269CC7 /* ParseableSubStruct.swift in Sources */,
 				031247BF2028D1530048BBFB /* ParseableStruct.swift in Sources */,
+				03AACD9C20BC8578007624F7 /* ObjectDecoderTests.swift in Sources */,
 				031247AF2028CC780048BBFB /* ParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,6 +361,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -340,6 +369,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -393,6 +423,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -400,6 +431,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
