@@ -33,16 +33,6 @@ public func --><ParsedType: Parseable>(lhs: Parser, rhs: Create<ParsedType?>) ->
     return lhs.optional(ParsedType.self)
 }
 
-// MARK: - Arrays
-
-public func --><ParsedType: Parseable>(lhs: Parser, rhs: [ParsedType].Type) -> [ParsedType]! {
-    return lhs.required(rhs, min: nil, max: nil)
-}
-
-public func --><ParsedType: Parseable>(lhs: Parser, rhs: [ParsedType]?.Type) -> [ParsedType]? {
-    return lhs.optional([ParsedType].self, min: nil, max: nil)
-}
-
 // MARK: --> operator with ParseRequired / ParseOptional instance
 
 public func --><ParsedType: Parseable>(lhs: Parser, rhs: Create<[ParsedType]>) -> [ParsedType]! {

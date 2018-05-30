@@ -47,13 +47,7 @@ public class NodeParser: Parser {
 
     // MARK: - Parsing
 
-    public func required<ParsedType: Parseable>(_ type: ParsedType.Type) -> ParsedType! {
-        let element = parse(type: type, required: true)
-        if element == nil { swiftParent?.succeeded = false }
-        return element
-    }
-
-    public func required<ParsedType: Parseable>(_ type: [ParsedType].Type, min: Int?, max: Int?) -> [ParsedType]! {
+    public func required<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?) -> ParsedType! {
         let element = parse(type: type, required: true, min: min, max: max)
         if element == nil { swiftParent?.succeeded = false }
         return element
@@ -65,11 +59,7 @@ public class NodeParser: Parser {
         return element
     }
 
-    public func optional<ParsedType: Parseable>(_ type: ParsedType.Type) -> ParsedType? {
-        return parse(type: type, required: false)
-    }
-
-    public func optional<ParsedType: Parseable>(_ type: [ParsedType].Type, min: Int?, max: Int?) -> [ParsedType]? {
+    public func optional<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?) -> ParsedType? {
         return parse(type: type, required: false, min: min, max: max)
     }
 
@@ -109,7 +99,7 @@ public class NodeParser: Parser {
 
     // MARK: - Private methods
 
-    private func parse<ParsedType: Parseable>(type: ParsedType.Type, required: Bool) -> ParsedType? {
+    private func parse<ParsedType: Parseable>(type: ParsedType.Type, required: Bool, min: Int?, max: Int?) -> ParsedType? {
         tagNode(type: type)
         guard node.castableJSONTypes.contains(node.expectedJSONType) else {
             if required {
@@ -118,34 +108,20 @@ public class NodeParser: Parser {
             }
             return nil
         }
-        return ParsedType.init(parser: self)
-    }
-
-    private func parse<ParsedType: Parseable>(type: [ParsedType].Type, required: Bool, min: Int?, max: Int?) -> [ParsedType]? {
-        tagNode(arrayElementType: ParsedType.self)
-        guard let arrayJSON = json as? [Any] else {
-            if required {
-                let message = "Expected \(JSONElement.array.rawValue), got \(node.castableJSONTypes.map { $0.rawValue }.joined(separator: ", "))"
+        let parsed = ParsedType.init(parser: self)
+        if let count = parsed?.parseableElementCount {
+            if let min = min, count < min {
+                let message = "\(type.jsonType.rawValue) has \(count) valid \(ParsedType.self) elements, less than min of \(min)"
                 recordError(ParseError(path: path, message: message))
+                return nil
             }
-            return nil
+            if let max = max, count > max {
+                let message = "\(type.jsonType.rawValue) has \(count) valid \(ParsedType.self) elements, more than max of \(max)"
+                recordError(ParseError(path: path, message: message))
+                return nil
+            }
         }
-        var array: [ParsedType?] = []
-        for index in 0...arrayJSON.count - 1 {
-            array.append(NodeParser(index: index, parent: self).required(ParsedType.self))
-        }
-        let arrayWithoutNils = array.filter { $0 != nil }.map { $0! }
-        if let min = min, arrayWithoutNils.count < min {
-            let message = "Array has \(arrayWithoutNils.count) valid \(ParsedType.self) elements, less than min of \(min)"
-            recordError(ParseError(path: path, message: message))
-            return nil
-        }
-        if let max = max, arrayWithoutNils.count > max {
-            let message = "Array has \(arrayWithoutNils.count) valid \(ParsedType.self) elements, more than max of \(max)"
-            recordError(ParseError(path: path, message: message))
-            return nil
-        }
-        return arrayWithoutNils
+        return parsed
     }
 
     private func parse<ParsedType: Parseable>(type: [String: ParsedType].Type, required: Bool, min: Int?, max: Int?) -> [String: ParsedType]? {
@@ -180,11 +156,6 @@ public class NodeParser: Parser {
         node.expectedJSONType = type.jsonType
         node.idKey = type.idKey
         node.id = type.id(from: json)
-    }
-
-    private func tagNode<ArrayElementType: Parseable>(arrayElementType: ArrayElementType.Type) {
-        node.swiftType = [ArrayElementType].self
-        node.expectedJSONType = .array
     }
 
     private func tagNode<DictionaryElementType: Parseable>(dictionaryElementType: DictionaryElementType.Type) {

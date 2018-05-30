@@ -18,6 +18,7 @@ public protocol Parseable {
 
 
 extension Parseable {
+    var parseableElementCount: Int? { return nil }
 
     static func id(from json: Any?) -> String? {
         guard let idKey = idKey, let jsonDictionary = json as? [String: Any] else { return nil }
