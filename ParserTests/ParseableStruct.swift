@@ -17,6 +17,7 @@ struct ParseableStruct: Equatable {
     let null: NSNull
     let indexed: [String: ParseableSubStruct]
     let truthy: Bool
+    let decodable: DecodableStruct
 
     let falsey: Bool?
     let decimal: Double?
@@ -36,6 +37,7 @@ extension ParseableStruct: Parseable {
         let null =        parser["null"]          --> NSNull.self
         let indexed =     parser["indexed"]       --> [String: ParseableSubStruct].self
         let truthy =      parser["truthy"]        --> Bool.self
+        let decodable =   parser["decodable"]     --> DecodableStruct.self
 
         let falsey =      parser["falsey"]        --> Create<Bool?>()
         let decimal =     parser["decimal"]       --> Double?.self
@@ -43,7 +45,7 @@ extension ParseableStruct: Parseable {
         let substruct =   parser["substruct"]     --> ParseableSubStruct?.self
 
         guard parser.succeeded else { return nil }
-        self.init(id: id!, name: name!, subArray: subArray!, null: null!, indexed: indexed!, truthy: truthy!, falsey: falsey, decimal: decimal, description: description, substruct: substruct)
+        self.init(id: id!, name: name!, subArray: subArray!, null: null!, indexed: indexed!, truthy: truthy!, decodable: decodable!, falsey: falsey, decimal: decimal, description: description, substruct: substruct)
     }
 }
 

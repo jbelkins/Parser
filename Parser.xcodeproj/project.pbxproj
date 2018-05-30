@@ -19,6 +19,8 @@
 		031A45A4202EC67E00C706CB /* JSONElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031A45A3202EC67E00C706CB /* JSONElement.swift */; };
 		03221267202FF81700D8CE84 /* NSNull+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03221266202FF81700D8CE84 /* NSNull+Parseable.swift */; };
 		03316C4E203171E700F87765 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03316C4D203171E700F87765 /* JSONParser.swift */; };
+		03316C51203176BC00F87765 /* Decodable+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03316C50203176BC00F87765 /* Decodable+Parseable.swift */; };
+		03316C532031772400F87765 /* DecodableStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03316C522031772400F87765 /* DecodableStruct.swift */; };
 		035A3BCA203148F900DDBAB5 /* Bool+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */; };
 		0382444120315CA7008B3F3A /* Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382444020315CA7008B3F3A /* Create.swift */; };
 		03A7B5FC202AD917005A4BA2 /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FB202AD917005A4BA2 /* DataParser.swift */; };
@@ -62,6 +64,8 @@
 		031A45A3202EC67E00C706CB /* JSONElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONElement.swift; sourceTree = "<group>"; };
 		03221266202FF81700D8CE84 /* NSNull+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNull+Parseable.swift"; sourceTree = "<group>"; };
 		03316C4D203171E700F87765 /* JSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
+		03316C50203176BC00F87765 /* Decodable+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decodable+Parseable.swift"; sourceTree = "<group>"; };
+		03316C522031772400F87765 /* DecodableStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableStruct.swift; sourceTree = "<group>"; };
 		035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Parseable.swift"; sourceTree = "<group>"; };
 		0382444020315CA7008B3F3A /* Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.swift; sourceTree = "<group>"; };
 		03A7B5FB202AD917005A4BA2 /* DataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 				031247BE2028D1530048BBFB /* ParseableStruct.swift */,
 				03CC4FED20291A2200269CC7 /* ParseableSubStruct.swift */,
 				03AACD9B20BC8578007624F7 /* ObjectDecoderTests.swift */,
+				03316C522031772400F87765 /* DecodableStruct.swift */,
 				031247B02028CC780048BBFB /* Info.plist */,
 			);
 			path = ParserTests;
@@ -186,6 +191,7 @@
 				03A7B5FD202ADAE3005A4BA2 /* Double+Parseable.swift */,
 				03221266202FF81700D8CE84 /* NSNull+Parseable.swift */,
 				03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */,
+				03316C50203176BC00F87765 /* Decodable+Parseable.swift */,
 			);
 			path = "Foundation Extensions";
 			sourceTree = "<group>";
@@ -317,6 +323,7 @@
 				03316C4E203171E700F87765 /* JSONParser.swift in Sources */,
 				03CC4FF2202925CC00269CC7 /* JSONRawValueType.swift in Sources */,
 				031A45A4202EC67E00C706CB /* JSONElement.swift in Sources */,
+				03316C51203176BC00F87765 /* Decodable+Parseable.swift in Sources */,
 				03BD255B202F54CB004B9F06 /* Parser.swift in Sources */,
 				03A7B5FC202AD917005A4BA2 /* DataParser.swift in Sources */,
 				03AACD9820BC5AD5007624F7 /* ObjectUnkeyedContainer.swift in Sources */,
@@ -329,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03316C532031772400F87765 /* DecodableStruct.swift in Sources */,
 				03CC4FEE20291A2200269CC7 /* ParseableSubStruct.swift in Sources */,
 				031247BF2028D1530048BBFB /* ParseableStruct.swift in Sources */,
 				03AACD9C20BC8578007624F7 /* ObjectDecoderTests.swift in Sources */,

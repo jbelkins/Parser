@@ -15,6 +15,7 @@ class ParserTests: XCTestCase {
     var testStruct1: ParseableStruct!
     var subStruct1: ParseableSubStruct!
     var subStruct2: ParseableSubStruct!
+    var decodableStruct: DecodableStruct!
 
     override func setUp() {
         super.setUp()
@@ -36,13 +37,19 @@ class ParserTests: XCTestCase {
                 "twosy": ["identifier": "Cool array element 1"]
             ],
             "truthy": false,
-            "falsey": true
+            "falsey": true,
+            "decodable": [
+                "id": 123,
+                "name": "Decodable",
+                "notes": "Pretty cool"
+            ]
         ]
         subStruct1 = ParseableSubStruct(identifier: "Cool array element 0")
         subStruct2 = ParseableSubStruct(identifier: "Cool array element 1")
+        decodableStruct = DecodableStruct(id: 123, name: "Decodable", notes: "Pretty cool")
         let subArray = [subStruct1!, subStruct2!]
         let subDict = ["onesy": subStruct1!, "twosy": subStruct2!]
-        testStruct1 = ParseableStruct(id: 8675309, name: "test struct 1", subArray: subArray, null: NSNull(), indexed: subDict, truthy: false, falsey: true, decimal: 3.776, description: "Cool structure", substruct: ParseableSubStruct(identifier: "Cool sub structure"))
+        testStruct1 = ParseableStruct(id: 8675309, name: "test struct 1", subArray: subArray, null: NSNull(), indexed: subDict, truthy: false, decodable: decodableStruct, falsey: true, decimal: 3.776, description: "Cool structure", substruct: ParseableSubStruct(identifier: "Cool sub structure"))
     }
 
     func testDeserializesAStruct() {
@@ -94,7 +101,12 @@ class ParserTests: XCTestCase {
                 "twosy": ["identifier": "Cool array element 1"]
             ],
             "truthy": false,
-            "falsey": true
+            "falsey": true,
+            "decodable": [
+                "id": 123,
+                "name": "Decodable",
+                "notes": "Pretty cool"
+            ]
         ]
         let data = jsonData(from: badTestJSON1)
         let (newStruct, errors) = try! DataParser.parse(data: data, to: ParseableStruct.self)
@@ -123,7 +135,12 @@ class ParserTests: XCTestCase {
                 "twosy": ["identifier": "Cool array element 1"]
             ],
             "truthy": false,
-            "falsey": true
+            "falsey": true,
+            "decodable": [
+                "id": 123,
+                "name": "Decodable",
+                "notes": "Pretty cool"
+            ]
         ]
         let data = jsonData(from: badTestJSON1)
         let (newStruct, errors) = try! DataParser.parse(data: data, to: ParseableStruct.self)
@@ -153,7 +170,12 @@ class ParserTests: XCTestCase {
                 "twosy": ["identifier": "Cool array element 1"]
             ],
             "truthy": false,
-            "falsey": true
+            "falsey": true,
+            "decodable": [
+                "id": 123,
+                "name": "Decodable",
+                "notes": "Pretty cool"
+            ]
         ]
         let data = jsonData(from: badTestJSON1)
         let (newStruct, errors) = try! DataParser.parse(data: data, to: ParseableStruct.self)
@@ -182,7 +204,12 @@ class ParserTests: XCTestCase {
                 "twosy": ["identifier": "Cool array element 1"]
             ],
             "truthy": false,
-            "falsey": true
+            "falsey": true,
+            "decodable": [
+                "id": 123,
+                "name": "Decodable",
+                "notes": "Pretty cool"
+            ]
         ]
         let data = jsonData(from: badTestJSON1)
         let (newStruct, _) = try! DataParser.parse(data: data, to: ParseableStruct.self)
