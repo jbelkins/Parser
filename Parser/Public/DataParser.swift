@@ -15,9 +15,4 @@ open class DataParser {
         let json = try JSONSerialization.jsonObject(with: data, options: options)
         return JSONParser.parse(json: json, to: type)
     }
-
-    public static func parse<ParsedType: Parseable>(data: Data, options: JSONSerialization.ReadingOptions = [], to type: [String: ParsedType].Type) throws -> ([String: ParsedType]?, [ParseError]) {
-        let json = try JSONSerialization.jsonObject(with: data, options: options)
-        return JSONParser.parse(json: json, to: type)
-    }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0308092920BE54B500E6C152 /* Array+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0308092820BE54B500E6C152 /* Array+Parseable.swift */; };
+		0308092B20BE6E0C00E6C152 /* Dictionary+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0308092A20BE6E0C00E6C152 /* Dictionary+Parseable.swift */; };
 		031247AA2028CC780048BBFB /* Parser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031247A02028CC780048BBFB /* Parser.framework */; };
 		031247AF2028CC780048BBFB /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031247AE2028CC780048BBFB /* ParserTests.swift */; };
 		031247B12028CC780048BBFB /* Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 031247A32028CC780048BBFB /* Parser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		0308092820BE54B500E6C152 /* Array+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Parseable.swift"; sourceTree = "<group>"; };
+		0308092A20BE6E0C00E6C152 /* Dictionary+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Parseable.swift"; sourceTree = "<group>"; };
 		031247A02028CC780048BBFB /* Parser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Parser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		031247A32028CC780048BBFB /* Parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
 		031247A42028CC780048BBFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				0308092820BE54B500E6C152 /* Array+Parseable.swift */,
+				0308092A20BE6E0C00E6C152 /* Dictionary+Parseable.swift */,
 				031247C02028F0B50048BBFB /* Int+Parseable.swift */,
 				035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */,
 				031247C22028F1950048BBFB /* String+Parseable.swift */,
@@ -331,6 +334,7 @@
 				03A7B5FC202AD917005A4BA2 /* DataParser.swift in Sources */,
 				03AACD9820BC5AD5007624F7 /* ObjectUnkeyedContainer.swift in Sources */,
 				03A7B5FE202ADAE3005A4BA2 /* Double+Parseable.swift in Sources */,
+				0308092B20BE6E0C00E6C152 /* Dictionary+Parseable.swift in Sources */,
 				0308092920BE54B500E6C152 /* Array+Parseable.swift in Sources */,
 				03CC4FF02029232900269CC7 /* ParseError.swift in Sources */,
 			);

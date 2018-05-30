@@ -18,8 +18,6 @@ public protocol Parser: class {
     subscript(index: Int) -> Parser { get }
     func required<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?) -> ParsedType!
     func optional<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?) -> ParsedType?
-    func required<ParsedType: Parseable>(_ type: [String: ParsedType].Type, min: Int?, max: Int?) -> [String: ParsedType]!
-    func optional<ParsedType: Parseable>(_ type: [String: ParsedType].Type, min: Int?, max: Int?) -> [String: ParsedType]?
     func recordError(_ error: ParseError)
     var succeeded: Bool { get set }
 }

@@ -33,36 +33,6 @@ public func --><ParsedType: Parseable>(lhs: Parser, rhs: Create<ParsedType?>) ->
     return lhs.optional(ParsedType.self)
 }
 
-// MARK: --> operator with ParseRequired / ParseOptional instance
-
-public func --><ParsedType: Parseable>(lhs: Parser, rhs: Create<[ParsedType]>) -> [ParsedType]! {
-    return lhs.required([ParsedType].self, min: rhs.min, max: rhs.max)
-}
-
-public func --><ParsedType :Parseable>(lhs: Parser, rhs: Create<[ParsedType]?>) -> [ParsedType]? {
-    return lhs.optional([ParsedType].self, min: rhs.min, max: rhs.max)
-}
-
-// MARK: - Dictionaries
-
-public func --><ParsedType: Parseable>(lhs: Parser, rhs: [String: ParsedType].Type) -> [String: ParsedType]! {
-    return lhs.required(rhs, min: nil, max: nil)
-}
-
-public func --><ParsedType: Parseable>(lhs: Parser, rhs: [String: ParsedType]?.Type) -> [String: ParsedType]? {
-    return lhs.optional([String: ParsedType].self, min: nil, max: nil)
-}
-
-// MARK: --> operator with ParseRequired / ParseOptional instance
-
-public func --><ParsedType: Parseable>(lhs: Parser, rhs: Create<[String: ParsedType]>) -> [String: ParsedType]! {
-    return lhs.required([String: ParsedType].self, min: rhs.min, max: rhs.max)
-}
-
-public func --><ParsedType: Parseable>(lhs: Parser, rhs: Create<[String: ParsedType]?>) -> [String: ParsedType]? {
-    return lhs.optional([String: ParsedType].self, min: rhs.min, max: rhs.max)
-}
-
 
 infix operator !->
 

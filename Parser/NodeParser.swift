@@ -124,43 +124,11 @@ public class NodeParser: Parser {
         return parsed
     }
 
-    private func parse<ParsedType: Parseable>(type: [String: ParsedType].Type, required: Bool, min: Int?, max: Int?) -> [String: ParsedType]? {
-        tagNode(dictionaryElementType: ParsedType.self)
-        guard let dictJSON = json as? [String: Any] else {
-            if required {
-                let message = "Expected \(JSONElement.object.rawValue), got \(node.castableJSONTypes.map { $0.rawValue }.joined(separator: ", "))"
-                recordError(ParseError(path: path, message: message))
-            }
-            return nil
-        }
-        var dict: [String: ParsedType?] = [:]
-        for key in dictJSON.keys {
-            dict[key] = NodeParser(key: key, parent: self).required(ParsedType.self)
-        }
-        let dictionaryWithoutNilValues = dict.filter { $0.value != nil }.mapValues { $0! }
-        if let min = min, dictionaryWithoutNilValues.count < min {
-            let message = "Array has \(dictionaryWithoutNilValues.count) valid \(ParsedType.self) elements, less than min of \(min)"
-            recordError(ParseError(path: path, message: message))
-            return nil
-        }
-        if let max = max, dictionaryWithoutNilValues.count > max {
-            let message = "Array has \(dictionaryWithoutNilValues.count) valid \(ParsedType.self) elements, more than max of \(max)"
-            recordError(ParseError(path: path, message: message))
-            return nil
-        }
-        return dictionaryWithoutNilValues
-    }
-
     private func tagNode(type: Parseable.Type) {
         node.swiftType = type
         node.expectedJSONType = type.jsonType
         node.idKey = type.idKey
         node.id = type.id(from: json)
-    }
-
-    private func tagNode<DictionaryElementType: Parseable>(dictionaryElementType: DictionaryElementType.Type) {
-        node.swiftType = [String: DictionaryElementType].self
-        node.expectedJSONType = .object
     }
 
     private func allowedJSONTypes(`for` type: Parseable.Type) -> [JSONElement] {
