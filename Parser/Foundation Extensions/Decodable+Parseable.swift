@@ -14,7 +14,7 @@ extension Decodable {
     public init?(parser: Parser) {
         if let value = parser.json as? Self {
             self = value
-        } else if let json = parser.json, let data = try? JSONSerialization.data(withJSONObject: json, options: []), let decodable = try? JSONDecoder().decode(Self.self, from: data) {
+        } else if let json = parser.json, let decodable = try? Self.init(from: ObjectDecoder(jsonObject: json)) {
             self = decodable
         } else {
             let message = "Not a \(Self.self), casts to \(parser.node.castableJSONTypes.map { $0.rawValue }.joined(separator: ", "))"
