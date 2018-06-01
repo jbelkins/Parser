@@ -9,20 +9,19 @@
 import Foundation
 
 
-public class NodeParser<Key: CodingKey>: Parser {
-    public var key: CodingKey
-    public var node: PathNode {
-        get { return key as! PathNode }
-        set { key = newValue }
-    }
+public class NodeParser: Parser {
+    public var codingKey: CodingKey { return node }
+    public var codingPath: [CodingKey] { return nodePath }
+    public var node: PathNode
     public let json: Any?
     public var succeeded = true
     public var currentIndex = -1
+    public var isUnkeyedContainer = false
     var errors = [ParseError]()
-    let parent: NodeParser<Key>?
+    let parent: Parser?
 
-    init<Key: CodingKey>(node: Key, json: Any?, parent: Parser?) {
-        self.key = node
+    init(codingKey: CodingKey, json: Any?, parent: Parser?) {
+        self.node = PathNode(codingKey: codingKey)
         self.node.castableJSONTypes = JSONElement.types(for: json)
         self.json = json
         self.parent = parent
@@ -31,20 +30,20 @@ public class NodeParser<Key: CodingKey>: Parser {
     // MARK: - Creating parsers for JSON sub-elements
 
     public subscript(key: String) -> Parser {
-        let node = Key(stringValue: key)!
-        let newJSON = JSONTools.traverseJSON(json: json, at: node)
-        return NodeParser(node: node, json: newJSON, parent: self)
+        let codingKey = PathNode(stringValue: key)!
+        let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
+        return NodeParser(codingKey: codingKey, json: newJSON, parent: self)
     }
 
     public subscript(index: Int) -> Parser {
-        let node = Key(intValue: index)!
-        let newJSON = JSONTools.traverseJSON(json: json, at: node)
-        return NodeParser(node: node, json: newJSON, parent: self)
+        let codingKey = PathNode(intValue: index)!
+        let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
+        return NodeParser(codingKey: codingKey, json: newJSON, parent: self)
     }
 
-    public subscript(node: Key) -> Parser {
-        let newJSON = JSONTools.traverseJSON(json: json, at: key)
-        return NodeParser(node: node, json: newJSON, parent: self)
+    public subscript(codingKey: CodingKey) -> Parser {
+        let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
+        return NodeParser(codingKey: codingKey, json: newJSON, parent: self)
     }
 
     // MARK: - Parsing
@@ -55,17 +54,7 @@ public class NodeParser<Key: CodingKey>: Parser {
         return element
     }
 
-    public func required<ParsedType: Parseable>(_ type: [String: ParsedType].Type, min: Int?, max: Int?) -> [String: ParsedType]! {
-        let element = parse(type: type, required: true, min: min, max: max)
-        if element == nil { swiftParent?.succeeded = false }
-        return element
-    }
-
     public func optional<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?) -> ParsedType? {
-        return parse(type: type, required: false, min: min, max: max)
-    }
-
-    public func optional<ParsedType: Parseable>(_ type: [String: ParsedType].Type, min: Int?, max: Int?) -> [String: ParsedType]? {
         return parse(type: type, required: false, min: min, max: max)
     }
 
@@ -79,11 +68,11 @@ public class NodeParser<Key: CodingKey>: Parser {
 
     // MARK: - Path retrieval
 
-    public var path: [Key] {
+    public var nodePath: [PathNode] {
         if let parent = parent {
-            return parent.path + [key]
+            return parent.nodePath + [node]
         } else {
-            return [key]
+            return [node]
         }
     }
 
@@ -106,7 +95,7 @@ public class NodeParser<Key: CodingKey>: Parser {
         guard node.castableJSONTypes.contains(node.expectedJSONType) else {
             if required {
                 let message = "Expected \(type.jsonType.rawValue), got \(node.castableJSONTypes.map { $0.rawValue }.joined(separator: ", "))"
-                recordError(ParseError(path: path, message: message))
+                recordError(ParseError(path: nodePath, message: message))
             }
             return nil
         }
@@ -114,12 +103,12 @@ public class NodeParser<Key: CodingKey>: Parser {
         if let count = parsed?.parseableElementCount {
             if let min = min, count < min {
                 let message = "\(type.jsonType.rawValue) has \(count) valid \(ParsedType.self) elements, less than min of \(min)"
-                recordError(ParseError(path: path, message: message))
+                recordError(ParseError(path: nodePath, message: message))
                 return nil
             }
             if let max = max, count > max {
                 let message = "\(type.jsonType.rawValue) has \(count) valid \(ParsedType.self) elements, more than max of \(max)"
-                recordError(ParseError(path: path, message: message))
+                recordError(ParseError(path: nodePath, message: message))
                 return nil
             }
         }

@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct PathNode: Equatable {
+public struct PathNode {
     public let hashKey: String?
     public let arrayIndex: Int?
     public var expectedJSONType: JSONElement
@@ -20,12 +20,17 @@ public struct PathNode: Equatable {
 }
 
 
-public func ==(lhs: PathNode, rhs: PathNode) -> Bool {
-    return lhs.hashKey == rhs.hashKey && lhs.arrayIndex == rhs.arrayIndex
+public func ==(lhs: CodingKey, rhs: CodingKey) -> Bool {
+    return lhs.stringValue == rhs.stringValue && lhs.intValue == rhs.intValue
 }
 
 
 extension PathNode {
+
+    init(codingKey: CodingKey) {
+        let hashKey = codingKey.intValue == nil ? codingKey.stringValue : nil
+        self.init(hashKey: hashKey, arrayIndex: codingKey.intValue, expectedJSONType: .absent, castableJSONTypes: [], swiftType: nil, idKey: nil, id: nil)
+    }
 
     init(hashKey: String, swiftType: Parseable.Type?) {
         self.init(hashKey: hashKey, arrayIndex: nil, expectedJSONType: .absent, castableJSONTypes: [], swiftType: swiftType, idKey: nil, id: nil)

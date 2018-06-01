@@ -10,6 +10,11 @@ import Foundation
 
 
 extension NodeParser: UnkeyedDecodingContainer {
+    public func superDecoder() throws -> Decoder {
+        return self
+    }
+
+
     public var count: Int? {
         guard let jsonArray = json as? [Any] else { return nil }
         return jsonArray.count
@@ -19,21 +24,37 @@ extension NodeParser: UnkeyedDecodingContainer {
         return currentIndex >= count ?? 0
     }
 
+    public func decodeNil() -> Bool {
+        if isUnkeyedContainer {
+            return self[nextCodingKey()].decodeNil()
+        } else {
+            guard let something = json else { return true }
+            return something is NSNull
+        }
+    }
+
 
     public func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
-        <#code#>
+        if isUnkeyedContainer {
+            return try T.init(from: self[nextCodingKey()])
+        } else {
+            return try T.init(from: self)
+        }
     }
 
     public func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
-        <#code#>
+        let keyed = KeyedNodeParser<NestedKey>(parser: self[nextCodingKey()])
+        return KeyedDecodingContainer(keyed)
     }
 
     public func nestedUnkeyedContainer() throws -> UnkeyedDecodingContainer {
-        <#code#>
+        let newParser = self[nextCodingKey()]
+        newParser.isUnkeyedContainer = true
+        return newParser
     }
 
-    func nextCodingPath() -> [Key] {
+    private func nextCodingKey() -> CodingKey {
         currentIndex += 1
-        return codingPath + [Key(intValue: currentIndex)]
+        return PathNode(intValue: currentIndex)!
     }
 }

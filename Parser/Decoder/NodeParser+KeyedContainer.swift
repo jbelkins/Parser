@@ -9,42 +9,47 @@
 import Foundation
 
 
-extension NodeParser: KeyedDecodingContainerProtocol {
+class KeyedNodeParser<Key: CodingKey>: KeyedDecodingContainerProtocol {
+    var codingPath: [CodingKey] { return parser.nodePath }
+    let parser: Parser
 
-    public var allKeys: [PathNode] {
-        guard let jsonDict = json as? [String: Any] else { return [] }
-        return jsonDict.keys.map { PathNode(hashKey: $0, swiftType: nil) }
+    init(parser: Parser) {
+        self.parser = parser
     }
 
-    public func contains(_ key: PathNode) -> Bool {
-        return allKeys.contains(key)
+    public var allKeys: [Key] {
+        guard let jsonDict = parser.json as? [String: Any] else { return [] }
+        return jsonDict.keys.map { Key.init(stringValue: $0)! }
     }
 
-    public func decodeNil(forKey key: PathNode) throws -> Bool {
-        return self[key].decodeNil()
+    public func contains(_ key: Key) -> Bool {
+        return allKeys.contains { $0.stringValue == key.stringValue }
     }
 
-    public func decode<T>(_ type: T.Type, forKey key: PathNode) throws -> T where T : Decodable {
-        return self[key].decode(T.self)
+    public func decodeNil(forKey key: Key) throws -> Bool {
+        return self.parser[key].decodeNil()
     }
 
-    public func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type, forKey key: PathNode) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
-        guard let jsonDict = json as? [String: Any], let nestedKey = NestedKey(stringValue: key.stringValue) else {
-            throw NodeError.error("Could not create nested container")
-        }
-        let newParser = NodeParser(node: nestedKey, json: jsonDict[key.stringValue], parent: self)
-        return KeyedDecodingContainer(newParser)
+    public func decode<T>(_ type: T.Type, forKey key: Key) throws -> T where T : Decodable {
+        return try self.parser[key].decode(T.self)
     }
 
-    public func nestedUnkeyedContainer(forKey key: PathNode) throws -> UnkeyedDecodingContainer {
-        return self[key]
+    public func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type, forKey key: Key) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
+        let keyed = KeyedNodeParser<NestedKey>(parser: self.parser[key])
+        return KeyedDecodingContainer(keyed)
+    }
+
+    public func nestedUnkeyedContainer(forKey key: Key) throws -> UnkeyedDecodingContainer {
+        let unkeyed = self.parser[key]
+        unkeyed.isUnkeyedContainer = true
+        return unkeyed
     }
 
     public func superDecoder() throws -> Decoder {
-        return self
+        return self.parser
     }
 
-    public func superDecoder(forKey key: PathNode) throws -> Decoder {
-        return self[key]
+    public func superDecoder(forKey key: Key) throws -> Decoder {
+        return self.parser[key]
     }
 }

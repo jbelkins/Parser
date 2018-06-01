@@ -22,6 +22,6 @@ open class JSONParser {
 
     private static func rootParser(json: Any) -> NodeParser {
         let rootNode = PathNode(hashKey: "root", swiftType: nil)
-        return NodeParser(node: rootNode, json: json, parent: nil)
+        return NodeParser(codingKey: rootNode, json: json, parent: nil)
     }
 }

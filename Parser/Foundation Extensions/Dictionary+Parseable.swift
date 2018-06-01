@@ -18,7 +18,7 @@ extension Dictionary: Parseable where Key == String, Value: Parseable {
     public init?(parser: Parser) {
         guard let jsonDict = parser.json as? [String: Any] else {
             let message = "Not a Dict, casts to \(parser.node.castableJSONTypes.map { $0.rawValue }.joined(separator: ", "))"
-            parser.recordError(ParseError(path: parser.path, message: message))
+            parser.recordError(ParseError(path: parser.nodePath, message: message))
             return nil
         }
         let parsed: [(String, Value)?] = jsonDict.map { (key, json) -> (String, Value)? in

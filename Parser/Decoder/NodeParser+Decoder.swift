@@ -10,19 +10,17 @@ import Foundation
 
 
 extension NodeParser: Decoder {
-    public var codingPath: [Key] {
-        return path as! [Key]
-    }
-
     public var userInfo: [CodingUserInfoKey : Any] {
         return [:]
     }
 
     public func container<Key>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> where Key : CodingKey {
-        return KeyedDecodingContainer(self)
+        let keyed = KeyedNodeParser<Key>(parser: self)
+        return KeyedDecodingContainer(keyed)
     }
 
     public func unkeyedContainer() throws -> UnkeyedDecodingContainer {
+        isUnkeyedContainer = true
         return self
     }
 

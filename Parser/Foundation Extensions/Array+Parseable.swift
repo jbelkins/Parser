@@ -17,7 +17,7 @@ extension Array: Parseable where Element: Parseable {
     public init?(parser: Parser) {
         guard let jsonArray = parser.json as? [Any] else {
             let message = "Not an Array, casts to \(parser.node.castableJSONTypes.map { $0.rawValue }.joined(separator: ", "))"
-            parser.recordError(ParseError(path: parser.path, message: message))
+            parser.recordError(ParseError(path: parser.nodePath, message: message))
             return nil
         }
         let uncompactedArray = jsonArray.indices.map { parser[$0].required(Element.self) }
