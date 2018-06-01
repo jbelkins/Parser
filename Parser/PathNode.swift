@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct PathNode {
+public struct PathNode: Equatable {
     public let hashKey: String?
     public let arrayIndex: Int?
     public var expectedJSONType: JSONElement
@@ -17,6 +17,11 @@ public struct PathNode {
     public var swiftType: Any.Type?
     public var idKey: String?
     public var id: String?
+}
+
+
+public func ==(lhs: PathNode, rhs: PathNode) -> Bool {
+    return lhs.hashKey == rhs.hashKey && lhs.arrayIndex == rhs.arrayIndex
 }
 
 

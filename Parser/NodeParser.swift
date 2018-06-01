@@ -9,40 +9,42 @@
 import Foundation
 
 
-public class NodeParser: Parser {
-    public var node: PathNode
+public class NodeParser<Key: CodingKey>: Parser {
+    public var key: CodingKey
+    public var node: PathNode {
+        get { return key as! PathNode }
+        set { key = newValue }
+    }
     public let json: Any?
     public var succeeded = true
+    public var currentIndex = -1
     var errors = [ParseError]()
-    let parent: Parser?
+    let parent: NodeParser<Key>?
 
-    init(node: PathNode, json: Any?, parent: Parser?) {
-        self.node = node
+    init<Key: CodingKey>(node: Key, json: Any?, parent: Parser?) {
+        self.key = node
         self.node.castableJSONTypes = JSONElement.types(for: json)
         self.json = json
         self.parent = parent
     }
 
-    convenience init(index: Int, parent: Parser) {
-        let newNode = PathNode(arrayIndex: index, swiftType: nil)
-        let json = JSONTools.traverseJSON(json: parent.json, at: newNode)
-        self.init(node: newNode, json: json, parent: parent)
-    }
-
-    convenience init(key: String, parent: Parser) {
-        let newNode = PathNode(hashKey: key, swiftType: nil)
-        let json = JSONTools.traverseJSON(json: parent.json, at: newNode)
-        self.init(node: newNode, json: json, parent: parent)
-    }
-
     // MARK: - Creating parsers for JSON sub-elements
 
     public subscript(key: String) -> Parser {
-        return NodeParser(key: key, parent: self)
+        let node = Key(stringValue: key)!
+        let newJSON = JSONTools.traverseJSON(json: json, at: node)
+        return NodeParser(node: node, json: newJSON, parent: self)
     }
 
     public subscript(index: Int) -> Parser {
-        return NodeParser(index: index, parent: self)
+        let node = Key(intValue: index)!
+        let newJSON = JSONTools.traverseJSON(json: json, at: node)
+        return NodeParser(node: node, json: newJSON, parent: self)
+    }
+
+    public subscript(node: Key) -> Parser {
+        let newJSON = JSONTools.traverseJSON(json: json, at: key)
+        return NodeParser(node: node, json: newJSON, parent: self)
     }
 
     // MARK: - Parsing
@@ -77,11 +79,11 @@ public class NodeParser: Parser {
 
     // MARK: - Path retrieval
 
-    public var path: [PathNode] {
+    public var path: [Key] {
         if let parent = parent {
-            return parent.path + [node]
+            return parent.path + [key]
         } else {
-            return [node]
+            return [key]
         }
     }
 
