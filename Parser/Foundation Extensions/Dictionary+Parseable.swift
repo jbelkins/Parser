@@ -25,7 +25,6 @@ extension Dictionary: Parseable where Key == String, Value: Parseable {
             guard let value = parser[key].required(Value.self) else { return nil }
             return (key, value)
         }
-        let pairs = parsed.filter { $0 != nil }.map { $0! }
-        self = Dictionary(pairs, uniquingKeysWith: { a, b in return a })
+        self = Dictionary(uniqueKeysWithValues: parsed.filter { $0 != nil }.map { $0! })
     }
 }

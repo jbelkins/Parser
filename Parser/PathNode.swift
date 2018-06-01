@@ -19,10 +19,10 @@ public struct PathNode {
     public var id: String?
 }
 
+
 extension PathNode {
 
     init(hashKey: String, swiftType: Parseable.Type?) {
-
         self.init(hashKey: hashKey, arrayIndex: nil, expectedJSONType: .absent, castableJSONTypes: [], swiftType: swiftType, idKey: nil, id: nil)
     }
 
@@ -30,6 +30,21 @@ extension PathNode {
         self.init(hashKey: nil, arrayIndex: arrayIndex, expectedJSONType: .absent, castableJSONTypes: [], swiftType: swiftType, idKey: nil, id: nil)
     }
 }
+
+
+extension PathNode: CodingKey {
+    public var stringValue: String { return hashKey ?? "\(arrayIndex!)"}
+    public var intValue: Int? { return arrayIndex }
+
+    public init?(stringValue: String) {
+        self.init(hashKey: stringValue, swiftType: nil)
+    }
+
+    public init?(intValue: Int) {
+        self.init(arrayIndex: intValue, swiftType: nil)
+    }
+}
+
 
 extension Array where Element == PathNode {
 
