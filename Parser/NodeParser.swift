@@ -59,33 +59,21 @@ public class NodeParser: Parser {
     }
 
     public func recordError(_ error: ParseError) {
-        if let parent = parent {
-            parent.recordError(error)
-        } else {
-            errors.append(error)
-        }
+        guard let parent = parent else { errors.append(error); return }
+        parent.recordError(error)
     }
 
     // MARK: - Path retrieval
 
     public var nodePath: [PathNode] {
-        if let parent = parent {
-            return parent.nodePath + [node]
-        } else {
-            return [node]
-        }
+        guard let parent = parent else { return [node] }
+        return parent.nodePath + [node]
     }
 
     public var swiftParent: Parser? {
-        if let parent = parent {
-            if parent.node.swiftType != nil {
-                return parent
-            } else {
-                return parent.swiftParent
-            }
-        } else {
-            return nil
-        }
+        guard let parent = parent else { return nil }
+        guard parent.node.swiftType != nil else { return parent.swiftParent }
+        return parent
     }
 
     // MARK: - Private methods
@@ -93,24 +81,22 @@ public class NodeParser: Parser {
     private func parse<ParsedType: Parseable>(type: ParsedType.Type, required: Bool, min: Int?, max: Int?) -> ParsedType? {
         tagNode(type: type)
         guard node.castableJSONTypes.contains(node.expectedJSONType) else {
-            if required {
-                let message = "Expected \(type.jsonType.rawValue), got \(node.castableJSONTypes.map { $0.rawValue }.joined(separator: ", "))"
-                recordError(ParseError(path: nodePath, message: message))
-            }
+            guard required else { return nil }
+            let message = "Expected \(type.jsonType.rawValue), got \(node.castableJSONTypes.map { $0.rawValue }.joined(separator: ", "))"
+            recordError(ParseError(path: nodePath, message: message))
             return nil
         }
         let parsed = ParsedType.init(parser: self)
-        if let count = parsed?.parseableElementCount {
-            if let min = min, count < min {
-                let message = "\(type.jsonType.rawValue) has \(count) valid \(ParsedType.self) elements, less than min of \(min)"
-                recordError(ParseError(path: nodePath, message: message))
-                return nil
-            }
-            if let max = max, count > max {
-                let message = "\(type.jsonType.rawValue) has \(count) valid \(ParsedType.self) elements, more than max of \(max)"
-                recordError(ParseError(path: nodePath, message: message))
-                return nil
-            }
+        let count = parsed?.parseableElementCount
+        if let min = min, let count = count, count < min {
+            let message = "\(type.jsonType.rawValue) has \(count) valid \(ParsedType.self) elements, less than min of \(min)"
+            recordError(ParseError(path: nodePath, message: message))
+            return nil
+        }
+        if let max = max, let count = count, count > max {
+            let message = "\(type.jsonType.rawValue) has \(count) valid \(ParsedType.self) elements, more than max of \(max)"
+            recordError(ParseError(path: nodePath, message: message))
+            return nil
         }
         return parsed
     }
