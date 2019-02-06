@@ -16,7 +16,10 @@ class ObjectKeyedContainer<K>: KeyedDecodingContainerProtocol where K: CodingKey
         return jsonDict.keys.map { K.init(stringValue: $0)! }
     }
 
-    init(codingPath: [CodingKey], jsonDict: [String: Any]) {
+    init(codingPath: [CodingKey], jsonObject: Any?) throws {
+        guard let jsonDict = jsonObject as? [String: Any] else {
+            throw DecodingError.typeMismatch([String: Any].self, DecodingError.Context(codingPath: codingPath, debugDescription: "Creating keyed container for non-dict"))
+        }
         self.codingPath = codingPath
         self.jsonDict = jsonDict
     }
@@ -34,25 +37,19 @@ class ObjectKeyedContainer<K>: KeyedDecodingContainerProtocol where K: CodingKey
     }
 
     func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type, forKey key: K) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
-        guard let nestedJSONDict = jsonDict[key.stringValue] as? [String: Any] else {
-            throw NodeError.error("Creating keyed container for non-dict")
-        }
-        let objectKeyedContainer = ObjectKeyedContainer<NestedKey>(codingPath: codingPath + [key], jsonDict: nestedJSONDict)
+        let objectKeyedContainer = try ObjectKeyedContainer<NestedKey>(codingPath: codingPath + [key], jsonObject: jsonDict[key.stringValue])
         return KeyedDecodingContainer(objectKeyedContainer)
     }
 
     func nestedUnkeyedContainer(forKey key: K) throws -> UnkeyedDecodingContainer {
-        guard let nestedJSONArray = jsonDict[key.stringValue] as? [Any] else {
-            throw NodeError.error("Creating unkeyed container for non-array")
-        }
-        return ObjectUnkeyedContainer(codingPath: codingPath + [key], jsonArray: nestedJSONArray)
+        return try ObjectUnkeyedContainer(codingPath: codingPath + [key], jsonObject: jsonDict[key.stringValue])
     }
 
     func superDecoder() throws -> Decoder {
-        return ObjectDecoder(codingPath: codingPath, jsonObject: jsonDict)
+        return _ObjectDecoder(codingPath: codingPath, jsonObject: jsonDict)
     }
 
     func superDecoder(forKey key: K) throws -> Decoder {
-        return ObjectDecoder(codingPath: codingPath + [key], jsonObject: jsonDict[key.stringValue]!)
+        return _ObjectDecoder(codingPath: codingPath + [key], jsonObject: jsonDict[key.stringValue]!)
     }
 }

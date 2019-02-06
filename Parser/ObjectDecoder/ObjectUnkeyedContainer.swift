@@ -36,7 +36,10 @@ class ObjectUnkeyedContainer: UnkeyedDecodingContainer {
 
     var currentIndex: Int = -1
 
-    init(codingPath: [CodingKey], jsonArray: [Any]) {
+    init(codingPath: [CodingKey], jsonObject: Any?) throws {
+        guard let jsonArray = jsonObject as? [Any] else {
+            throw DecodingError.typeMismatch([Any].self, DecodingError.Context(codingPath: codingPath, debugDescription: "Creating unkeyed container for non-array"))
+        }
         self.codingPath = codingPath
         self.jsonArray = jsonArray
     }
@@ -56,22 +59,16 @@ class ObjectUnkeyedContainer: UnkeyedDecodingContainer {
 
     func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
         let nextCodingPath = self.nextCodingPath()
-        guard let nestedJSONDict = jsonArray[currentIndex] as? [String: Any] else {
-            throw NodeError.error("Creating keyed container for non-dict")
-        }
-        let objectKeyedContainer = ObjectKeyedContainer<NestedKey>(codingPath: nextCodingPath, jsonDict: nestedJSONDict)
+        let objectKeyedContainer = try ObjectKeyedContainer<NestedKey>(codingPath: nextCodingPath, jsonObject: jsonArray[currentIndex])
         return KeyedDecodingContainer(objectKeyedContainer)
     }
 
     func nestedUnkeyedContainer() throws -> UnkeyedDecodingContainer {
         let nextCodingPath = self.nextCodingPath()
-        guard let nestedJSONArray = jsonArray[currentIndex] as? [Any] else {
-            throw NodeError.error("Creating unkeyed container for non-array")
-        }
-        return ObjectUnkeyedContainer(codingPath: nextCodingPath, jsonArray: nestedJSONArray)
+        return try ObjectUnkeyedContainer(codingPath: nextCodingPath, jsonObject: jsonArray[currentIndex])
     }
 
     func superDecoder() throws -> Decoder {
-        return ObjectDecoder(codingPath: codingPath, jsonObject: jsonArray)
+        return _ObjectDecoder(codingPath: codingPath, jsonObject: jsonArray)
     }
 }

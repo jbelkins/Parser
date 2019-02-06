@@ -9,7 +9,7 @@
 import Foundation
 
 
-public enum JSONElement: String {
+public enum JSONElement: String, Equatable {
     case object = "[String: Any]"
     case array = "[Any]"
     case int = "Int"

@@ -13,21 +13,21 @@ extension NodeParser: SingleValueDecodingContainer {
 
     public func decode(_ type: Bool.Type) throws -> Bool {
         guard let bool = required(Bool.self, min: nil, max: nil) else {
-            throw NodeError.error("Not a Bool")
+            try throwTypeMismatch(for: type)
         }
         return bool
     }
 
     public func decode(_ type: String.Type) throws -> String {
         guard let string = required(String.self, min: nil, max: nil) else {
-            throw NodeError.error("Not a String")
+            try throwTypeMismatch(for: type)
         }
         return string
     }
 
     public func decode(_ type: Double.Type) throws -> Double {
         guard let double = required(Double.self, min: nil, max: nil) else {
-            throw NodeError.error("Not a Double")
+            try throwTypeMismatch(for: type)
         }
         return double
     }
@@ -38,7 +38,7 @@ extension NodeParser: SingleValueDecodingContainer {
 
     public func decode(_ type: Int.Type) throws -> Int {
         guard let int = required(Int.self, min: nil, max: nil) else {
-            throw NodeError.error("Not a Int")
+            try throwTypeMismatch(for: type)
         }
         return int
     }
@@ -77,5 +77,9 @@ extension NodeParser: SingleValueDecodingContainer {
 
     public func decode(_ type: UInt64.Type) throws -> UInt64 {
         return 0
+    }
+
+    private func throwTypeMismatch(`for` type: Any.Type) throws -> Never {
+        throw DecodingError.typeMismatch(type, DecodingError.Context(codingPath: codingPath, debugDescription: "Expected \(type), not a \(type)"))
     }
 }

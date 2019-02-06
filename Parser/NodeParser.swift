@@ -82,20 +82,17 @@ public class NodeParser: Parser {
         tagNode(type: type)
         guard node.castableJSONTypes.contains(node.expectedJSONType) else {
             guard required else { return nil }
-            let message = "Expected \(type.jsonType.rawValue), got \(node.castableJSONTypes.map { $0.rawValue }.joined(separator: ", "))"
-            recordError(ParseError(path: nodePath, message: message))
+            recordError(ParseError(path: nodePath, expected: type.jsonType, actual: Set(node.castableJSONTypes)))
             return nil
         }
         let parsed = ParsedType.init(parser: self)
         let count = parsed?.parseableElementCount
         if let min = min, let count = count, count < min {
-            let message = "\(type.jsonType.rawValue) has \(count) valid \(ParsedType.self) elements, less than min of \(min)"
-            recordError(ParseError(path: nodePath, message: message))
+            recordError(ParseError(path: nodePath, minimum: min, actual: count))
             return nil
         }
         if let max = max, let count = count, count > max {
-            let message = "\(type.jsonType.rawValue) has \(count) valid \(ParsedType.self) elements, more than max of \(max)"
-            recordError(ParseError(path: nodePath, message: message))
+            recordError(ParseError(path: nodePath, maximum: max, actual: count))
             return nil
         }
         return parsed
