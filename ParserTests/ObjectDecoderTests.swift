@@ -11,77 +11,78 @@ import XCTest
 import Parser
 
 
-struct SampleCodableData: Codable, Equatable {
-    let id: Int
-    let name: String
-    let address: String
-    let intOrNot: Int?
-    let stringOrNot: String?
-    let itsTrue: Bool
-    let itsFalse: Bool
-    let boolOrNot: Bool?
-    let numbahs: [Double]
-    let valyews: [String: UInt8]
-}
-
-
 class ObjectDecoderTests: XCTestCase {
 
     func testDecodesANewInstance() {
+
+        struct SampleCodableData: Codable, Equatable {
+            let id: Int
+            let name: String
+            let address: String
+            let intOrNot: Int?
+            let stringOrNot: String?
+            let itsTrue: Bool
+            let itsFalse: Bool
+            let boolOrNot: Bool?
+            let numbahs: [Double]
+            let valyews: [String: UInt8]
+        }
+
         let jsonObject: [String : Any] = ["id": 123, "name": "xyz", "address": "abc", "intOrNot": NSNull(), "itsTrue": true, "itsFalse": false, "numbahs": [8, 6, 7, 5, 3, 0, 9], "valyews": ["wun": 1, "tyew": 2, "big": 255]]
-        let expected = SampleCodableData(id: 123, name: "xyz", address: "abc", intOrNot: nil, stringOrNot: nil, itsTrue: true, itsFalse: false, boolOrNot: nil, numbahs: [8, 6, 7, 5, 3, 0, 9], valyews: ["wun": 1, "tyew": 2, "big": 255])
-        let jsonData = try! JSONSerialization.data(withJSONObject: jsonObject, options: [])
-
-        var applesActual: SampleCodableData?
-        do {
-            applesActual = try JSONDecoder().decode(SampleCodableData.self, from: jsonData)
-        } catch let error {
-            XCTFail("Threw error on decode: \(error)")
-        }
-        XCTAssertEqual(applesActual, expected)
-
-        var actual: SampleCodableData?
-        do {
-            actual = try ObjectDecoder().decode(SampleCodableData.self, from: jsonData)
-        } catch let error {
-            XCTFail("Threw error on decode: \(error)")
-        }
-        XCTAssertEqual(actual, expected)
+        compareResults(inputObject: jsonObject, outputType: SampleCodableData.self)
     }
 
     func testDoesNotDecodeANumberToBool() {
-        struct HasABool: Codable {
+
+        struct HasABool: Decodable, Equatable {
             let boolValue: Bool
         }
-        let jsonObject = ["boolValue": 1]
-        let jsonData = try! JSONSerialization.data(withJSONObject: jsonObject, options: [])
 
-        // Apple's decoder
-        do {
-            let _ = try JSONDecoder().decode(HasABool.self, from: jsonData)
-            XCTFail("Decode attempt should have thrown")
-        } catch DecodingError.typeMismatch(_, _) {
-            // Expected.  Allow test to finish & pass.
-        } catch {
-            XCTFail("Decode threw unexpected error")
+        let jsonObject = ["boolValue": 1]
+        compareResults(inputObject: jsonObject, outputType: HasABool.self)
+    }
+
+    func testDoesNotDecodeTrueTo1() {
+
+        struct HasAnInt: Decodable, Equatable {
+            let intValue: Int
         }
 
-        // Our decoder
+        let jsonObject = ["intValue": true]
+        compareResults(inputObject: jsonObject, outputType: HasAnInt.self)
+    }
+
+    private func compareResults<T: Decodable & Equatable>(inputObject: Any, outputType: T.Type) {
         do {
-            let _ = try ObjectDecoder().decode(HasABool.self, from: jsonData)
-            XCTFail("Decode attempt should have thrown")
-        } catch DecodingError.typeMismatch(_, _) {
-            // Expected.  Allow test to finish & pass.
-        } catch {
-            XCTFail("Decode threw unexpected error")
+            let jsonData = try JSONSerialization.data(withJSONObject: inputObject, options: [])
+            let swiftParserResult = try parse(T.self, from: jsonData, using: JSONDecoder())
+            let ourParserResult = try parse(T.self, from: jsonData, using: ObjectDecoder())
+            XCTAssertEqual(ourParserResult, swiftParserResult)
+        } catch let error {
+            XCTFail("Unexpected error thrown: \(error)")
+        }
+    }
+
+    private func parse<T: Decodable & Equatable>(_ type: T.Type, from data: Data, using decoder: DecodesJSONDataToEquatable) throws -> DecodeResult<T> {
+        do {
+            let result = try decoder.decode(T.self, from: data)
+            return DecodeResult.success(result)
+        } catch let error as DecodingError {
+            return DecodeResult.error(error)
         }
     }
 }
 
 
-protocol DecodesJSON {
-    func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable
+enum DecodeResult<T: Decodable & Equatable>: Equatable {
+    case success(T)
+    case error(DecodingError)
 }
 
-extension JSONDecoder: DecodesJSON {}
-extension ObjectDecoder: DecodesJSON {}
+
+protocol DecodesJSONDataToEquatable {
+    func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable & Equatable
+}
+
+extension JSONDecoder: DecodesJSONDataToEquatable {}
+extension ObjectDecoder: DecodesJSONDataToEquatable {}

@@ -22,7 +22,7 @@ class ObjectSingleValueContainer: SingleValueDecodingContainer {
     }
     
     func decode(_ type: Bool.Type) throws -> Bool {
-        guard let nsNumber = jsonObject as? NSNumber, CFBooleanGetTypeID() == CFGetTypeID(nsNumber) else {
+        guard let nsNumber = jsonObject as? NSNumber, nsNumber.isBoolean else {
             try throwTypeMismatch(for: type)
         }
         return nsNumber.boolValue
@@ -50,7 +50,7 @@ class ObjectSingleValueContainer: SingleValueDecodingContainer {
     }
     
     func decode(_ type: Int.Type) throws -> Int {
-        guard let nsNumber = jsonObject as? NSNumber, let int = Int(exactly: nsNumber) else {
+        guard let nsNumber = jsonObject as? NSNumber, !nsNumber.isBoolean, let int = Int(exactly: nsNumber) else {
             try throwTypeMismatch(for: type)
         }
         return int
@@ -129,4 +129,8 @@ class ObjectSingleValueContainer: SingleValueDecodingContainer {
     private func throwTypeMismatch(`for` type: Any.Type) throws -> Never {
         throw DecodingError.typeMismatch(type, DecodingError.Context(codingPath: codingPath, debugDescription: "Expected \(type), not a \(type)"))
     }
+}
+
+fileprivate extension NSNumber {
+    fileprivate var isBoolean: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
 }
