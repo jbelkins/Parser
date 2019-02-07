@@ -10,9 +10,9 @@ import Foundation
 
 extension Array: Parseable where Element: Parseable {
     public static var idKey: String? { return nil }
-    public static var jsonType: JSONElement { return JSONElement.array }
+    public static var jsonType: JSONElement { return .array }
 
-    var parseableElementCount: Int? { return count }
+    public var parseableElementCount: Int? { return count }
 
     public init?(parser: Parser) {
         guard let jsonArray = parser.json as? [Any] else {
