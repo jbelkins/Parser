@@ -14,13 +14,10 @@ struct DecodableStruct: Decodable, Equatable {
     let id: Int
     let name: String
     let notes: String?
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case notes
-    }
 }
 
 
-extension DecodableStruct: Parseable {}
+extension DecodableStruct: Parseable {
+    static var idKey: String? { return "id" }
+    static var jsonType: JSONElement { return .object }
+}
