@@ -48,14 +48,14 @@ public class NodeParser: Parser {
 
     // MARK: - Parsing
 
-    public func required<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?) -> ParsedType! {
-        let element = parse(type: type, required: true, min: min, max: max)
+    public func required<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType! {
+        let element = parse(type: type, required: true, min: min, max: max, countsAreMandatory: countsAreMandatory)
         if element == nil { swiftParent?.succeeded = false }
         return element
     }
 
-    public func optional<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?) -> ParsedType? {
-        return parse(type: type, required: false, min: min, max: max)
+    public func optional<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType? {
+        return parse(type: type, required: false, min: min, max: max, countsAreMandatory: countsAreMandatory)
     }
 
     public func recordError(_ error: ParseError) {
@@ -78,7 +78,7 @@ public class NodeParser: Parser {
 
     // MARK: - Private methods
 
-    private func parse<ParsedType: Parseable>(type: ParsedType.Type, required: Bool, min: Int?, max: Int?) -> ParsedType? {
+    private func parse<ParsedType: Parseable>(type: ParsedType.Type, required: Bool, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType? {
         tagNode(type: type)
         guard node.castableJSONTypes.contains(node.expectedJSONType) else {
             guard required else { return nil }
@@ -87,13 +87,17 @@ public class NodeParser: Parser {
         }
         let parsed = ParsedType.init(parser: self)
         let count = parsed?.parseableElementCount
+        if let min = min, let max = max, let count = count, min == max, min != count {
+            recordError(ParseError(path: nodePath, expected: min, actual: count))
+            if countsAreMandatory { return nil }
+        }
         if let min = min, let count = count, count < min {
             recordError(ParseError(path: nodePath, minimum: min, actual: count))
-            return nil
+            if countsAreMandatory { return nil }
         }
         if let max = max, let count = count, count > max {
             recordError(ParseError(path: nodePath, maximum: max, actual: count))
-            return nil
+            if countsAreMandatory { return nil }
         }
         return parsed
     }

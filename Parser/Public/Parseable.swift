@@ -14,13 +14,15 @@ public protocol Parseable {
     static var jsonType: JSONElement { get }
 
     init?(parser: Parser)
+
+    var parseableElementCount: Int? { get }
 }
 
 
 extension Parseable {
     static var idKey: String? { return nil }
     static var jsonType: JSONElement { return .object }
-    var parseableElementCount: Int? { return nil }
+    public var parseableElementCount: Int? { return nil }
 
     static func id(from json: Any?) -> String? {
         guard let idKey = idKey, let jsonDictionary = json as? [String: Any] else { return nil }

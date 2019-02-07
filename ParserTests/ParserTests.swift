@@ -223,5 +223,4 @@ class ParserTests: XCTestCase {
         let data = try? JSONSerialization.data(withJSONObject: object, options: [])
         return data ?? Data()
     }
-    
 }

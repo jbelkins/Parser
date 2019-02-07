@@ -11,19 +11,26 @@ import Foundation
 
 public enum ParseErrorType: Equatable {
     case unexpectedJSONType(expected: JSONElement, actual: Set<JSONElement>)
+    case countNotExact(expected: Int, actual: Int)
     case countBelowMinimum(minimum: Int, actual: Int)
     case countAboveMaximum(maximum: Int, actual: Int)
+    case swiftDecodingError(message: String)
     case other(message: String)
 }
 
 
-public struct ParseError {
+public struct ParseError: Equatable {
     public let path: [PathNode]
     public let type: ParseErrorType
 
     init(path: [PathNode], expected: JSONElement, actual: Set<JSONElement>) {
         self.path = path
         type = .unexpectedJSONType(expected: expected, actual: actual)
+    }
+
+    init(path: [PathNode], expected: Int, actual: Int) {
+        self.path = path
+        type = .countNotExact(expected: expected, actual: actual)
     }
 
     init(path: [PathNode], minimum: Int, actual: Int) {
@@ -48,25 +55,14 @@ extension ParseError: Error {
         switch type {
         case .unexpectedJSONType(let expected, let actual):
             return "Unexpected JSON type: expected \(expected.rawValue), got [\(actual.map { $0.rawValue }.joined(separator: ", "))]"
+        case .countNotExact(let expected, let actual):
+            return "Count not exact: expected \(expected), actual \(actual)"
         case .countBelowMinimum(let minimum, let actual):
             return "Count below min: min \(minimum), actual \(actual)"
         case .countAboveMaximum(let maximum, let actual):
             return "Count above max: max \(maximum), actual \(actual)"
-        case .other(let message):
+        case .swiftDecodingError(let message), .other(let message):
             return message
         }
     }
 }
-
-
-//extension ParseError: Equatable {
-//
-//    public static func ==(lhs: ParseError, rhs: ParseError) -> Bool {
-//        guard lhs.path == rhs.path else { return false }
-//        switch lhs.type {
-//        case .unexpectedJSONType(let lhsExpected, let lhsActual):
-//            guard case .unexpectedJSONType(let rhsExpected, let rhsActual) = rhs.type else { return false }
-//            return lhsActual == rhsActual && Set(lhsActual) ==
-//        }
-//    }
-//}

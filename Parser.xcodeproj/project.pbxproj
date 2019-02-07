@@ -28,9 +28,10 @@
 		0341888120C0FE040074AF0C /* NodeParser+UnkeyedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341888020C0FE040074AF0C /* NodeParser+UnkeyedContainer.swift */; };
 		0341888320C0FFCB0074AF0C /* NodeParser+SingleValueContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341888220C0FFCB0074AF0C /* NodeParser+SingleValueContainer.swift */; };
 		035A3BCA203148F900DDBAB5 /* Bool+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */; };
-		0382444120315CA7008B3F3A /* Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382444020315CA7008B3F3A /* Create.swift */; };
+		0382444120315CA7008B3F3A /* CountLimited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382444020315CA7008B3F3A /* CountLimited.swift */; };
 		03A1E7F5220A9AF00074D0E1 /* ObjectDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E7F4220A9AF00074D0E1 /* ObjectDecoder.swift */; };
 		03A1E7F7220AB3960074D0E1 /* DecodingError+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */; };
+		03A1E7F9220AD1910074D0E1 /* ParserCountLimitedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E7F8220AD1910074D0E1 /* ParserCountLimitedTests.swift */; };
 		03A7B5FC202AD917005A4BA2 /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FB202AD917005A4BA2 /* DataParser.swift */; };
 		03A7B5FE202ADAE3005A4BA2 /* Double+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FD202ADAE3005A4BA2 /* Double+Parseable.swift */; };
 		03A7B600202ADB25005A4BA2 /* Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FF202ADB25005A4BA2 /* Parseable.swift */; };
@@ -81,9 +82,10 @@
 		0341888020C0FE040074AF0C /* NodeParser+UnkeyedContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NodeParser+UnkeyedContainer.swift"; sourceTree = "<group>"; };
 		0341888220C0FFCB0074AF0C /* NodeParser+SingleValueContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NodeParser+SingleValueContainer.swift"; sourceTree = "<group>"; };
 		035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Parseable.swift"; sourceTree = "<group>"; };
-		0382444020315CA7008B3F3A /* Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.swift; sourceTree = "<group>"; };
+		0382444020315CA7008B3F3A /* CountLimited.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountLimited.swift; sourceTree = "<group>"; };
 		03A1E7F4220A9AF00074D0E1 /* ObjectDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDecoder.swift; sourceTree = "<group>"; };
 		03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DecodingError+Equatable.swift"; sourceTree = "<group>"; };
+		03A1E7F8220AD1910074D0E1 /* ParserCountLimitedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserCountLimitedTests.swift; sourceTree = "<group>"; };
 		03A7B5FB202AD917005A4BA2 /* DataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
 		03A7B5FD202ADAE3005A4BA2 /* Double+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Parseable.swift"; sourceTree = "<group>"; };
 		03A7B5FF202ADB25005A4BA2 /* Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parseable.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				031247AE2028CC780048BBFB /* ParserTests.swift */,
+				03A1E7F8220AD1910074D0E1 /* ParserCountLimitedTests.swift */,
 				031247BE2028D1530048BBFB /* ParseableStruct.swift */,
 				03CC4FED20291A2200269CC7 /* ParseableSubStruct.swift */,
 				03AACD9B20BC8578007624F7 /* ObjectDecoderTests.swift */,
@@ -195,7 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				031A45A1202EB62900C706CB /* ParserOperators.swift */,
-				0382444020315CA7008B3F3A /* Create.swift */,
+				0382444020315CA7008B3F3A /* CountLimited.swift */,
 			);
 			path = Syntax;
 			sourceTree = "<group>";
@@ -352,7 +355,7 @@
 				031247C32028F1950048BBFB /* String+Parseable.swift in Sources */,
 				03A1E7F5220A9AF00074D0E1 /* ObjectDecoder.swift in Sources */,
 				031247BB2028CCCF0048BBFB /* NodeParser.swift in Sources */,
-				0382444120315CA7008B3F3A /* Create.swift in Sources */,
+				0382444120315CA7008B3F3A /* CountLimited.swift in Sources */,
 				03AACD9620BC5A9C007624F7 /* ObjectSingleValueContainer.swift in Sources */,
 				03221267202FF81700D8CE84 /* NSNull+Parseable.swift in Sources */,
 				03316C4E203171E700F87765 /* JSONParser.swift in Sources */,
@@ -375,6 +378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03A1E7F9220AD1910074D0E1 /* ParserCountLimitedTests.swift in Sources */,
 				03316C532031772400F87765 /* DecodableStruct.swift in Sources */,
 				03CC4FEE20291A2200269CC7 /* ParseableSubStruct.swift in Sources */,
 				03A1E7F7220AB3960074D0E1 /* DecodingError+Equatable.swift in Sources */,

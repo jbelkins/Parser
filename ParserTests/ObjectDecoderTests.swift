@@ -32,7 +32,7 @@ class ObjectDecoderTests: XCTestCase {
         compareResults(inputObject: jsonObject, outputType: SampleCodableData.self)
     }
 
-    func testDoesNotDecodeANumberToBool() {
+    func testDoesNotDecode1ToBool() {
 
         struct HasABool: Decodable, Equatable {
             let boolValue: Bool

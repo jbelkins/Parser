@@ -19,30 +19,16 @@ public func --><ParsedType: Parseable>(lhs: Parser, rhs: ParsedType.Type) -> Par
     return lhs.required(rhs)
 }
 
-public func --><ParsedType: Parseable>(lhs: Parser, rhs: Optional<ParsedType>.Type) -> ParsedType? {
+public func --><ParsedType: Parseable>(lhs: Parser, rhs: ParsedType?.Type) -> ParsedType? {
     return lhs.optional(ParsedType.self)
 }
 
-// MARK: --> operator with ParseRequired / ParseOptional instance
+// MARK: --> operator with Create instance
 
-public func --><ParsedType: Parseable>(lhs: Parser, rhs: Create<ParsedType>) -> ParsedType! {
-    return lhs.required(ParsedType.self)
+public func --><ParsedType: Parseable>(lhs: Parser, rhs: CountLimited<ParsedType>) -> ParsedType! {
+    return lhs.required(ParsedType.self, min: rhs.min, max: rhs.max, countsAreMandatory: rhs.isMandatory)
 }
 
-public func --><ParsedType: Parseable>(lhs: Parser, rhs: Create<ParsedType?>) -> ParsedType? {
-    return lhs.optional(ParsedType.self)
-}
-
-
-infix operator !->
-
-public func !-><ParsedType: Parseable>(lhs: Parser, rhs: ParsedType.Type) -> ParsedType! {
-    return lhs.required(rhs)
-}
-
-
-infix operator ?->
-
-public func ?-><P: Parser, ParsedType: Parseable>(lhs: P, rhs: ParsedType.Type) -> ParsedType? {
-    return lhs.optional(rhs)
+public func --><ParsedType: Parseable>(lhs: Parser, rhs: CountLimited<ParsedType?>) -> ParsedType? {
+    return lhs.optional(ParsedType.self, min: rhs.min, max: rhs.max, countsAreMandatory: rhs.isMandatory)
 }
