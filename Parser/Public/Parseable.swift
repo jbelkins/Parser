@@ -18,6 +18,8 @@ public protocol Parseable {
 
 
 extension Parseable {
+    static var idKey: String? { return nil }
+    static var jsonType: JSONElement { return .object }
     var parseableElementCount: Int? { return nil }
 
     static func id(from json: Any?) -> String? {
