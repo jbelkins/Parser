@@ -25,7 +25,7 @@ public func --><ParsedType: Parseable>(lhs: Parser, rhs: ParsedType?.Type) -> Pa
 
 // MARK: --> operator with Create instance
 
-public func --><ParsedType: Parseable>(lhs: Parser, rhs: CountLimited<ParsedType>) -> ParsedType! {
+public func --><ParsedType: Parseable & Collection>(lhs: Parser, rhs: CountLimited<ParsedType>) -> ParsedType! {
     return lhs.required(ParsedType.self, min: rhs.min, max: rhs.max, countsAreMandatory: rhs.isMandatory)
 }
 
