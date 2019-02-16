@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct CountLimited<TargetType> {
+public struct CountLimited<TargetType: Collection> {
     let min: Int?
     let max: Int?
     let isMandatory: Bool

@@ -86,18 +86,17 @@ public class NodeParser: Parser {
             return nil
         }
         let parsed = ParsedType.init(parser: self)
-        let count = parsed?.parseableElementCount
-        if let min = min, let max = max, let count = count, min == max, min != count {
-            recordError(ParseError(path: nodePath, expected: min, actual: count))
-            if countsAreMandatory { return nil }
-        }
-        if let min = min, let count = count, count < min {
-            recordError(ParseError(path: nodePath, minimum: min, actual: count))
-            if countsAreMandatory { return nil }
-        }
-        if let max = max, let count = count, count > max {
-            recordError(ParseError(path: nodePath, maximum: max, actual: count))
-            if countsAreMandatory { return nil }
+        if let count = parsed?.parseableElementCount {
+            if let min = min, let max = max, min == max, min != count {
+                recordError(ParseError(path: nodePath, expected: min, actual: count))
+                if countsAreMandatory { return nil }
+            } else if let min = min, count < min {
+                recordError(ParseError(path: nodePath, minimum: min, actual: count))
+                if countsAreMandatory { return nil }
+            } else if let max = max, count > max {
+                recordError(ParseError(path: nodePath, maximum: max, actual: count))
+                if countsAreMandatory { return nil }
+            }
         }
         return parsed
     }

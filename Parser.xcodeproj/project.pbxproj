@@ -42,6 +42,7 @@
 		03AACD9C20BC8578007624F7 /* ObjectDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AACD9B20BC8578007624F7 /* ObjectDecoderTests.swift */; };
 		03BD2559202F53D9004B9F06 /* JSONTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BD2558202F53D9004B9F06 /* JSONTools.swift */; };
 		03BD255B202F54CB004B9F06 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BD255A202F54CB004B9F06 /* Parser.swift */; };
+		03CA8E352217C8E90086538F /* ParserTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA8E342217C8E90086538F /* ParserTestUtils.swift */; };
 		03CC4FEE20291A2200269CC7 /* ParseableSubStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC4FED20291A2200269CC7 /* ParseableSubStruct.swift */; };
 		03CC4FF02029232900269CC7 /* ParseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC4FEF2029232900269CC7 /* ParseError.swift */; };
 		03CC4FF2202925CC00269CC7 /* JSONRawValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */; };
@@ -96,6 +97,7 @@
 		03BD255A202F54CB004B9F06 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		03C6D6182048FADC001993D6 /* _ObjectDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _ObjectDecoder.swift; sourceTree = "<group>"; };
 		03C6D61A2048FB9A001993D6 /* ObjectKeyedContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectKeyedContainer.swift; sourceTree = "<group>"; };
+		03CA8E342217C8E90086538F /* ParserTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTestUtils.swift; sourceTree = "<group>"; };
 		03CC4FED20291A2200269CC7 /* ParseableSubStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseableSubStruct.swift; sourceTree = "<group>"; };
 		03CC4FEF2029232900269CC7 /* ParseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseError.swift; sourceTree = "<group>"; };
 		03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRawValueType.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				03AACD9B20BC8578007624F7 /* ObjectDecoderTests.swift */,
 				03316C522031772400F87765 /* DecodableStruct.swift */,
 				03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */,
+				03CA8E342217C8E90086538F /* ParserTestUtils.swift */,
 				031247B02028CC780048BBFB /* Info.plist */,
 			);
 			path = ParserTests;
@@ -384,6 +387,7 @@
 				03A1E7F7220AB3960074D0E1 /* DecodingError+Equatable.swift in Sources */,
 				031247BF2028D1530048BBFB /* ParseableStruct.swift in Sources */,
 				03AACD9C20BC8578007624F7 /* ObjectDecoderTests.swift in Sources */,
+				03CA8E352217C8E90086538F /* ParserTestUtils.swift in Sources */,
 				031247AF2028CC780048BBFB /* ParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

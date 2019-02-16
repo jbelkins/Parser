@@ -23,27 +23,27 @@ public struct ParseError: Equatable {
     public let path: [PathNode]
     public let type: ParseErrorType
 
-    init(path: [PathNode], expected: JSONElement, actual: Set<JSONElement>) {
+    public init(path: [PathNode], expected: JSONElement, actual: Set<JSONElement>) {
         self.path = path
         type = .unexpectedJSONType(expected: expected, actual: actual)
     }
 
-    init(path: [PathNode], expected: Int, actual: Int) {
+    public init(path: [PathNode], expected: Int, actual: Int) {
         self.path = path
         type = .countNotExact(expected: expected, actual: actual)
     }
 
-    init(path: [PathNode], minimum: Int, actual: Int) {
+    public init(path: [PathNode], minimum: Int, actual: Int) {
         self.path = path
         type = .countBelowMinimum(minimum: minimum, actual: actual)
     }
 
-    init(path: [PathNode], maximum: Int, actual: Int) {
+    public init(path: [PathNode], maximum: Int, actual: Int) {
         self.path = path
         type = .countAboveMaximum(maximum: maximum, actual: actual)
     }
 
-    init(path: [PathNode], message: String) {
+    public init(path: [PathNode], message: String) {
         self.path = path
         type = .other(message: message)
     }
