@@ -10,6 +10,11 @@ import Foundation
 
 
 public class NodeParser: Parser {
+
+    public enum Options {
+        public static let rootNodeNameKey = "Parser.RootNodeNameKey"
+    }
+
     public var codingKey: CodingKey { return node }
     public var codingPath: [CodingKey] { return nodePath }
     public var node: PathNode
@@ -17,14 +22,16 @@ public class NodeParser: Parser {
     public var succeeded = true
     public var currentIndex = -1
     public var isUnkeyedContainer = false
-    var errors = [ParseError]()
+    public let options: [String: Any]
+    public var errors = [ParseError]()
     let parent: Parser?
 
-    init(codingKey: CodingKey, json: Any?, parent: Parser?) {
+    init(codingKey: CodingKey, json: Any?, parent: Parser?, options: [String: Any]) {
         self.node = PathNode(codingKey: codingKey)
         self.node.castableJSONTypes = JSONElement.types(for: json)
         self.json = json
         self.parent = parent
+        self.options = options
     }
 
     // MARK: - Creating parsers for JSON sub-elements
@@ -32,18 +39,18 @@ public class NodeParser: Parser {
     public subscript(key: String) -> Parser {
         let codingKey = PathNode(stringValue: key)!
         let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
-        return NodeParser(codingKey: codingKey, json: newJSON, parent: self)
+        return NodeParser(codingKey: codingKey, json: newJSON, parent: self, options: options)
     }
 
     public subscript(index: Int) -> Parser {
         let codingKey = PathNode(intValue: index)!
         let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
-        return NodeParser(codingKey: codingKey, json: newJSON, parent: self)
+        return NodeParser(codingKey: codingKey, json: newJSON, parent: self, options: options)
     }
 
     public subscript(codingKey: CodingKey) -> Parser {
         let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
-        return NodeParser(codingKey: codingKey, json: newJSON, parent: self)
+        return NodeParser(codingKey: codingKey, json: newJSON, parent: self, options: options)
     }
 
     // MARK: - Parsing

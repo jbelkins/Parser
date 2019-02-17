@@ -24,6 +24,7 @@ public protocol Parser: class, Decoder, UnkeyedDecodingContainer, SingleValueDec
     func recordError(_ error: ParseError)
     var succeeded: Bool { get set }
     var isUnkeyedContainer: Bool { get set }
+    var options: [String: Any] { get }
 }
 
 

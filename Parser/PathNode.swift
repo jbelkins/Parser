@@ -61,6 +61,24 @@ extension PathNode: CodingKey {
 }
 
 
+extension PathNode: ExpressibleByIntegerLiteral {
+    public typealias IntegerLiteralType = Int
+
+    public init(integerLiteral value: PathNode.IntegerLiteralType) {
+        self.init(arrayIndex: value, swiftType: nil)
+    }
+}
+
+
+extension PathNode: ExpressibleByStringLiteral {
+    public typealias StringLiteralType = String
+
+    public init(stringLiteral value: PathNode.StringLiteralType) {
+        self.init(hashKey: value, swiftType: nil)
+    }
+}
+
+
 extension Array where Element == PathNode {
 
     public var jsonPath: String {
