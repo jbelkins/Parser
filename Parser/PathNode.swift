@@ -12,8 +12,8 @@ import Foundation
 public struct PathNode: Equatable {
     public let hashKey: String?
     public let arrayIndex: Int?
-    public var expectedJSONType: JSONElement
-    public var castableJSONTypes = [JSONElement]()
+    public var expectedJSONTypes = Set<JSONElement>()
+    public var castableJSONTypes = Set<JSONElement>()
     public var swiftType: Any.Type?
     public var idKey: String?
     public var id: String?
@@ -34,15 +34,15 @@ extension PathNode {
 
     init(codingKey: CodingKey) {
         let hashKey = codingKey.intValue == nil ? codingKey.stringValue : nil
-        self.init(hashKey: hashKey, arrayIndex: codingKey.intValue, expectedJSONType: .absent, castableJSONTypes: [], swiftType: nil, idKey: nil, id: nil)
+        self.init(hashKey: hashKey, arrayIndex: codingKey.intValue, expectedJSONTypes: [], castableJSONTypes: [], swiftType: nil, idKey: nil, id: nil)
     }
 
     init(hashKey: String, swiftType: Parseable.Type?) {
-        self.init(hashKey: hashKey, arrayIndex: nil, expectedJSONType: .absent, castableJSONTypes: [], swiftType: swiftType, idKey: nil, id: nil)
+        self.init(hashKey: hashKey, arrayIndex: nil, expectedJSONTypes: [], castableJSONTypes: [], swiftType: swiftType, idKey: nil, id: nil)
     }
 
     init(arrayIndex: Int, swiftType: Parseable.Type?) {
-        self.init(hashKey: nil, arrayIndex: arrayIndex, expectedJSONType: .absent, castableJSONTypes: [], swiftType: swiftType, idKey: nil, id: nil)
+        self.init(hashKey: nil, arrayIndex: arrayIndex, expectedJSONTypes: [], castableJSONTypes: [], swiftType: swiftType, idKey: nil, id: nil)
     }
 }
 

@@ -10,8 +10,6 @@ import Foundation
 
 
 extension String: Parseable {
-    static var extraJSONTypes = [JSONElement]()
-    public static var idKey: String? = nil
-    public static var jsonType = JSONElement.string
+    public static var jsonTypes: Set<JSONElement> = [.string]
 }
 

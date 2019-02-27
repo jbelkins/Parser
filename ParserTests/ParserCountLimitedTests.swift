@@ -19,8 +19,8 @@ struct TestArrays: Equatable {
 
 
 extension TestArrays: Parseable {
-    static var idKey: String? = nil
-    static var jsonType: JSONElement = .object
+    static let idKey: String? = nil
+    static let jsonTypes = [JSONElement.object]
 
     init?(parser: Parser) {
         let arrayWithMin = parser["arrayWithMin"] --> CountLimited<[Int]>(min: 2, isMandatory: false)
@@ -43,7 +43,7 @@ struct TestDicts: Equatable {
 
 extension TestDicts: Parseable {
     static var idKey: String? = nil
-    static var jsonType: JSONElement = .object
+    static var jsonTypes = [JSONElement.object]
 
     init?(parser: Parser) {
         let dictWithMin = parser["dictWithMin"] --> CountLimited<[String: Int]>(min: 2, isMandatory: true)

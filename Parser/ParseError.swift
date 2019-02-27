@@ -10,7 +10,7 @@ import Foundation
 
 
 public enum ParseErrorType: Equatable {
-    case unexpectedJSONType(expected: JSONElement, actual: Set<JSONElement>)
+    case unexpectedJSONType(expected: Set<JSONElement>, actual: Set<JSONElement>)
     case countNotExact(expected: Int, actual: Int)
     case countBelowMinimum(minimum: Int, actual: Int)
     case countAboveMaximum(maximum: Int, actual: Int)
@@ -23,7 +23,7 @@ public struct ParseError: Equatable {
     public let path: [PathNode]
     public let type: ParseErrorType
 
-    public init(path: [PathNode], expected: JSONElement, actual: Set<JSONElement>) {
+    public init(path: [PathNode], expected: Set<JSONElement>, actual: Set<JSONElement>) {
         self.path = path
         type = .unexpectedJSONType(expected: expected, actual: actual)
     }
@@ -54,7 +54,7 @@ extension ParseError: Error {
     var localizedDescription: String {
         switch type {
         case .unexpectedJSONType(let expected, let actual):
-            return "Unexpected JSON type: expected \(expected.rawValue), got [\(actual.map { $0.rawValue }.joined(separator: ", "))]"
+            return "Unexpected JSON type: expected \(expected.map { $0.rawValue }.joined(separator: ", ")), got [\(actual.map { $0.rawValue }.joined(separator: ", "))]"
         case .countNotExact(let expected, let actual):
             return "Count not exact: expected \(expected), actual \(actual)"
         case .countBelowMinimum(let minimum, let actual):

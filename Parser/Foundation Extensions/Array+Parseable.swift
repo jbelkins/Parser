@@ -9,9 +9,7 @@
 import Foundation
 
 extension Array: Parseable where Element: Parseable {
-    public static var idKey: String? { return nil }
-    public static var jsonType: JSONElement { return .array }
-
+    public static var jsonTypes: Set<JSONElement> { return [.array] }
     public var parseableElementCount: Int? { return count }
 
     public init?(parser: Parser) {

@@ -10,7 +10,5 @@ import Foundation
 
 
 extension NSNull: JSONRawValueType {
-    static var extraJSONTypes = [JSONElement]()
-    public static var idKey: String? = nil
-    public static let jsonType = JSONElement.null
+    public static let jsonTypes: Set<JSONElement> = [.null]
 }

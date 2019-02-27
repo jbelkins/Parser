@@ -87,9 +87,9 @@ public class NodeParser: Parser {
 
     private func parse<ParsedType: Parseable>(type: ParsedType.Type, required: Bool, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType? {
         tagNode(type: type)
-        guard node.castableJSONTypes.contains(node.expectedJSONType) else {
+        guard !node.castableJSONTypes.isDisjoint(with: node.expectedJSONTypes) || (!required && node.castableJSONTypes == [.null]) else {
             guard required else { return nil }
-            recordError(ParseError(path: nodePath, expected: type.jsonType, actual: Set(node.castableJSONTypes)))
+            recordError(ParseError(path: nodePath, expected: type.jsonTypes, actual: node.castableJSONTypes))
             return nil
         }
         let parsed = ParsedType.init(parser: self)
@@ -110,16 +110,8 @@ public class NodeParser: Parser {
 
     private func tagNode(type: Parseable.Type) {
         node.swiftType = type
-        node.expectedJSONType = type.jsonType
+        node.expectedJSONTypes = type.jsonTypes
         node.idKey = type.idKey
         node.id = type.id(from: json)
-    }
-
-    private func allowedJSONTypes(`for` type: Parseable.Type) -> [JSONElement] {
-        var types = [type.jsonType]
-        if let jsonRawValueType = type as? JSONRawValueType.Type {
-            types += jsonRawValueType.extraJSONTypes
-        }
-        return types
     }
 }

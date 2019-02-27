@@ -10,7 +10,5 @@ import Foundation
 
 
 extension Bool: Parseable {
-    static var extraJSONTypes = [JSONElement.int]
-    public static var idKey: String? = nil
-    public static let jsonType = JSONElement.bool
+    public static let jsonTypes: Set<JSONElement> = [.bool]
 }

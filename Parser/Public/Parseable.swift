@@ -11,7 +11,7 @@ import Foundation
 
 public protocol Parseable {
     static var idKey: String? { get }
-    static var jsonType: JSONElement { get }
+    static var jsonTypes: Set<JSONElement> { get }
 
     init?(parser: Parser)
 
@@ -20,8 +20,8 @@ public protocol Parseable {
 
 
 extension Parseable {
-    static var idKey: String? { return nil }
-    static var jsonType: JSONElement { return .object }
+    public static var idKey: String? { return nil }
+    public static var jsonTypes: Set<JSONElement> { return [.object] }
     public var parseableElementCount: Int? { return nil }
 
     static func id(from json: Any?) -> String? {

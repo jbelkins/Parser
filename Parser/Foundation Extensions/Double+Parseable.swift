@@ -10,7 +10,5 @@ import Foundation
 
 
 extension Double: Parseable {
-    static var extraJSONTypes = [JSONElement.int]
-    public static var idKey: String? = nil
-    public static let jsonType = JSONElement.double
+    public static let jsonTypes: Set<JSONElement> = [.double]
 }

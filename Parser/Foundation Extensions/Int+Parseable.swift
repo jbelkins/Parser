@@ -10,7 +10,5 @@ import Foundation
 
 
 extension Int: Parseable {
-    static var extraJSONTypes = [JSONElement]()
-    public static var idKey: String? = nil
-    public static let jsonType = JSONElement.int
+    public static let jsonTypes: Set<JSONElement> = [.int]
 }

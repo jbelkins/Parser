@@ -10,9 +10,6 @@ import Foundation
 
 
 extension Dictionary: Parseable where Key == String, Value: Parseable {
-    public static var idKey: String? { return nil }
-    public static var jsonType: JSONElement { return .object }
-
     public var parseableElementCount: Int? { return count }
 
     public init?(parser: Parser) {

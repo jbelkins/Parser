@@ -9,9 +9,7 @@
 import Foundation
 
 
-protocol JSONRawValueType: Parseable {
-    static var extraJSONTypes: [JSONElement] { get }
-}
+protocol JSONRawValueType: Parseable {}
 
 
 extension JSONRawValueType {
