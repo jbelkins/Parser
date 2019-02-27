@@ -53,6 +53,10 @@ public class NodeParser: Parser {
         return NodeParser(codingKey: codingKey, json: newJSON, parent: self, options: options)
     }
 
+    public func superParser() -> Parser {
+        return NodeParser(codingKey: codingKey, json: json, parent: self, options: options)
+    }
+
     // MARK: - Parsing
 
     public func required<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType! {
