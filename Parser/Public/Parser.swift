@@ -20,6 +20,7 @@ public protocol Parser: class, Decoder, UnkeyedDecodingContainer, SingleValueDec
     subscript(index: Int) -> Parser { get }
     subscript(codingKey: CodingKey) -> Parser { get }
     func superParser() -> Parser
+    func errorHoldingParser() -> Parser
     func required<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType!
     func optional<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType?
     func recordError(_ error: ParseError)
