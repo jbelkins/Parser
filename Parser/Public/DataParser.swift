@@ -11,8 +11,10 @@ import Foundation
 
 open class DataParser {
 
-    public static func parse<ParsedType: Parseable>(data: Data, options: JSONSerialization.ReadingOptions = [], to type: ParsedType.Type) throws -> (ParsedType?, [ParseError]) {
-        let json = try JSONSerialization.jsonObject(with: data, options: options)
-        return JSONParser.parse(json: json, to: type)
+    public init() {}
+
+    public func parse<ParsedType: Parseable>(data: Data, to type: ParsedType.Type, options: [String: Any] = [:]) throws -> ParseResult<ParsedType> {
+        let json = try JSONSerialization.jsonObject(with: data, options: [])
+        return JSONParser().parse(json: json, to: ParsedType.self, options: options)
     }
 }

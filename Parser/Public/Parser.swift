@@ -19,13 +19,13 @@ public protocol Parser: class, Decoder, UnkeyedDecodingContainer, SingleValueDec
     subscript(key: String) -> Parser { get }
     subscript(index: Int) -> Parser { get }
     subscript(codingKey: CodingKey) -> Parser { get }
+    func superParser() -> Parser
     func required<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType!
     func optional<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType?
     func recordError(_ error: ParseError)
     var succeeded: Bool { get set }
     var isUnkeyedContainer: Bool { get set }
     var options: [String: Any] { get }
-    func superParser() -> Parser
 }
 
 

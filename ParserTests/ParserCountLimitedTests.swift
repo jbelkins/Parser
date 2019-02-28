@@ -62,73 +62,73 @@ class ParserCountLimitedTests: XCTestCase {
 
     func testArraySucceedsWhenCountsAreSatisfied() {
         let jsonData = ["arrayWithMin": [1, 2], "arrayWithMax": [3, 4], "arrayWithExact": [5, 6], "nonmandatory": [7, 8]]
-        let (result, errors) = JSONParser.parse(json: jsonData, to: TestArrays.self)
-        XCTAssertEqual(result, TestArrays(arrayWithMin: [1, 2], arrayWithMax: [3, 4], arrayWithExact: [5, 6], nonMandatoryArray: [7, 8]))
-        XCTAssertEqual(errors, [])
+        let result = JSONParser().parse(json: jsonData, to: TestArrays.self)
+        XCTAssertEqual(result.value, TestArrays(arrayWithMin: [1, 2], arrayWithMax: [3, 4], arrayWithExact: [5, 6], nonMandatoryArray: [7, 8]))
+        XCTAssertEqual(result.errors, [])
     }
 
     func testArrayFailsWhenAMandatoryMinIsExceeded() {
         let jsonData = ["arrayWithMin": [1], "arrayWithMax": [3, 4], "arrayWithExact": [5, 6], "nonmandatory": [7, 8]]
-        let (result, errors) = JSONParser.parse(json: jsonData, to: TestArrays.self)
-        XCTAssertEqual(result, TestArrays(arrayWithMin: [1], arrayWithMax: [3, 4], arrayWithExact: [5, 6], nonMandatoryArray: [7, 8]))
-        XCTAssertEqual(errors, [ParseError(path: ["root", "arrayWithMin"], minimum: 2, actual: 1)])
+        let result = JSONParser().parse(json: jsonData, to: TestArrays.self)
+        XCTAssertEqual(result.value, TestArrays(arrayWithMin: [1], arrayWithMax: [3, 4], arrayWithExact: [5, 6], nonMandatoryArray: [7, 8]))
+        XCTAssertEqual(result.errors, [ParseError(path: ["root", "arrayWithMin"], minimum: 2, actual: 1)])
     }
 
     func testArrayFailsWhenBelowExactCount() {
         let jsonData = ["arrayWithMin": [1, 2], "arrayWithMax": [3, 4], "arrayWithExact": [5], "nonmandatory": [7, 8]]
-        let (result, errors) = JSONParser.parse(json: jsonData, to: TestArrays.self)
-        XCTAssertNil(result)
-        XCTAssertEqual(errors, [ParseError(path: ["root", "arrayWithExact"], expected: 2, actual: 1)])
+        let result = JSONParser().parse(json: jsonData, to: TestArrays.self)
+        XCTAssertNil(result.value)
+        XCTAssertEqual(result.errors, [ParseError(path: ["root", "arrayWithExact"], expected: 2, actual: 1)])
     }
 
     func testArrayFailsWhenAboveExactCount() {
         let jsonData = ["arrayWithMin": [1, 2], "arrayWithMax": [3, 4], "arrayWithExact": [5, 6, 7], "nonmandatory": [7, 8]]
-        let (result, errors) = JSONParser.parse(json: jsonData, to: TestArrays.self)
-        XCTAssertNil(result)
-        XCTAssertEqual(errors, [ParseError(path: ["root", "arrayWithExact"], expected: 2, actual: 3)])
+        let result = JSONParser().parse(json: jsonData, to: TestArrays.self)
+        XCTAssertNil(result.value)
+        XCTAssertEqual(result.errors, [ParseError(path: ["root", "arrayWithExact"], expected: 2, actual: 3)])
     }
 
     func testArraySucceedsWithErrorOnNonMandatoryFail() {
         let jsonData = ["arrayWithMin": [1, 2], "arrayWithMax": [3, 4], "arrayWithExact": [5, 6], "nonmandatory": [7, 8, 9]]
-        let (result, errors) = JSONParser.parse(json: jsonData, to: TestArrays.self)
-        XCTAssertEqual(result, TestArrays(arrayWithMin: [1, 2], arrayWithMax: [3, 4], arrayWithExact: [5, 6], nonMandatoryArray: [7, 8, 9]))
-        XCTAssertEqual(errors, [ParseError(path: ["root", "nonmandatory"], expected: 2, actual: 3)])
+        let result = JSONParser().parse(json: jsonData, to: TestArrays.self)
+        XCTAssertEqual(result.value, TestArrays(arrayWithMin: [1, 2], arrayWithMax: [3, 4], arrayWithExact: [5, 6], nonMandatoryArray: [7, 8, 9]))
+        XCTAssertEqual(result.errors, [ParseError(path: ["root", "nonmandatory"], expected: 2, actual: 3)])
     }
 
     // MARK: - Array tests
 
     func testDictSucceedsWhenCountsAreSatisfied() {
         let jsonData = ["dictWithMin": ["a": 1, "b": 2], "dictWithMax": ["c": 3, "d": 4], "dictWithExact": ["e": 5, "f": 6], "nonmandatory": ["g": 7, "h": 8]]
-        let (result, errors) = JSONParser.parse(json: jsonData, to: TestDicts.self)
-        XCTAssertEqual(result, TestDicts(dictWithMin: ["a": 1, "b": 2], dictWithMax: ["c": 3, "d": 4], dictWithExact: ["e": 5, "f": 6], nonMandatoryDict: ["g": 7, "h": 8]))
-        XCTAssertEqual(errors, [])
+        let result = JSONParser().parse(json: jsonData, to: TestDicts.self)
+        XCTAssertEqual(result.value, TestDicts(dictWithMin: ["a": 1, "b": 2], dictWithMax: ["c": 3, "d": 4], dictWithExact: ["e": 5, "f": 6], nonMandatoryDict: ["g": 7, "h": 8]))
+        XCTAssertEqual(result.errors, [])
     }
 
     func testDictFailsWhenAMandatoryMinIsExceeded() {
         let jsonData = ["dictWithMin": ["a": 1], "dictWithMax": ["c": 3, "d": 4], "dictWithExact": ["e": 5, "f": 6], "nonmandatory": ["g": 7, "h": 8]]
-        let (result, errors) = JSONParser.parse(json: jsonData, to: TestDicts.self)
-        XCTAssertNil(result)
-        XCTAssertEqual(errors, [ParseError(path: ["root", "dictWithMin"], minimum: 2, actual: 1)])
+        let result = JSONParser().parse(json: jsonData, to: TestDicts.self)
+        XCTAssertNil(result.value)
+        XCTAssertEqual(result.errors, [ParseError(path: ["root", "dictWithMin"], minimum: 2, actual: 1)])
     }
 
     func testDictFailsWhenBelowExactCount() {
         let jsonData = ["dictWithMin": ["a": 1, "b": 2], "dictWithMax": ["c": 3, "d": 4], "dictWithExact": ["e": 5], "nonmandatory": ["g": 7, "h": 8]]
-        let (result, errors) = JSONParser.parse(json: jsonData, to: TestDicts.self)
-        XCTAssertNil(result)
-        XCTAssertEqual(errors, [ParseError(path: ["root", "dictWithExact"], expected: 2, actual: 1)])
+        let result = JSONParser().parse(json: jsonData, to: TestDicts.self)
+        XCTAssertNil(result.value)
+        XCTAssertEqual(result.errors, [ParseError(path: ["root", "dictWithExact"], expected: 2, actual: 1)])
     }
 
     func testDictFailsWhenAboveExactCount() {
         let jsonData = ["dictWithMin": ["a": 1, "b": 2], "dictWithMax": ["c": 3, "d": 4], "dictWithExact": ["e": 5, "f": 6, "g": 7], "nonmandatory": ["g": 7, "h": 8]]
-        let (result, errors) = JSONParser.parse(json: jsonData, to: TestDicts.self)
-        XCTAssertNil(result)
-        XCTAssertEqual(errors, [ParseError(path: ["root", "dictWithExact"], expected: 2, actual: 3)])
+        let result = JSONParser().parse(json: jsonData, to: TestDicts.self)
+        XCTAssertNil(result.value)
+        XCTAssertEqual(result.errors, [ParseError(path: ["root", "dictWithExact"], expected: 2, actual: 3)])
     }
 
     func testDictSucceedsWithErrorOnNonMandatoryFail() {
         let jsonData = ["dictWithMin": ["a": 1, "b": 2], "dictWithMax": ["c": 3, "d": 4], "dictWithExact": ["e": 5, "f": 6], "nonmandatory": ["g": 7, "h": 8, "i": 9]]
-        let (result, errors) = JSONParser.parse(json: jsonData, to: TestDicts.self)
-        XCTAssertEqual(result, TestDicts(dictWithMin: ["a": 1, "b": 2], dictWithMax: ["c": 3, "d": 4], dictWithExact: ["e": 5, "f": 6], nonMandatoryDict: ["g": 7, "h": 8, "i": 9]))
-        XCTAssertEqual(errors, [ParseError(path: ["root", "nonmandatory"], expected: 2, actual: 3)])
+        let result = JSONParser().parse(json: jsonData, to: TestDicts.self)
+        XCTAssertEqual(result.value, TestDicts(dictWithMin: ["a": 1, "b": 2], dictWithMax: ["c": 3, "d": 4], dictWithExact: ["e": 5, "f": 6], nonMandatoryDict: ["g": 7, "h": 8, "i": 9]))
+        XCTAssertEqual(result.errors, [ParseError(path: ["root", "nonmandatory"], expected: 2, actual: 3)])
     }
 }

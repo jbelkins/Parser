@@ -54,32 +54,32 @@ class ParserTests: XCTestCase {
 
     func testDeserializesAStruct() {
         let data = jsonData(from: testJSON1)
-        let (newStruct, _) = try! DataParser.parse(data: data, to: ParseableStruct.self)
-        XCTAssertEqual(newStruct, testStruct1)
+        let result = try! DataParser().parse(data: data, to: ParseableStruct.self)
+        XCTAssertEqual(result.value, testStruct1)
     }
 
     func testDeserializesAStructWithSubStruct() {
         let data = jsonData(from: testJSON1)
-        let (newStruct, _) = try! DataParser.parse(data: data, to: ParseableStruct.self)
-        XCTAssertEqual(newStruct, testStruct1)
+        let result = try! DataParser().parse(data: data, to: ParseableStruct.self)
+        XCTAssertEqual(result.value, testStruct1)
     }
 
     func testDeserializesAnArray() {
         let data = jsonData(from: testJSON1)
-        let (newStruct, _) = try! DataParser.parse(data: data, to: ParseableStruct.self)
-        XCTAssertEqual(newStruct?.subArray.count, 2)
-        XCTAssertEqual(newStruct?.subArray ?? [], [subStruct1, subStruct2])
+        let result = try! DataParser().parse(data: data, to: ParseableStruct.self)
+        XCTAssertEqual(result.value?.subArray.count, 2)
+        XCTAssertEqual(result.value?.subArray ?? [], [subStruct1, subStruct2])
     }
 
     func testParsesAnError() {
         var badTestJSON1 = testJSON1!
         badTestJSON1.removeValue(forKey: "name")
         let data = jsonData(from: badTestJSON1)
-        let (newStruct, errors) = try! DataParser.parse(data: data, to: ParseableStruct.self)
-        XCTAssertNil(newStruct)
-        XCTAssertEqual(errors.count, 1)
-        XCTAssertEqual(errors.first?.type, .unexpectedJSONType(expected: [.string], actual: [.absent]))
-        XCTAssertEqual(errors.map { $0.path.jsonPath }, ["root[\"name\"]"])
+        let result = try! DataParser().parse(data: data, to: ParseableStruct.self)
+        XCTAssertNil(result.value)
+        XCTAssertEqual(result.errors.count, 1)
+        XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(expected: [.string], actual: [.absent]))
+        XCTAssertEqual(result.errors.map { $0.path.jsonPath }, ["root[\"name\"]"])
     }
 
     func testParsesAnErrorInAnOptional() {
@@ -109,11 +109,11 @@ class ParserTests: XCTestCase {
             ]
         ]
         let data = jsonData(from: badTestJSON1)
-        let (newStruct, errors) = try! DataParser.parse(data: data, to: ParseableStruct.self)
-        XCTAssertNotNil(newStruct)
-        XCTAssertEqual(errors.count, 1)
-        XCTAssertEqual(errors.first?.type, .unexpectedJSONType(expected: [.string], actual: [.int, .double]))
-        XCTAssertEqual(errors.map { $0.path.jsonPath }, ["root[\"substruct\"][\"identifier\"]"])
+        let result = try! DataParser().parse(data: data, to: ParseableStruct.self)
+        XCTAssertNotNil(result.value)
+        XCTAssertEqual(result.errors.count, 1)
+        XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(expected: [.string], actual: [.int, .double]))
+        XCTAssertEqual(result.errors.map { $0.path.jsonPath }, ["root[\"substruct\"][\"identifier\"]"])
     }
 
     func testParsesAWrongTypeError() {
@@ -143,12 +143,12 @@ class ParserTests: XCTestCase {
             ]
         ]
         let data = jsonData(from: badTestJSON1)
-        let (newStruct, errors) = try! DataParser.parse(data: data, to: ParseableStruct.self)
-        XCTAssertNil(newStruct)
-        XCTAssertEqual(errors.count, 2)
-        XCTAssertEqual(errors.first?.type, .unexpectedJSONType(expected: [.string], actual: [.double]))
-        XCTAssertEqual(errors.last?.type, .unexpectedJSONType(expected: [.string], actual: [.int, .double]))
-        XCTAssertEqual(errors.map { $0.path.jsonPath }, ["root[\"name\"]", "root[\"substruct\"][\"identifier\"]"])
+        let result = try! DataParser().parse(data: data, to: ParseableStruct.self)
+        XCTAssertNil(result.value)
+        XCTAssertEqual(result.errors.count, 2)
+        XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(expected: [.string], actual: [.double]))
+        XCTAssertEqual(result.errors.last?.type, .unexpectedJSONType(expected: [.string], actual: [.int, .double]))
+        XCTAssertEqual(result.errors.map { $0.path.jsonPath }, ["root[\"name\"]", "root[\"substruct\"][\"identifier\"]"])
     }
 
     func testParsesAWrongTypeErrorInAnArray() {
@@ -179,11 +179,11 @@ class ParserTests: XCTestCase {
             ]
         ]
         let data = jsonData(from: badTestJSON1)
-        let (newStruct, errors) = try! DataParser.parse(data: data, to: ParseableStruct.self)
-        XCTAssertEqual(errors.count, 1)
-        XCTAssertEqual(errors.first?.type,  .unexpectedJSONType(expected: [.object], actual: [.int, .bool, .double]))
-        XCTAssertEqual(errors.first?.path.jsonPath, "root[\"substructs\"][2]")
-        XCTAssertEqual(newStruct?.subArray.count, 2)
+        let result = try! DataParser().parse(data: data, to: ParseableStruct.self)
+        XCTAssertEqual(result.errors.count, 1)
+        XCTAssertEqual(result.errors.first?.type,  .unexpectedJSONType(expected: [.object], actual: [.int, .bool, .double]))
+        XCTAssertEqual(result.errors.first?.path.jsonPath, "root[\"substructs\"][2]")
+        XCTAssertEqual(result.value?.subArray.count, 2)
     }
 
     func testParsesAnIntToADouble() {
@@ -213,9 +213,9 @@ class ParserTests: XCTestCase {
             ]
         ]
         let data = jsonData(from: badTestJSON1)
-        let (newStruct, _) = try! DataParser.parse(data: data, to: ParseableStruct.self)
-        XCTAssertNotNil(newStruct)
-        XCTAssertEqual(newStruct?.decimal, 4)
+        let result = try! DataParser().parse(data: data, to: ParseableStruct.self)
+        XCTAssertNotNil(result.value)
+        XCTAssertEqual(result.value?.decimal, 4)
     }
 
     func jsonData(from object: Any?) -> Data {

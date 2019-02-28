@@ -29,6 +29,7 @@
 		0341888320C0FFCB0074AF0C /* NodeParser+SingleValueContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341888220C0FFCB0074AF0C /* NodeParser+SingleValueContainer.swift */; };
 		035A3BCA203148F900DDBAB5 /* Bool+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */; };
 		0382444120315CA7008B3F3A /* CountLimited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382444020315CA7008B3F3A /* CountLimited.swift */; };
+		038B8E512227ABF7006B14EB /* ParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038B8E502227ABF7006B14EB /* ParseResult.swift */; };
 		03A1E7F5220A9AF00074D0E1 /* ObjectDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E7F4220A9AF00074D0E1 /* ObjectDecoder.swift */; };
 		03A1E7F7220AB3960074D0E1 /* DecodingError+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */; };
 		03A1E7F9220AD1910074D0E1 /* ParserCountLimitedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E7F8220AD1910074D0E1 /* ParserCountLimitedTests.swift */; };
@@ -84,6 +85,7 @@
 		0341888220C0FFCB0074AF0C /* NodeParser+SingleValueContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NodeParser+SingleValueContainer.swift"; sourceTree = "<group>"; };
 		035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Parseable.swift"; sourceTree = "<group>"; };
 		0382444020315CA7008B3F3A /* CountLimited.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountLimited.swift; sourceTree = "<group>"; };
+		038B8E502227ABF7006B14EB /* ParseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseResult.swift; sourceTree = "<group>"; };
 		03A1E7F4220A9AF00074D0E1 /* ObjectDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDecoder.swift; sourceTree = "<group>"; };
 		03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DecodingError+Equatable.swift"; sourceTree = "<group>"; };
 		03A1E7F8220AD1910074D0E1 /* ParserCountLimitedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserCountLimitedTests.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 			children = (
 				03A7B5FB202AD917005A4BA2 /* DataParser.swift */,
 				03316C4D203171E700F87765 /* JSONParser.swift */,
+				038B8E502227ABF7006B14EB /* ParseResult.swift */,
 				03BD255A202F54CB004B9F06 /* Parser.swift */,
 				03A7B5FF202ADB25005A4BA2 /* Parseable.swift */,
 			);
@@ -357,6 +360,7 @@
 				03A7B600202ADB25005A4BA2 /* Parseable.swift in Sources */,
 				031247C32028F1950048BBFB /* String+Parseable.swift in Sources */,
 				03A1E7F5220A9AF00074D0E1 /* ObjectDecoder.swift in Sources */,
+				038B8E512227ABF7006B14EB /* ParseResult.swift in Sources */,
 				031247BB2028CCCF0048BBFB /* NodeParser.swift in Sources */,
 				0382444120315CA7008B3F3A /* CountLimited.swift in Sources */,
 				03AACD9620BC5A9C007624F7 /* ObjectSingleValueContainer.swift in Sources */,

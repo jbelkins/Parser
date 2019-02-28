@@ -9,15 +9,14 @@
 import Foundation
 
 
-import Foundation
+public class JSONParser {
 
+    public init() {}
 
-open class JSONParser {
-
-    public static func parse<ParsedType: Parseable>(json: Any, to type: ParsedType.Type, options: [String: Any] = [:]) -> (ParsedType?, [ParseError]) {
-        let parser = rootParser(json: json, options: options)
-        let result = parser.required(type, min: nil, max: nil)
-        return (result, parser.errors)
+    public func parse<ParsedType: Parseable>(json: Any, to type: ParsedType.Type, options: [String: Any] = [:]) -> ParseResult<ParsedType> {
+        let parser = JSONParser.rootParser(json: json, options: options)
+        let result = parser.required(ParsedType.self, min: nil, max: nil)
+        return ParseResult(value: result, errors: parser.errors)
     }
 
     private static func rootParser(json: Any, options: [String: Any]) -> NodeParser {
