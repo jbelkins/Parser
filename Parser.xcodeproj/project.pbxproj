@@ -48,6 +48,7 @@
 		03CC4FEE20291A2200269CC7 /* ParseableSubStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC4FED20291A2200269CC7 /* ParseableSubStruct.swift */; };
 		03CC4FF02029232900269CC7 /* ParseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC4FEF2029232900269CC7 /* ParseError.swift */; };
 		03CC4FF2202925CC00269CC7 /* JSONRawValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */; };
+		03E923A0222972440050983D /* JSONElementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E9239F222972440050983D /* JSONElementTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,7 @@
 		03CC4FED20291A2200269CC7 /* ParseableSubStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseableSubStruct.swift; sourceTree = "<group>"; };
 		03CC4FEF2029232900269CC7 /* ParseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseError.swift; sourceTree = "<group>"; };
 		03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRawValueType.swift; sourceTree = "<group>"; };
+		03E9239F222972440050983D /* JSONElementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONElementTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +177,7 @@
 				03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */,
 				03CA8E342217C8E90086538F /* ParserTestUtils.swift */,
 				031247B02028CC780048BBFB /* Info.plist */,
+				03E9239F222972440050983D /* JSONElementTests.swift */,
 			);
 			path = ParserTests;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				031247BF2028D1530048BBFB /* ParseableStruct.swift in Sources */,
 				03AACD9C20BC8578007624F7 /* ObjectDecoderTests.swift in Sources */,
 				03CA8E352217C8E90086538F /* ParserTestUtils.swift in Sources */,
+				03E923A0222972440050983D /* JSONElementTests.swift in Sources */,
 				031247AF2028CC780048BBFB /* ParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

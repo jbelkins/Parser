@@ -131,6 +131,3 @@ class ObjectSingleValueContainer: SingleValueDecodingContainer {
     }
 }
 
-fileprivate extension NSNumber {
-    fileprivate var isBoolean: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
-}

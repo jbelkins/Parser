@@ -9,4 +9,19 @@
 import Foundation
 
 
-extension Bool: JSONRawValueType {}
+extension Bool: Parseable {
+    
+    public init?(parser: Parser) {
+        guard let nsNumber = parser.json as? NSNumber, nsNumber.isBoolean else {
+            let error = ParseError(path: parser.nodePath, actual: parser.node.castableJSONTypes)
+            parser.recordError(error)
+            return nil
+        }
+        self = nsNumber.boolValue
+    }
+}
+
+
+extension NSNumber {
+    var isBoolean: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
+}

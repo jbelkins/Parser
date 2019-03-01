@@ -23,9 +23,14 @@ public enum JSONElement: String, Equatable {
         var types = Set<JSONElement>()
         if let _ = json as? [String: Any] { types.insert(.object) }
         if let _ = json as? [Any] { types.insert(.array) }
-        if let _ = json as? Int { types.insert(.int) }
-        if let _ = json as? Bool { types.insert(.bool) }
-        if let _ = json as? Double { types.insert(.double) }
+        if let nsNumber = json as? NSNumber {
+            if nsNumber.isBoolean {
+                types.insert(.bool)
+            } else {
+                if let _ = Int(exactly: nsNumber) { types.insert(.int) }
+                if let _ = Double(exactly: nsNumber) { types.insert(.double) }
+            }
+        }
         if let _ = json as? String { types.insert(.string) }
         if let _ = json as? NSNull { types.insert(.null) }
         return types.isEmpty ? [.absent] : types
