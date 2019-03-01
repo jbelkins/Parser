@@ -93,4 +93,23 @@ extension Array where Element == PathNode {
         }
         return string
     }
+
+    public var taggedJSONPath: String {
+        var string = ""
+        for node in self {
+            if let key = node.hashKey {
+                string += (node == self.first) ? "\(key)" : "\"\(key)\""
+            } else if let index = node.arrayIndex {
+                string += "[\(index)]"
+            }
+            if let type = node.swiftType {
+                var idString = ""
+                if let parseableType = type as? Parseable.Type, let idKey = parseableType.idKey, let id = node.id {
+                    idString += " \(idKey)=\(id)"
+                }
+                string += "(\(type)\(idString))"
+            }
+        }
+        return string
+    }
 }

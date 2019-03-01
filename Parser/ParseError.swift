@@ -19,7 +19,7 @@ public enum ParseErrorType: Equatable {
 }
 
 
-public struct ParseError: Equatable {
+public struct ParseError: Error, Equatable {
     public let path: [PathNode]
     public let type: ParseErrorType
 
@@ -55,8 +55,9 @@ public struct ParseError: Equatable {
 }
 
 
-extension ParseError: Error {
-    var localizedDescription: String {
+extension ParseError {
+
+    public var localizedDescription: String {
         switch type {
         case .unexpectedJSONType(let actual):
             if actual == [.absent] { return "No value is present" }
