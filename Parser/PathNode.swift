@@ -95,8 +95,8 @@ extension Array where Element == PathNode {
     }
 
     public var taggedJSONPath: String {
-        var string = ""
-        for node in self {
+        return self.map { node in
+            var string = ""
             if let key = node.hashKey {
                 string += (node == self.first) ? "\(key)" : "\"\(key)\""
             } else if let index = node.arrayIndex {
@@ -109,7 +109,7 @@ extension Array where Element == PathNode {
                 }
                 string += "(\(type)\(idString))"
             }
-        }
-        return string
+            return string
+        }.joined(separator: " > ")
     }
 }
