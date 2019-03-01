@@ -9,6 +9,4 @@
 import Foundation
 
 
-extension NSNull: JSONRawValueType {
-    public static let jsonTypes: Set<JSONElement> = [.null]
-}
+extension NSNull: JSONRawValueType {}

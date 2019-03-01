@@ -9,6 +9,4 @@
 import Foundation
 
 
-extension Double: Parseable {
-    public static let jsonTypes: Set<JSONElement> = [.double]
-}
+extension Double: Parseable {}

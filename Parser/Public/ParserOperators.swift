@@ -20,7 +20,7 @@ infix operator --> : ParseOperationsGroup
 // MARK: --> operator with type
 
 public func --><ParsedType: Parseable>(lhs: Parser, rhs: ParsedType.Type) -> ParsedType! {
-    return lhs.required(rhs)
+    return lhs.required(ParsedType.self)
 }
 
 public func --><ParsedType: Parseable>(lhs: Parser, rhs: ParsedType?.Type) -> ParsedType? {

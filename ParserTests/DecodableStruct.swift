@@ -19,5 +19,4 @@ struct DecodableStruct: Decodable, Equatable {
 
 extension DecodableStruct: Parseable {
     static var idKey: String? { return "id" }
-    static var jsonTypes: Set<JSONElement> { return [.object] }
 }

@@ -80,6 +80,7 @@ extension NodeParser: SingleValueDecodingContainer {
     }
 
     private func throwTypeMismatch(`for` type: Any.Type) throws -> Never {
-        throw DecodingError.typeMismatch(type, DecodingError.Context(codingPath: codingPath, debugDescription: "Expected \(type), not a \(type)"))
+        let parseError = ParseError(path: nodePath, actual: node.castableJSONTypes)
+        throw DecodingError.typeMismatch(type, DecodingError.Context(codingPath: codingPath, debugDescription: parseError.localizedDescription))
     }
 }

@@ -78,7 +78,7 @@ class ParserTests: XCTestCase {
         let result = try! DataParser().parse(data: data, to: ParseableStruct.self)
         XCTAssertNil(result.value)
         XCTAssertEqual(result.errors.count, 1)
-        XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(expected: [.string], actual: [.absent]))
+        XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(actual: [.absent]))
         XCTAssertEqual(result.errors.map { $0.path.jsonPath }, ["root[\"name\"]"])
     }
 
@@ -112,7 +112,7 @@ class ParserTests: XCTestCase {
         let result = try! DataParser().parse(data: data, to: ParseableStruct.self)
         XCTAssertNotNil(result.value)
         XCTAssertEqual(result.errors.count, 1)
-        XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(expected: [.string], actual: [.int, .double]))
+        XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(actual: [.int, .double]))
         XCTAssertEqual(result.errors.map { $0.path.jsonPath }, ["root[\"substruct\"][\"identifier\"]"])
     }
 
@@ -146,8 +146,8 @@ class ParserTests: XCTestCase {
         let result = try! DataParser().parse(data: data, to: ParseableStruct.self)
         XCTAssertNil(result.value)
         XCTAssertEqual(result.errors.count, 2)
-        XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(expected: [.string], actual: [.double]))
-        XCTAssertEqual(result.errors.last?.type, .unexpectedJSONType(expected: [.string], actual: [.int, .double]))
+        XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(actual: [.double]))
+        XCTAssertEqual(result.errors.last?.type, .unexpectedJSONType(actual: [.int, .double]))
         XCTAssertEqual(result.errors.map { $0.path.jsonPath }, ["root[\"name\"]", "root[\"substruct\"][\"identifier\"]"])
     }
 
@@ -181,8 +181,8 @@ class ParserTests: XCTestCase {
         let data = jsonData(from: badTestJSON1)
         let result = try! DataParser().parse(data: data, to: ParseableStruct.self)
         XCTAssertEqual(result.errors.count, 1)
-        XCTAssertEqual(result.errors.first?.type,  .unexpectedJSONType(expected: [.object], actual: [.int, .bool, .double]))
-        XCTAssertEqual(result.errors.first?.path.jsonPath, "root[\"substructs\"][2]")
+        XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(actual: [.absent]))
+        XCTAssertEqual(result.errors.first?.path.jsonPath, "root[\"substructs\"][2][\"identifier\"]")
         XCTAssertEqual(result.value?.subArray.count, 2)
     }
 

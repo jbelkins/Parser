@@ -9,6 +9,4 @@
 import Foundation
 
 
-extension Bool: Parseable {
-    public static let jsonTypes: Set<JSONElement> = [.bool]
-}
+extension Bool: Parseable {}

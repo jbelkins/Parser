@@ -9,6 +9,4 @@
 import Foundation
 
 
-extension Int: Parseable {
-    public static let jsonTypes: Set<JSONElement> = [.int]
-}
+extension Int: Parseable {}

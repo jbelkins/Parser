@@ -28,7 +28,6 @@ struct ParseableStruct: Equatable {
 
 extension ParseableStruct: Parseable {
     static let idKey: String? = "id"
-    static var jsonTypes: Set<JSONElement> { return [.object] }
 
     init?(parser: Parser) {
         let id =          parser["id"]            --> Int.self

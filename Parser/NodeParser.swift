@@ -95,11 +95,6 @@ public class NodeParser: Parser {
 
     private func parse<ParsedType: Parseable>(type: ParsedType.Type, required: Bool, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType? {
         tagNode(type: type)
-        guard !node.castableJSONTypes.isDisjoint(with: node.expectedJSONTypes) || (!required && node.castableJSONTypes == [.null]) else {
-            guard required else { return nil }
-            recordError(ParseError(path: nodePath, expected: type.jsonTypes, actual: node.castableJSONTypes))
-            return nil
-        }
         let parsed = ParsedType.init(parser: self)
         if let count = parsed?.parseableElementCount {
             if let min = min, let max = max, min == max, min != count {
@@ -118,7 +113,6 @@ public class NodeParser: Parser {
 
     private func tagNode(type: Parseable.Type) {
         node.swiftType = type
-        node.expectedJSONTypes = type.jsonTypes
         node.idKey = type.idKey
         node.id = type.id(from: json)
     }

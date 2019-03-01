@@ -28,6 +28,8 @@
 		0341888120C0FE040074AF0C /* NodeParser+UnkeyedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341888020C0FE040074AF0C /* NodeParser+UnkeyedContainer.swift */; };
 		0341888320C0FFCB0074AF0C /* NodeParser+SingleValueContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341888220C0FFCB0074AF0C /* NodeParser+SingleValueContainer.swift */; };
 		035A3BCA203148F900DDBAB5 /* Bool+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */; };
+		0370663F2228E60800ABD6C5 /* RawRepresentable+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0370663E2228E60800ABD6C5 /* RawRepresentable+Parseable.swift */; };
+		037066432228E8FE00ABD6C5 /* RawRepresentableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037066422228E8FE00ABD6C5 /* RawRepresentableTests.swift */; };
 		0382444120315CA7008B3F3A /* CountLimited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382444020315CA7008B3F3A /* CountLimited.swift */; };
 		038B8E512227ABF7006B14EB /* ParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038B8E502227ABF7006B14EB /* ParseResult.swift */; };
 		03A1E7F5220A9AF00074D0E1 /* ObjectDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E7F4220A9AF00074D0E1 /* ObjectDecoder.swift */; };
@@ -84,6 +86,8 @@
 		0341888020C0FE040074AF0C /* NodeParser+UnkeyedContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NodeParser+UnkeyedContainer.swift"; sourceTree = "<group>"; };
 		0341888220C0FFCB0074AF0C /* NodeParser+SingleValueContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NodeParser+SingleValueContainer.swift"; sourceTree = "<group>"; };
 		035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Parseable.swift"; sourceTree = "<group>"; };
+		0370663E2228E60800ABD6C5 /* RawRepresentable+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RawRepresentable+Parseable.swift"; sourceTree = "<group>"; };
+		037066422228E8FE00ABD6C5 /* RawRepresentableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawRepresentableTests.swift; sourceTree = "<group>"; };
 		0382444020315CA7008B3F3A /* CountLimited.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountLimited.swift; sourceTree = "<group>"; };
 		038B8E502227ABF7006B14EB /* ParseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseResult.swift; sourceTree = "<group>"; };
 		03A1E7F4220A9AF00074D0E1 /* ObjectDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDecoder.swift; sourceTree = "<group>"; };
@@ -153,7 +157,6 @@
 				031247BC2028CE360048BBFB /* PathNode.swift */,
 				03CC4FEF2029232900269CC7 /* ParseError.swift */,
 				0341887B20C0F3260074AF0C /* Decoder */,
-				03501ADF2031538000106FFD /* Syntax */,
 				03CC4FF3202926D200269CC7 /* Foundation Extensions */,
 				031247A32028CC780048BBFB /* Parser.h */,
 				031247A42028CC780048BBFB /* Info.plist */,
@@ -169,6 +172,7 @@
 				031247BE2028D1530048BBFB /* ParseableStruct.swift */,
 				03CC4FED20291A2200269CC7 /* ParseableSubStruct.swift */,
 				03AACD9B20BC8578007624F7 /* ObjectDecoderTests.swift */,
+				037066422228E8FE00ABD6C5 /* RawRepresentableTests.swift */,
 				03316C522031772400F87765 /* DecodableStruct.swift */,
 				03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */,
 				03CA8E342217C8E90086538F /* ParserTestUtils.swift */,
@@ -185,6 +189,8 @@
 				038B8E502227ABF7006B14EB /* ParseResult.swift */,
 				03BD255A202F54CB004B9F06 /* Parser.swift */,
 				03A7B5FF202ADB25005A4BA2 /* Parseable.swift */,
+				031A45A1202EB62900C706CB /* ParserOperators.swift */,
+				0382444020315CA7008B3F3A /* CountLimited.swift */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -198,15 +204,6 @@
 				0341888220C0FFCB0074AF0C /* NodeParser+SingleValueContainer.swift */,
 			);
 			path = Decoder;
-			sourceTree = "<group>";
-		};
-		03501ADF2031538000106FFD /* Syntax */ = {
-			isa = PBXGroup;
-			children = (
-				031A45A1202EB62900C706CB /* ParserOperators.swift */,
-				0382444020315CA7008B3F3A /* CountLimited.swift */,
-			);
-			path = Syntax;
 			sourceTree = "<group>";
 		};
 		03C6D6172048FABC001993D6 /* ObjectDecoder */ = {
@@ -233,6 +230,7 @@
 				03221266202FF81700D8CE84 /* NSNull+Parseable.swift */,
 				03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */,
 				03316C50203176BC00F87765 /* Decodable+Parseable.swift */,
+				0370663E2228E60800ABD6C5 /* RawRepresentable+Parseable.swift */,
 			);
 			path = "Foundation Extensions";
 			sourceTree = "<group>";
@@ -360,6 +358,7 @@
 				03A7B600202ADB25005A4BA2 /* Parseable.swift in Sources */,
 				031247C32028F1950048BBFB /* String+Parseable.swift in Sources */,
 				03A1E7F5220A9AF00074D0E1 /* ObjectDecoder.swift in Sources */,
+				0370663F2228E60800ABD6C5 /* RawRepresentable+Parseable.swift in Sources */,
 				038B8E512227ABF7006B14EB /* ParseResult.swift in Sources */,
 				031247BB2028CCCF0048BBFB /* NodeParser.swift in Sources */,
 				0382444120315CA7008B3F3A /* CountLimited.swift in Sources */,
@@ -389,6 +388,7 @@
 				03316C532031772400F87765 /* DecodableStruct.swift in Sources */,
 				03CC4FEE20291A2200269CC7 /* ParseableSubStruct.swift in Sources */,
 				03A1E7F7220AB3960074D0E1 /* DecodingError+Equatable.swift in Sources */,
+				037066432228E8FE00ABD6C5 /* RawRepresentableTests.swift in Sources */,
 				031247BF2028D1530048BBFB /* ParseableStruct.swift in Sources */,
 				03AACD9C20BC8578007624F7 /* ObjectDecoderTests.swift in Sources */,
 				03CA8E352217C8E90086538F /* ParserTestUtils.swift in Sources */,

@@ -9,7 +9,5 @@
 import Foundation
 
 
-extension String: Parseable {
-    public static var jsonTypes: Set<JSONElement> = [.string]
-}
+extension String: Parseable {}
 
