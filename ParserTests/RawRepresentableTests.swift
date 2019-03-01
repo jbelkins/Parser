@@ -43,7 +43,7 @@ class RawRepresentableTests: XCTestCase {
         let data = try! JSONSerialization.data(withJSONObject: json, options: [])
         let expected = StoogeStruct(stooge1: .larry, stooge2: .joe)
 
-        let result = try! DataParser().parse(data: data, to: StoogeStruct.self)
+        let result = DataParser().parse(data: data, to: StoogeStruct.self)
 
         XCTAssertEqual(result.value, expected)
         XCTAssertEqual(result.errors, [])
@@ -54,7 +54,7 @@ class RawRepresentableTests: XCTestCase {
         let data = try! JSONSerialization.data(withJSONObject: json, options: [])
         let expected = StoogeStruct(stooge1: .larry, stooge2: nil)
 
-        let result = try! DataParser().parse(data: data, to: StoogeStruct.self)
+        let result = DataParser().parse(data: data, to: StoogeStruct.self)
 
         XCTAssertEqual(result.value, expected)
         XCTAssertEqual(result.errors.count, 1)

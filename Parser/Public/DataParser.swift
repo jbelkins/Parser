@@ -9,17 +9,12 @@
 import Foundation
 
 
-open class DataParser {
+public class DataParser {
 
     public init() {}
 
-    public func parse<ParsedType: Parseable>(data: Data, to type: ParsedType.Type, options: [String: Any] = [:]) throws -> ParseResult<ParsedType> {
-        let json: Any?
-        do {
-            json = try JSONSerialization.jsonObject(with: data, options: [.allowFragments])
-        } catch let error as NSError where error.code == 3840 && error.domain == NSCocoaErrorDomain {
-            json = nil
-        }
+    public func parse<ParsedType: Parseable>(data: Data, to type: ParsedType.Type, options: [String: Any] = [:]) -> ParseResult<ParsedType> {
+        let json: Any? = try? JSONSerialization.jsonObject(with: data, options: [])
         return JSONParser().parse(json: json, to: ParsedType.self, options: options)
     }
 }
