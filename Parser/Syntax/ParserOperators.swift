@@ -9,7 +9,11 @@
 import Foundation
 
 
-infix operator -->
+precedencegroup ParseOperationsGroup {
+    higherThan: NilCoalescingPrecedence
+}
+
+infix operator --> : ParseOperationsGroup
 
 // MARK: - Single element
 
