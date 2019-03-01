@@ -9,4 +9,4 @@
 import Foundation
 
 
-extension Double: Parseable {}
+extension Double: JSONRawValueType {}

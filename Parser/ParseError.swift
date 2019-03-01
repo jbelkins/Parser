@@ -43,6 +43,11 @@ public struct ParseError: Equatable {
         type = .countAboveMaximum(maximum: maximum, actual: actual)
     }
 
+    public init(path: [PathNode], decodingError: DecodingError) {
+        self.path = path
+        type = .swiftDecodingError(message: decodingError.localizedDescription)
+    }
+
     public init(path: [PathNode], message: String) {
         self.path = path
         type = .other(message: message)

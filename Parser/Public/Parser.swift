@@ -23,6 +23,8 @@ public protocol Parser: class, Decoder, UnkeyedDecodingContainer, SingleValueDec
     func errorHoldingParser() -> Parser
     func required<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType!
     func optional<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType?
+    func decode<DecodedType: Decodable>(_ type: DecodedType.Type) -> DecodedType!
+    func decodeIfPresent<DecodedType: Decodable>(_ type: DecodedType.Type) -> DecodedType?
     func recordError(_ error: ParseError)
     var succeeded: Bool { get set }
     var isUnkeyedContainer: Bool { get set }

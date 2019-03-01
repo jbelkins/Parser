@@ -73,6 +73,33 @@ public class NodeParser: Parser {
         return parse(type: type, required: false, min: min, max: max, countsAreMandatory: countsAreMandatory)
     }
 
+    public func decode<DecodedType: Decodable>(_ type: DecodedType.Type) -> DecodedType! {
+        do {
+            return try DecodedType.init(from: self)
+        } catch let decodingError as DecodingError {
+            let parseError = ParseError(path: nodePath, decodingError: decodingError)
+            recordError(parseError)
+        } catch let error {
+            let parseError = ParseError(path: nodePath, message: error.localizedDescription)
+            recordError(parseError)
+        }
+        succeeded = false
+        return nil
+    }
+
+    public func decodeIfPresent<DecodedType: Decodable>(_ type: DecodedType.Type) -> DecodedType? {
+        do {
+            return try DecodedType.init(from: self)
+        } catch let decodingError as DecodingError {
+            let parseError = ParseError(path: nodePath, decodingError: decodingError)
+            recordError(parseError)
+        } catch let error {
+            let parseError = ParseError(path: nodePath, message: error.localizedDescription)
+            recordError(parseError)
+        }
+        return nil
+    }
+
     public func recordError(_ error: ParseError) {
         guard let parent = parent else { errors.append(error); return }
         parent.recordError(error)

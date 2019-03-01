@@ -36,7 +36,7 @@ extension ParseableStruct: Parseable {
         let null =        parser["null"]          --> NSNull.self
         let indexed =     parser["indexed"]       --> [String: ParseableSubStruct].self
         let truthy =      parser["truthy"]        --> Bool.self
-        let decodable =   parser["decodable"]     --> DecodableStruct.self
+        let decodable =   parser["decodable"]     .decode(DecodableStruct.self)
 
         let falsey =      parser["falsey"]        --> Bool?.self
         let decimal =     parser["decimal"]       --> Double?.self

@@ -9,4 +9,4 @@
 import Foundation
 
 
-extension Bool: Parseable {}
+extension Bool: JSONRawValueType {}

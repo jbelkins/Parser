@@ -15,8 +15,3 @@ struct DecodableStruct: Decodable, Equatable {
     let name: String
     let notes: String?
 }
-
-
-extension DecodableStruct: Parseable {
-    static var idKey: String? { return "id" }
-}
