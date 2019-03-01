@@ -42,3 +42,9 @@ public extension Parser {
         return optional(type, min: min, max: max,  countsAreMandatory: countsAreMandatory)
     }
 }
+
+
+public enum ParserOptions {
+    public static let rootNodeNameKey = "ParserOptions.rootNodeNameKey"
+    public static let rawDataKey = "ParserOptions.rawDataKey"
+}

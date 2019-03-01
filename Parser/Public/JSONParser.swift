@@ -20,7 +20,7 @@ public class JSONParser {
     }
 
     private static func rootParser(json: Any?, options: [String: Any]) -> NodeParser {
-        let rootNodeName = options[NodeParser.Options.rootNodeNameKey] as? String ?? "root"
+        let rootNodeName = options[ParserOptions.rootNodeNameKey] as? String ?? "root"
         let rootNode = PathNode(hashKey: rootNodeName, swiftType: nil)
         return NodeParser(codingKey: rootNode, json: json, parent: nil, options: options)
     }

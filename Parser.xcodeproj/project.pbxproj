@@ -50,6 +50,8 @@
 		03CC4FF2202925CC00269CC7 /* JSONRawValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */; };
 		03E923A0222972440050983D /* JSONElementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E9239F222972440050983D /* JSONElementTests.swift */; };
 		03E923A422299FA60050983D /* DataParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E923A322299FA60050983D /* DataParserTests.swift */; };
+		03E923A82229C3D10050983D /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E923A72229C3D10050983D /* ResponseData.swift */; };
+		03E923AA2229C6FE0050983D /* ResponseDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E923A92229C6FE0050983D /* ResponseDataTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +111,8 @@
 		03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRawValueType.swift; sourceTree = "<group>"; };
 		03E9239F222972440050983D /* JSONElementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONElementTests.swift; sourceTree = "<group>"; };
 		03E923A322299FA60050983D /* DataParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParserTests.swift; sourceTree = "<group>"; };
+		03E923A72229C3D10050983D /* ResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
+		03E923A92229C6FE0050983D /* ResponseDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDataTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,13 +157,13 @@
 			children = (
 				03C6D6172048FABC001993D6 /* ObjectDecoder */,
 				03316C4F203173B000F87765 /* Public */,
-				031A45A3202EC67E00C706CB /* JSONElement.swift */,
 				031247BA2028CCCF0048BBFB /* NodeParser.swift */,
+				031A45A3202EC67E00C706CB /* JSONElement.swift */,
 				03BD2558202F53D9004B9F06 /* JSONTools.swift */,
 				031247BC2028CE360048BBFB /* PathNode.swift */,
 				03CC4FEF2029232900269CC7 /* ParseError.swift */,
 				0341887B20C0F3260074AF0C /* Decoder */,
-				03CC4FF3202926D200269CC7 /* Foundation Extensions */,
+				03CC4FF3202926D200269CC7 /* Parseable Types */,
 				031247A32028CC780048BBFB /* Parser.h */,
 				031247A42028CC780048BBFB /* Info.plist */,
 			);
@@ -177,6 +181,7 @@
 				037066422228E8FE00ABD6C5 /* RawRepresentableTests.swift */,
 				03E9239F222972440050983D /* JSONElementTests.swift */,
 				03E923A322299FA60050983D /* DataParserTests.swift */,
+				03E923A92229C6FE0050983D /* ResponseDataTests.swift */,
 				03316C522031772400F87765 /* DecodableStruct.swift */,
 				03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */,
 				03CA8E342217C8E90086538F /* ParserTestUtils.swift */,
@@ -222,7 +227,7 @@
 			path = ObjectDecoder;
 			sourceTree = "<group>";
 		};
-		03CC4FF3202926D200269CC7 /* Foundation Extensions */ = {
+		03CC4FF3202926D200269CC7 /* Parseable Types */ = {
 			isa = PBXGroup;
 			children = (
 				0308092820BE54B500E6C152 /* Array+Parseable.swift */,
@@ -234,8 +239,9 @@
 				03221266202FF81700D8CE84 /* NSNull+Parseable.swift */,
 				03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */,
 				0370663E2228E60800ABD6C5 /* RawRepresentable+Parseable.swift */,
+				03E923A72229C3D10050983D /* ResponseData.swift */,
 			);
-			path = "Foundation Extensions";
+			path = "Parseable Types";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,6 +355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03E923A82229C3D10050983D /* ResponseData.swift in Sources */,
 				031A45A2202EB62900C706CB /* ParserOperators.swift in Sources */,
 				031247C12028F0B50048BBFB /* Int+Parseable.swift in Sources */,
 				03BD2559202F53D9004B9F06 /* JSONTools.swift in Sources */,
@@ -388,6 +395,7 @@
 			files = (
 				03A1E7F9220AD1910074D0E1 /* ParserCountLimitedTests.swift in Sources */,
 				03316C532031772400F87765 /* DecodableStruct.swift in Sources */,
+				03E923AA2229C6FE0050983D /* ResponseDataTests.swift in Sources */,
 				03CC4FEE20291A2200269CC7 /* ParseableSubStruct.swift in Sources */,
 				03A1E7F7220AB3960074D0E1 /* DecodingError+Equatable.swift in Sources */,
 				037066432228E8FE00ABD6C5 /* RawRepresentableTests.swift in Sources */,

@@ -10,11 +10,6 @@ import Foundation
 
 
 public class NodeParser: Parser {
-
-    public enum Options {
-        public static let rootNodeNameKey = "Parser.RootNodeNameKey"
-    }
-
     public var codingKey: CodingKey { return node }
     public var codingPath: [CodingKey] { return nodePath }
     public var node: PathNode
@@ -122,7 +117,7 @@ public class NodeParser: Parser {
 
     private func parse<ParsedType: Parseable>(type: ParsedType.Type, required: Bool, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType? {
         tagNode(type: type)
-        guard json != nil && !(json is NSNull && type != NSNull.self) else {
+        guard (json != nil && !(json is NSNull && type != NSNull.self)) || type == ResponseData.self else {
             if required {
                 let error = ParseError(path: nodePath, actual: node.castableJSONTypes)
                 recordError(error)
