@@ -14,8 +14,8 @@ extension RawRepresentable where RawValue: Parseable {
     public init?(parser: Parser) {
         guard let rawValue = parser --> RawValue.self else { return nil }
         guard let value = Self.init(rawValue: rawValue) else {
-            let message = "Raw value of \"\(rawValue)\" for type \(Self.self) not defined"
-            parser.recordError(ParseError(path: parser.nodePath, message: message))
+            let error = ParseError(path: parser.nodePath, rawValue: "\(rawValue)", type: "\(Self.self)")
+            parser.recordError(error)
             return nil
         }
         self = value

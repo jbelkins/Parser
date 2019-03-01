@@ -52,6 +52,7 @@
 		03E923A422299FA60050983D /* DataParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E923A322299FA60050983D /* DataParserTests.swift */; };
 		03E923A82229C3D10050983D /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E923A72229C3D10050983D /* ResponseData.swift */; };
 		03E923AA2229C6FE0050983D /* ResponseDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E923A92229C6FE0050983D /* ResponseDataTests.swift */; };
+		03E923AC2229F73B0050983D /* ParseError+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E923AB2229F73B0050983D /* ParseError+Equatable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		03E923A322299FA60050983D /* DataParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParserTests.swift; sourceTree = "<group>"; };
 		03E923A72229C3D10050983D /* ResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
 		03E923A92229C6FE0050983D /* ResponseDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDataTests.swift; sourceTree = "<group>"; };
+		03E923AB2229F73B0050983D /* ParseError+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParseError+Equatable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +185,7 @@
 				03E923A322299FA60050983D /* DataParserTests.swift */,
 				03E923A92229C6FE0050983D /* ResponseDataTests.swift */,
 				03316C522031772400F87765 /* DecodableStruct.swift */,
+				03E923AB2229F73B0050983D /* ParseError+Equatable.swift */,
 				03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */,
 				03CA8E342217C8E90086538F /* ParserTestUtils.swift */,
 				031247B02028CC780048BBFB /* Info.plist */,
@@ -397,6 +400,7 @@
 				03316C532031772400F87765 /* DecodableStruct.swift in Sources */,
 				03E923AA2229C6FE0050983D /* ResponseDataTests.swift in Sources */,
 				03CC4FEE20291A2200269CC7 /* ParseableSubStruct.swift in Sources */,
+				03E923AC2229F73B0050983D /* ParseError+Equatable.swift in Sources */,
 				03A1E7F7220AB3960074D0E1 /* DecodingError+Equatable.swift in Sources */,
 				037066432228E8FE00ABD6C5 /* RawRepresentableTests.swift in Sources */,
 				03E923A422299FA60050983D /* DataParserTests.swift in Sources */,

@@ -58,6 +58,6 @@ class RawRepresentableTests: XCTestCase {
 
         XCTAssertEqual(result.value, expected)
         XCTAssertEqual(result.errors.count, 1)
-        XCTAssertEqual(result.errors.first?.type, ParseErrorType.other(message: "Raw value of \"cletus\" for type Stooge not defined"))
+        XCTAssertEqual(result.errors.first?.type, ParseErrorType.unexpectedRawValue(value: "cletus", type: "Stooge"))
     }
 }

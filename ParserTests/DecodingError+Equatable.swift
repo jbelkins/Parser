@@ -7,12 +7,17 @@
 //
 
 import Foundation
+import Parser
 
 
 extension DecodingError: Equatable {
 
-    // Returns true if the error case and coding path match, false otherwise.
     public static func ==(lhs: DecodingError, rhs: DecodingError) -> Bool {
+        return lhs.errorDescription == rhs.errorDescription && lhs.failureReason == rhs.failureReason && lhs.helpAnchor == rhs.helpAnchor && lhs.localizedDescription == rhs.localizedDescription && lhs.recoverySuggestion == rhs.recoverySuggestion && areCasesEqual(lhs: lhs, rhs: rhs)
+    }
+
+    // Returns true if the error case and coding path match, false otherwise.
+    public static func areCasesEqual(lhs: DecodingError, rhs: DecodingError) -> Bool {
         switch (lhs, rhs) {
         case (.dataCorrupted(let lhsContext), .dataCorrupted(let rhsContext)),
              (.keyNotFound(_, let lhsContext), .keyNotFound(_, let rhsContext)),
@@ -30,13 +35,15 @@ fileprivate extension Array where Element == CodingKey {
     fileprivate func isSamePath(`as` other: [CodingKey]) -> Bool {
         guard count == other.count else { return false }
         for (lhs, rhs) in zip(self, other) {
-            if lhs != rhs { return false }
+            if !(lhs == rhs) { return false }
         }
         return true
     }
 }
 
+extension CodingKey {
 
-fileprivate func !=(lhs: CodingKey, rhs: CodingKey) -> Bool {
-    return lhs.stringValue != rhs.stringValue || lhs.intValue != rhs.intValue
+    static func ==(lhs: CodingKey, rhs: CodingKey) -> Bool {
+        return lhs.stringValue == rhs.stringValue && lhs.intValue == rhs.intValue
+    }
 }

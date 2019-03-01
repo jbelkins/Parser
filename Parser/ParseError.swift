@@ -9,17 +9,18 @@
 import Foundation
 
 
-public enum ParseErrorType: Equatable {
+public enum ParseErrorType {
     case unexpectedJSONType(actual: Set<JSONElement>)
     case countNotExact(expected: Int, actual: Int)
     case countBelowMinimum(minimum: Int, actual: Int)
     case countAboveMaximum(maximum: Int, actual: Int)
-    case swiftDecodingError(message: String)
+    case unexpectedRawValue(value: String, type: String)
+    case swiftDecodingError(DecodingError)
     case other(message: String)
 }
 
 
-public struct ParseError: Error, Equatable {
+public struct ParseError: Error {
     public let path: [PathNode]
     public let type: ParseErrorType
 
@@ -43,9 +44,14 @@ public struct ParseError: Error, Equatable {
         type = .countAboveMaximum(maximum: maximum, actual: actual)
     }
 
+    public init(path: [PathNode], rawValue: String, type: String) {
+        self.path = path
+        self.type = .unexpectedRawValue(value: rawValue, type: type)
+    }
+
     public init(path: [PathNode], decodingError: DecodingError) {
         self.path = path
-        type = .swiftDecodingError(message: decodingError.localizedDescription)
+        type = .swiftDecodingError(decodingError)
     }
 
     public init(path: [PathNode], message: String) {
@@ -68,8 +74,14 @@ extension ParseError {
             return "Count below min: min \(minimum), actual \(actual)"
         case .countAboveMaximum(let maximum, let actual):
             return "Count above max: max \(maximum), actual \(actual)"
-        case .swiftDecodingError(let message), .other(let message):
+        case .unexpectedRawValue(let value, let type):
+            return "Raw value of \"\(value)\" for type \(type) not defined"
+        case .swiftDecodingError(let error):
+            return "Swift DecodingError: \(error.localizedDescription)"
+        case .other(let message):
             return message
         }
     }
 }
+
+
