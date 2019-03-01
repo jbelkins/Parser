@@ -122,6 +122,13 @@ public class NodeParser: Parser {
 
     private func parse<ParsedType: Parseable>(type: ParsedType.Type, required: Bool, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType? {
         tagNode(type: type)
+        guard json != nil && !(json is NSNull && type != NSNull.self) else {
+            if required {
+                let error = ParseError(path: nodePath, actual: node.castableJSONTypes)
+                recordError(error)
+            }
+            return nil
+        }
         let parsed = ParsedType.init(parser: self)
         if let count = parsed?.parseableElementCount {
             if let min = min, let max = max, min == max, min != count {
