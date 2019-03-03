@@ -1,6 +1,6 @@
 //
 //  NodeParser.swift
-//  Parser
+//  LastMile
 //
 //  Created by Josh Elkins on 2/5/18.
 //  Copyright © 2018 Parser. All rights reserved.
@@ -15,13 +15,11 @@ public class NodeParser: Parser {
     public var node: PathNode
     public let json: Any?
     public var succeeded = true
-    public var currentIndex = -1
-    public var isUnkeyedContainer = false
     public let options: [String: Any]
     public var errors = [ParseError]()
-    let parent: Parser?
+    let parent: NodeParser?
 
-    init(codingKey: CodingKey, json: Any?, parent: Parser?, options: [String: Any]) {
+    init(codingKey: CodingKey, json: Any?, parent: NodeParser?, options: [String: Any]) {
         self.node = PathNode(codingKey: codingKey)
         self.node.castableJSONTypes = JSONElement.types(for: json)
         self.json = json
@@ -107,7 +105,7 @@ public class NodeParser: Parser {
         return parent.nodePath + [node]
     }
 
-    public var swiftParent: Parser? {
+    public var swiftParent: NodeParser? {
         guard let parent = parent else { return nil }
         guard parent.node.swiftType != nil else { return parent.swiftParent }
         return parent

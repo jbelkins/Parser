@@ -1,6 +1,6 @@
 //
 //  Parser.swift
-//  Parser
+//  LastMile
 //
 //  Created by Josh Elkins on 2/10/18.
 //  Copyright © 2018 Parser. All rights reserved.
@@ -15,7 +15,6 @@ public protocol Parser: class, Decoder {
     var codingPath: [CodingKey] { get }
     var node: PathNode { get }
     var nodePath: [PathNode] { get }
-    var swiftParent: Parser? { get }
     subscript(key: String) -> Parser { get }
     subscript(index: Int) -> Parser { get }
     subscript(codingKey: CodingKey) -> Parser { get }
@@ -27,7 +26,6 @@ public protocol Parser: class, Decoder {
     func decodeIfPresent<DecodedType: Decodable>(_ type: DecodedType.Type) -> DecodedType?
     func recordError(_ error: ParseError)
     var succeeded: Bool { get set }
-    var isUnkeyedContainer: Bool { get set }
     var options: [String: Any] { get }
 }
 

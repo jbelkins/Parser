@@ -1,6 +1,6 @@
 //
 //  Dictionary+Parseable.swift
-//  Parser
+//  LastMile
 //
 //  Created by Josh Elkins on 5/30/18.
 //  Copyright © 2018 Parser. All rights reserved.
@@ -22,6 +22,6 @@ extension Dictionary: Parseable where Key == String, Value: Parseable {
             guard let value = parser[key].required(Value.self) else { return nil }
             return (key, value)
         }
-        self = Dictionary(uniqueKeysWithValues: parsed.filter { $0 != nil }.map { $0! })
+        self = Dictionary(uniqueKeysWithValues: parsed.compactMap { $0 })
     }
 }

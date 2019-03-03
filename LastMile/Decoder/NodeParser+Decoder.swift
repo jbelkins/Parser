@@ -1,6 +1,6 @@
 //
 //  NodeParser+Decoder.swift
-//  Parser
+//  LastMile
 //
 //  Created by Josh Elkins on 5/31/18.
 //  Copyright © 2018 Parser. All rights reserved.
@@ -20,7 +20,6 @@ extension NodeParser: Decoder {
     }
 
     public func unkeyedContainer() throws -> UnkeyedDecodingContainer {
-        isUnkeyedContainer = true
         return UnkeyedNodeParser(parser: self)
     }
 
