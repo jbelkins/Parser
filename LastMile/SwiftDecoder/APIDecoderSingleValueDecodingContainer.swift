@@ -1,5 +1,5 @@
 //
-//  NodeParser+SingleValueContainer.swift
+//  APIDecoderSingleValueDecodingContainer.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 5/31/18.
@@ -9,7 +9,7 @@
 import Foundation
 
 
-class SingleValueNodeParser: SingleValueDecodingContainer {
+class APIDecoderSingleValueDecodingContainer: SingleValueDecodingContainer {
     var codingPath: [CodingKey] { return decoder.nodePath }
     let decoder: APIDecoder
 

@@ -1,5 +1,5 @@
 //
-//  Int16+Decodable.swift
+//  Float+APIDecodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 3/2/19.
@@ -9,4 +9,4 @@
 import Foundation
 
 
-extension Int16: JSONRawValueType {}
+extension Float: JSONRawValueType {}

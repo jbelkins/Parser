@@ -1,5 +1,5 @@
 //
-//  UInt8+Decodable.swift
+//  UInt8+APIDecodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 3/2/19.

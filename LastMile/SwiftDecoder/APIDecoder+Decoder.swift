@@ -1,5 +1,5 @@
 //
-//  NodeParser+Decoder.swift
+//  APIDecoder+Decoder.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 5/31/18.
@@ -19,16 +19,16 @@ class NodeParserDecoder: Decoder {
     }
 
     func container<Key>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> where Key : CodingKey {
-        let keyed = KeyedNodeParser<Key>(decoder: decoder)
+        let keyed = APIDecoderKeyedDecodingContainer<Key>(decoder: decoder)
         return KeyedDecodingContainer(keyed)
     }
 
     func unkeyedContainer() throws -> UnkeyedDecodingContainer {
-        return UnkeyedNodeParser(decoder: decoder)
+        return APIDecoderUnkeyedDecodingContainer(decoder: decoder)
     }
 
     func singleValueContainer() throws -> SingleValueDecodingContainer {
-        return SingleValueNodeParser(decoder: decoder)
+        return APIDecoderSingleValueDecodingContainer(decoder: decoder)
     }
 
     

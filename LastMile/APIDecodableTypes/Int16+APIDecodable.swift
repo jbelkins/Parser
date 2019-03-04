@@ -1,5 +1,5 @@
 //
-//  Int8+Decodable.swift
+//  Int16+APIDecodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 3/2/19.
@@ -9,4 +9,4 @@
 import Foundation
 
 
-extension Int8: JSONRawValueType {}
+extension Int16: JSONRawValueType {}

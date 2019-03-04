@@ -1,5 +1,5 @@
 //
-//  Int64+Decodable.swift
+//  UInt+APIDecodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 3/2/19.
@@ -9,4 +9,4 @@
 import Foundation
 
 
-extension Int64: JSONRawValueType {}
+extension UInt: JSONRawValueType {}

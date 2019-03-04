@@ -1,5 +1,5 @@
 //
-//  UnkeyedNodeParser.swift
+//  APIDecoderUnkeyedDecodingContainer.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 5/31/18.
@@ -9,7 +9,7 @@
 import Foundation
 
 
-class UnkeyedNodeParser: UnkeyedDecodingContainer {
+class APIDecoderUnkeyedDecodingContainer: UnkeyedDecodingContainer {
     var codingPath: [CodingKey] { return decoder.nodePath }
     let decoder: APIDecoder
     var currentIndex: Int = -1
@@ -31,21 +31,20 @@ class UnkeyedNodeParser: UnkeyedDecodingContainer {
     }
 
     func decodeNil() -> Bool {
-        return SingleValueNodeParser(decoder: decoder[nextCodingKey()]).decodeNil()
+        return APIDecoderSingleValueDecodingContainer(decoder: decoder[nextCodingKey()]).decodeNil()
     }
 
     func decode<T>(_ type: T.Type) throws -> T where T : Swift.Decodable {
-        let swiftDecoder = NodeParserDecoder(decoder: decoder[nextCodingKey()])
-        return try T.init(from: swiftDecoder)
+        return try APIDecoderSingleValueDecodingContainer(decoder: decoder[nextCodingKey()]).decode(T.self)
     }
 
     func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
-        let keyed = KeyedNodeParser<NestedKey>(decoder: decoder[nextCodingKey()])
+        let keyed = APIDecoderKeyedDecodingContainer<NestedKey>(decoder: decoder[nextCodingKey()])
         return KeyedDecodingContainer(keyed)
     }
 
     func nestedUnkeyedContainer() throws -> UnkeyedDecodingContainer {
-        return UnkeyedNodeParser(decoder: decoder[nextCodingKey()])
+        return APIDecoderUnkeyedDecodingContainer(decoder: decoder[nextCodingKey()])
     }
 
     func nextCodingKey() -> CodingKey {

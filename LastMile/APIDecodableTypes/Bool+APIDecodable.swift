@@ -1,5 +1,5 @@
 //
-//  Bool+Decodable.swift
+//  Bool+APIDecodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 2/11/18.

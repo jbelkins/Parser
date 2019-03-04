@@ -7,44 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0308092920BE54B500E6C152 /* Array+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0308092820BE54B500E6C152 /* Array+Parseable.swift */; };
-		0308092B20BE6E0C00E6C152 /* Dictionary+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0308092A20BE6E0C00E6C152 /* Dictionary+Parseable.swift */; };
+		0308092920BE54B500E6C152 /* Array+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0308092820BE54B500E6C152 /* Array+APIDecodable.swift */; };
+		0308092B20BE6E0C00E6C152 /* Dictionary+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0308092A20BE6E0C00E6C152 /* Dictionary+APIDecodable.swift */; };
 		031247AA2028CC780048BBFB /* LastMile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031247A02028CC780048BBFB /* LastMile.framework */; };
 		031247AF2028CC780048BBFB /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031247AE2028CC780048BBFB /* ParserTests.swift */; };
-		031247B12028CC780048BBFB /* Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 031247A32028CC780048BBFB /* Parser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		031247B12028CC780048BBFB /* LastMile.h in Headers */ = {isa = PBXBuildFile; fileRef = 031247A32028CC780048BBFB /* LastMile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		031247BB2028CCCF0048BBFB /* JSONAPIDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031247BA2028CCCF0048BBFB /* JSONAPIDecoder.swift */; };
 		031247BD2028CE360048BBFB /* DecodingPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031247BC2028CE360048BBFB /* DecodingPathNode.swift */; };
 		031247BF2028D1530048BBFB /* MainDecodableStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031247BE2028D1530048BBFB /* MainDecodableStruct.swift */; };
-		031247C12028F0B50048BBFB /* Int+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031247C02028F0B50048BBFB /* Int+Parseable.swift */; };
-		031247C32028F1950048BBFB /* String+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031247C22028F1950048BBFB /* String+Parseable.swift */; };
+		031247C12028F0B50048BBFB /* Int+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031247C02028F0B50048BBFB /* Int+APIDecodable.swift */; };
+		031247C32028F1950048BBFB /* String+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031247C22028F1950048BBFB /* String+APIDecodable.swift */; };
 		031A45A2202EB62900C706CB /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031A45A1202EB62900C706CB /* Operators.swift */; };
 		031A45A4202EC67E00C706CB /* JSONElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031A45A3202EC67E00C706CB /* JSONElement.swift */; };
-		03221267202FF81700D8CE84 /* NSNull+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03221266202FF81700D8CE84 /* NSNull+Parseable.swift */; };
+		03221267202FF81700D8CE84 /* NSNull+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03221266202FF81700D8CE84 /* NSNull+APIDecodable.swift */; };
 		03316C4E203171E700F87765 /* APIJSONObjectDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03316C4D203171E700F87765 /* APIJSONObjectDecoder.swift */; };
 		03316C532031772400F87765 /* SwiftDecodableStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03316C522031772400F87765 /* SwiftDecodableStruct.swift */; };
-		03372410222B9A06001406E2 /* UInt8+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337240F222B9A06001406E2 /* UInt8+Parseable.swift */; };
-		03372412222B9C92001406E2 /* Float+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03372411222B9C92001406E2 /* Float+Parseable.swift */; };
-		03372414222B9D17001406E2 /* UInt16+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03372413222B9D17001406E2 /* UInt16+Parseable.swift */; };
-		03372416222B9EAC001406E2 /* UInt32+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03372415222B9EAC001406E2 /* UInt32+Parseable.swift */; };
-		03372418222B9EBB001406E2 /* UInt64+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03372417222B9EBB001406E2 /* UInt64+Parseable.swift */; };
-		0337241A222B9EF4001406E2 /* UInt+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03372419222B9EF4001406E2 /* UInt+Parseable.swift */; };
-		0337241C222B9F26001406E2 /* Int8+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337241B222B9F26001406E2 /* Int8+Parseable.swift */; };
-		0337241E222B9F43001406E2 /* Int16+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337241D222B9F43001406E2 /* Int16+Parseable.swift */; };
-		03372420222B9F5C001406E2 /* Int32+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337241F222B9F5C001406E2 /* Int32+Parseable.swift */; };
-		03372422222B9F74001406E2 /* Int64+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03372421222B9F74001406E2 /* Int64+Parseable.swift */; };
-		0341887D20C0F3490074AF0C /* NodeParser+Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341887C20C0F3490074AF0C /* NodeParser+Decoder.swift */; };
-		0341887F20C0F4550074AF0C /* KeyedNodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341887E20C0F4550074AF0C /* KeyedNodeParser.swift */; };
-		0341888120C0FE040074AF0C /* UnkeyedNodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341888020C0FE040074AF0C /* UnkeyedNodeParser.swift */; };
-		0341888320C0FFCB0074AF0C /* SingleValueNodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341888220C0FFCB0074AF0C /* SingleValueNodeParser.swift */; };
-		035A3BCA203148F900DDBAB5 /* Bool+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */; };
-		0370663F2228E60800ABD6C5 /* RawRepresentable+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0370663E2228E60800ABD6C5 /* RawRepresentable+Parseable.swift */; };
+		03372410222B9A06001406E2 /* UInt8+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337240F222B9A06001406E2 /* UInt8+APIDecodable.swift */; };
+		03372412222B9C92001406E2 /* Float+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03372411222B9C92001406E2 /* Float+APIDecodable.swift */; };
+		03372414222B9D17001406E2 /* UInt16+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03372413222B9D17001406E2 /* UInt16+APIDecodable.swift */; };
+		03372416222B9EAC001406E2 /* UInt32+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03372415222B9EAC001406E2 /* UInt32+APIDecodable.swift */; };
+		03372418222B9EBB001406E2 /* UInt64+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03372417222B9EBB001406E2 /* UInt64+APIDecodable.swift */; };
+		0337241A222B9EF4001406E2 /* UInt+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03372419222B9EF4001406E2 /* UInt+APIDecodable.swift */; };
+		0337241C222B9F26001406E2 /* Int8+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337241B222B9F26001406E2 /* Int8+APIDecodable.swift */; };
+		0337241E222B9F43001406E2 /* Int16+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337241D222B9F43001406E2 /* Int16+APIDecodable.swift */; };
+		03372420222B9F5C001406E2 /* Int32+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337241F222B9F5C001406E2 /* Int32+APIDecodable.swift */; };
+		03372422222B9F74001406E2 /* Int64+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03372421222B9F74001406E2 /* Int64+APIDecodable.swift */; };
+		0341887D20C0F3490074AF0C /* APIDecoder+Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341887C20C0F3490074AF0C /* APIDecoder+Decoder.swift */; };
+		0341887F20C0F4550074AF0C /* APIDecoderKeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341887E20C0F4550074AF0C /* APIDecoderKeyedDecodingContainer.swift */; };
+		0341888120C0FE040074AF0C /* APIDecoderUnkeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341888020C0FE040074AF0C /* APIDecoderUnkeyedDecodingContainer.swift */; };
+		0341888320C0FFCB0074AF0C /* APIDecoderSingleValueDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341888220C0FFCB0074AF0C /* APIDecoderSingleValueDecodingContainer.swift */; };
+		035A3BCA203148F900DDBAB5 /* Bool+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A3BC9203148F900DDBAB5 /* Bool+APIDecodable.swift */; };
+		0370663F2228E60800ABD6C5 /* RawRepresentable+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0370663E2228E60800ABD6C5 /* RawRepresentable+APIDecodable.swift */; };
 		037066432228E8FE00ABD6C5 /* RawRepresentableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037066422228E8FE00ABD6C5 /* RawRepresentableTests.swift */; };
 		0382444120315CA7008B3F3A /* CountLimited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382444020315CA7008B3F3A /* CountLimited.swift */; };
 		038B8E512227ABF7006B14EB /* DecodeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038B8E502227ABF7006B14EB /* DecodeResult.swift */; };
 		03A1E7F7220AB3960074D0E1 /* DecodingError+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */; };
 		03A1E7F9220AD1910074D0E1 /* ParserCountLimitedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E7F8220AD1910074D0E1 /* ParserCountLimitedTests.swift */; };
 		03A7B5FC202AD917005A4BA2 /* APIDataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FB202AD917005A4BA2 /* APIDataDecoder.swift */; };
-		03A7B5FE202ADAE3005A4BA2 /* Double+Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FD202ADAE3005A4BA2 /* Double+Parseable.swift */; };
+		03A7B5FE202ADAE3005A4BA2 /* Double+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FD202ADAE3005A4BA2 /* Double+APIDecodable.swift */; };
 		03A7B600202ADB25005A4BA2 /* APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FF202ADB25005A4BA2 /* APIDecodable.swift */; };
 		03AACD9C20BC8578007624F7 /* DecodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AACD9B20BC8578007624F7 /* DecodableTests.swift */; };
 		03BD2559202F53D9004B9F06 /* JSONTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BD2558202F53D9004B9F06 /* JSONTools.swift */; };
@@ -71,10 +71,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0308092820BE54B500E6C152 /* Array+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Parseable.swift"; sourceTree = "<group>"; };
-		0308092A20BE6E0C00E6C152 /* Dictionary+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Parseable.swift"; sourceTree = "<group>"; };
+		0308092820BE54B500E6C152 /* Array+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+APIDecodable.swift"; sourceTree = "<group>"; };
+		0308092A20BE6E0C00E6C152 /* Dictionary+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+APIDecodable.swift"; sourceTree = "<group>"; };
 		031247A02028CC780048BBFB /* LastMile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LastMile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		031247A32028CC780048BBFB /* Parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
+		031247A32028CC780048BBFB /* LastMile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LastMile.h; sourceTree = "<group>"; };
 		031247A42028CC780048BBFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		031247A92028CC780048BBFB /* LastMileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LastMileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		031247AE2028CC780048BBFB /* ParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
@@ -82,36 +82,36 @@
 		031247BA2028CCCF0048BBFB /* JSONAPIDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONAPIDecoder.swift; sourceTree = "<group>"; };
 		031247BC2028CE360048BBFB /* DecodingPathNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodingPathNode.swift; sourceTree = "<group>"; };
 		031247BE2028D1530048BBFB /* MainDecodableStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDecodableStruct.swift; sourceTree = "<group>"; };
-		031247C02028F0B50048BBFB /* Int+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Parseable.swift"; sourceTree = "<group>"; };
-		031247C22028F1950048BBFB /* String+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Parseable.swift"; sourceTree = "<group>"; };
+		031247C02028F0B50048BBFB /* Int+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+APIDecodable.swift"; sourceTree = "<group>"; };
+		031247C22028F1950048BBFB /* String+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+APIDecodable.swift"; sourceTree = "<group>"; };
 		031A45A1202EB62900C706CB /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		031A45A3202EC67E00C706CB /* JSONElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONElement.swift; sourceTree = "<group>"; };
-		03221266202FF81700D8CE84 /* NSNull+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNull+Parseable.swift"; sourceTree = "<group>"; };
+		03221266202FF81700D8CE84 /* NSNull+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNull+APIDecodable.swift"; sourceTree = "<group>"; };
 		03316C4D203171E700F87765 /* APIJSONObjectDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIJSONObjectDecoder.swift; sourceTree = "<group>"; };
 		03316C522031772400F87765 /* SwiftDecodableStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDecodableStruct.swift; sourceTree = "<group>"; };
-		0337240F222B9A06001406E2 /* UInt8+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt8+Parseable.swift"; sourceTree = "<group>"; };
-		03372411222B9C92001406E2 /* Float+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Parseable.swift"; sourceTree = "<group>"; };
-		03372413222B9D17001406E2 /* UInt16+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt16+Parseable.swift"; sourceTree = "<group>"; };
-		03372415222B9EAC001406E2 /* UInt32+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt32+Parseable.swift"; sourceTree = "<group>"; };
-		03372417222B9EBB001406E2 /* UInt64+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt64+Parseable.swift"; sourceTree = "<group>"; };
-		03372419222B9EF4001406E2 /* UInt+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+Parseable.swift"; sourceTree = "<group>"; };
-		0337241B222B9F26001406E2 /* Int8+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int8+Parseable.swift"; sourceTree = "<group>"; };
-		0337241D222B9F43001406E2 /* Int16+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int16+Parseable.swift"; sourceTree = "<group>"; };
-		0337241F222B9F5C001406E2 /* Int32+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int32+Parseable.swift"; sourceTree = "<group>"; };
-		03372421222B9F74001406E2 /* Int64+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int64+Parseable.swift"; sourceTree = "<group>"; };
-		0341887C20C0F3490074AF0C /* NodeParser+Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NodeParser+Decoder.swift"; sourceTree = "<group>"; };
-		0341887E20C0F4550074AF0C /* KeyedNodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedNodeParser.swift; sourceTree = "<group>"; };
-		0341888020C0FE040074AF0C /* UnkeyedNodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnkeyedNodeParser.swift; sourceTree = "<group>"; };
-		0341888220C0FFCB0074AF0C /* SingleValueNodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleValueNodeParser.swift; sourceTree = "<group>"; };
-		035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Parseable.swift"; sourceTree = "<group>"; };
-		0370663E2228E60800ABD6C5 /* RawRepresentable+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RawRepresentable+Parseable.swift"; sourceTree = "<group>"; };
+		0337240F222B9A06001406E2 /* UInt8+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt8+APIDecodable.swift"; sourceTree = "<group>"; };
+		03372411222B9C92001406E2 /* Float+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+APIDecodable.swift"; sourceTree = "<group>"; };
+		03372413222B9D17001406E2 /* UInt16+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt16+APIDecodable.swift"; sourceTree = "<group>"; };
+		03372415222B9EAC001406E2 /* UInt32+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt32+APIDecodable.swift"; sourceTree = "<group>"; };
+		03372417222B9EBB001406E2 /* UInt64+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt64+APIDecodable.swift"; sourceTree = "<group>"; };
+		03372419222B9EF4001406E2 /* UInt+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+APIDecodable.swift"; sourceTree = "<group>"; };
+		0337241B222B9F26001406E2 /* Int8+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int8+APIDecodable.swift"; sourceTree = "<group>"; };
+		0337241D222B9F43001406E2 /* Int16+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int16+APIDecodable.swift"; sourceTree = "<group>"; };
+		0337241F222B9F5C001406E2 /* Int32+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int32+APIDecodable.swift"; sourceTree = "<group>"; };
+		03372421222B9F74001406E2 /* Int64+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int64+APIDecodable.swift"; sourceTree = "<group>"; };
+		0341887C20C0F3490074AF0C /* APIDecoder+Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIDecoder+Decoder.swift"; sourceTree = "<group>"; };
+		0341887E20C0F4550074AF0C /* APIDecoderKeyedDecodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecoderKeyedDecodingContainer.swift; sourceTree = "<group>"; };
+		0341888020C0FE040074AF0C /* APIDecoderUnkeyedDecodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecoderUnkeyedDecodingContainer.swift; sourceTree = "<group>"; };
+		0341888220C0FFCB0074AF0C /* APIDecoderSingleValueDecodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecoderSingleValueDecodingContainer.swift; sourceTree = "<group>"; };
+		035A3BC9203148F900DDBAB5 /* Bool+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+APIDecodable.swift"; sourceTree = "<group>"; };
+		0370663E2228E60800ABD6C5 /* RawRepresentable+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RawRepresentable+APIDecodable.swift"; sourceTree = "<group>"; };
 		037066422228E8FE00ABD6C5 /* RawRepresentableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawRepresentableTests.swift; sourceTree = "<group>"; };
 		0382444020315CA7008B3F3A /* CountLimited.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountLimited.swift; sourceTree = "<group>"; };
 		038B8E502227ABF7006B14EB /* DecodeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeResult.swift; sourceTree = "<group>"; };
 		03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DecodingError+Equatable.swift"; sourceTree = "<group>"; };
 		03A1E7F8220AD1910074D0E1 /* ParserCountLimitedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserCountLimitedTests.swift; sourceTree = "<group>"; };
 		03A7B5FB202AD917005A4BA2 /* APIDataDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDataDecoder.swift; sourceTree = "<group>"; };
-		03A7B5FD202ADAE3005A4BA2 /* Double+Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Parseable.swift"; sourceTree = "<group>"; };
+		03A7B5FD202ADAE3005A4BA2 /* Double+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+APIDecodable.swift"; sourceTree = "<group>"; };
 		03A7B5FF202ADB25005A4BA2 /* APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecodable.swift; sourceTree = "<group>"; };
 		03AACD9B20BC8578007624F7 /* DecodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableTests.swift; sourceTree = "<group>"; };
 		03BD2558202F53D9004B9F06 /* JSONTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTools.swift; sourceTree = "<group>"; };
@@ -168,14 +168,10 @@
 			isa = PBXGroup;
 			children = (
 				03316C4F203173B000F87765 /* Public */,
-				031247BA2028CCCF0048BBFB /* JSONAPIDecoder.swift */,
-				031A45A3202EC67E00C706CB /* JSONElement.swift */,
-				03BD2558202F53D9004B9F06 /* JSONTools.swift */,
-				031247BC2028CE360048BBFB /* DecodingPathNode.swift */,
-				03CC4FEF2029232900269CC7 /* APIDecodeError.swift */,
-				0341887B20C0F3260074AF0C /* Decoder */,
-				03CC4FF3202926D200269CC7 /* Parseable Types */,
-				031247A32028CC780048BBFB /* Parser.h */,
+				03372424222D9AB0001406E2 /* SwiftDecoder */,
+				03372423222D9956001406E2 /* JSONAPIDecoder */,
+				03CC4FF3202926D200269CC7 /* APIDecodableTypes */,
+				031247A32028CC780048BBFB /* LastMile.h */,
 				031247A42028CC780048BBFB /* Info.plist */,
 			);
 			path = LastMile;
@@ -212,46 +208,58 @@
 				03A7B5FF202ADB25005A4BA2 /* APIDecodable.swift */,
 				031A45A1202EB62900C706CB /* Operators.swift */,
 				0382444020315CA7008B3F3A /* CountLimited.swift */,
+				031247BC2028CE360048BBFB /* DecodingPathNode.swift */,
+				03CC4FEF2029232900269CC7 /* APIDecodeError.swift */,
+				031A45A3202EC67E00C706CB /* JSONElement.swift */,
 			);
 			path = Public;
 			sourceTree = "<group>";
 		};
-		0341887B20C0F3260074AF0C /* Decoder */ = {
+		03372423222D9956001406E2 /* JSONAPIDecoder */ = {
 			isa = PBXGroup;
 			children = (
-				0341887C20C0F3490074AF0C /* NodeParser+Decoder.swift */,
-				0341887E20C0F4550074AF0C /* KeyedNodeParser.swift */,
-				0341888020C0FE040074AF0C /* UnkeyedNodeParser.swift */,
-				0341888220C0FFCB0074AF0C /* SingleValueNodeParser.swift */,
+				031247BA2028CCCF0048BBFB /* JSONAPIDecoder.swift */,
+				03BD2558202F53D9004B9F06 /* JSONTools.swift */,
 			);
-			path = Decoder;
+			path = JSONAPIDecoder;
 			sourceTree = "<group>";
 		};
-		03CC4FF3202926D200269CC7 /* Parseable Types */ = {
+		03372424222D9AB0001406E2 /* SwiftDecoder */ = {
 			isa = PBXGroup;
 			children = (
-				0308092820BE54B500E6C152 /* Array+Parseable.swift */,
-				0308092A20BE6E0C00E6C152 /* Dictionary+Parseable.swift */,
-				031247C22028F1950048BBFB /* String+Parseable.swift */,
-				031247C02028F0B50048BBFB /* Int+Parseable.swift */,
-				0337241B222B9F26001406E2 /* Int8+Parseable.swift */,
-				0337241D222B9F43001406E2 /* Int16+Parseable.swift */,
-				0337241F222B9F5C001406E2 /* Int32+Parseable.swift */,
-				03372421222B9F74001406E2 /* Int64+Parseable.swift */,
-				03372419222B9EF4001406E2 /* UInt+Parseable.swift */,
-				0337240F222B9A06001406E2 /* UInt8+Parseable.swift */,
-				03372413222B9D17001406E2 /* UInt16+Parseable.swift */,
-				03372415222B9EAC001406E2 /* UInt32+Parseable.swift */,
-				03372417222B9EBB001406E2 /* UInt64+Parseable.swift */,
-				03A7B5FD202ADAE3005A4BA2 /* Double+Parseable.swift */,
-				03372411222B9C92001406E2 /* Float+Parseable.swift */,
-				035A3BC9203148F900DDBAB5 /* Bool+Parseable.swift */,
-				03221266202FF81700D8CE84 /* NSNull+Parseable.swift */,
+				0341887C20C0F3490074AF0C /* APIDecoder+Decoder.swift */,
+				0341887E20C0F4550074AF0C /* APIDecoderKeyedDecodingContainer.swift */,
+				0341888020C0FE040074AF0C /* APIDecoderUnkeyedDecodingContainer.swift */,
+				0341888220C0FFCB0074AF0C /* APIDecoderSingleValueDecodingContainer.swift */,
+			);
+			path = SwiftDecoder;
+			sourceTree = "<group>";
+		};
+		03CC4FF3202926D200269CC7 /* APIDecodableTypes */ = {
+			isa = PBXGroup;
+			children = (
 				03CC4FF1202925CC00269CC7 /* JSONRawValueType.swift */,
-				0370663E2228E60800ABD6C5 /* RawRepresentable+Parseable.swift */,
+				0308092820BE54B500E6C152 /* Array+APIDecodable.swift */,
+				0308092A20BE6E0C00E6C152 /* Dictionary+APIDecodable.swift */,
+				031247C22028F1950048BBFB /* String+APIDecodable.swift */,
+				031247C02028F0B50048BBFB /* Int+APIDecodable.swift */,
+				0337241B222B9F26001406E2 /* Int8+APIDecodable.swift */,
+				0337241D222B9F43001406E2 /* Int16+APIDecodable.swift */,
+				0337241F222B9F5C001406E2 /* Int32+APIDecodable.swift */,
+				03372421222B9F74001406E2 /* Int64+APIDecodable.swift */,
+				03372419222B9EF4001406E2 /* UInt+APIDecodable.swift */,
+				0337240F222B9A06001406E2 /* UInt8+APIDecodable.swift */,
+				03372413222B9D17001406E2 /* UInt16+APIDecodable.swift */,
+				03372415222B9EAC001406E2 /* UInt32+APIDecodable.swift */,
+				03372417222B9EBB001406E2 /* UInt64+APIDecodable.swift */,
+				03A7B5FD202ADAE3005A4BA2 /* Double+APIDecodable.swift */,
+				03372411222B9C92001406E2 /* Float+APIDecodable.swift */,
+				035A3BC9203148F900DDBAB5 /* Bool+APIDecodable.swift */,
+				03221266202FF81700D8CE84 /* NSNull+APIDecodable.swift */,
+				0370663E2228E60800ABD6C5 /* RawRepresentable+APIDecodable.swift */,
 				03E923A72229C3D10050983D /* ResponseData.swift */,
 			);
-			path = "Parseable Types";
+			path = APIDecodableTypes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,7 +269,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				031247B12028CC780048BBFB /* Parser.h in Headers */,
+				031247B12028CC780048BBFB /* LastMile.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,40 +374,40 @@
 			buildActionMask = 2147483647;
 			files = (
 				03E923A82229C3D10050983D /* ResponseData.swift in Sources */,
-				03372410222B9A06001406E2 /* UInt8+Parseable.swift in Sources */,
+				03372410222B9A06001406E2 /* UInt8+APIDecodable.swift in Sources */,
 				031A45A2202EB62900C706CB /* Operators.swift in Sources */,
-				031247C12028F0B50048BBFB /* Int+Parseable.swift in Sources */,
-				03372418222B9EBB001406E2 /* UInt64+Parseable.swift in Sources */,
+				031247C12028F0B50048BBFB /* Int+APIDecodable.swift in Sources */,
+				03372418222B9EBB001406E2 /* UInt64+APIDecodable.swift in Sources */,
 				03BD2559202F53D9004B9F06 /* JSONTools.swift in Sources */,
 				031247BD2028CE360048BBFB /* DecodingPathNode.swift in Sources */,
-				0341888320C0FFCB0074AF0C /* SingleValueNodeParser.swift in Sources */,
-				035A3BCA203148F900DDBAB5 /* Bool+Parseable.swift in Sources */,
-				0337241C222B9F26001406E2 /* Int8+Parseable.swift in Sources */,
-				0337241E222B9F43001406E2 /* Int16+Parseable.swift in Sources */,
-				0337241A222B9EF4001406E2 /* UInt+Parseable.swift in Sources */,
-				0341887F20C0F4550074AF0C /* KeyedNodeParser.swift in Sources */,
+				0341888320C0FFCB0074AF0C /* APIDecoderSingleValueDecodingContainer.swift in Sources */,
+				035A3BCA203148F900DDBAB5 /* Bool+APIDecodable.swift in Sources */,
+				0337241C222B9F26001406E2 /* Int8+APIDecodable.swift in Sources */,
+				0337241E222B9F43001406E2 /* Int16+APIDecodable.swift in Sources */,
+				0337241A222B9EF4001406E2 /* UInt+APIDecodable.swift in Sources */,
+				0341887F20C0F4550074AF0C /* APIDecoderKeyedDecodingContainer.swift in Sources */,
 				03A7B600202ADB25005A4BA2 /* APIDecodable.swift in Sources */,
-				031247C32028F1950048BBFB /* String+Parseable.swift in Sources */,
-				0370663F2228E60800ABD6C5 /* RawRepresentable+Parseable.swift in Sources */,
-				03372416222B9EAC001406E2 /* UInt32+Parseable.swift in Sources */,
-				03372420222B9F5C001406E2 /* Int32+Parseable.swift in Sources */,
+				031247C32028F1950048BBFB /* String+APIDecodable.swift in Sources */,
+				0370663F2228E60800ABD6C5 /* RawRepresentable+APIDecodable.swift in Sources */,
+				03372416222B9EAC001406E2 /* UInt32+APIDecodable.swift in Sources */,
+				03372420222B9F5C001406E2 /* Int32+APIDecodable.swift in Sources */,
 				038B8E512227ABF7006B14EB /* DecodeResult.swift in Sources */,
-				03372414222B9D17001406E2 /* UInt16+Parseable.swift in Sources */,
+				03372414222B9D17001406E2 /* UInt16+APIDecodable.swift in Sources */,
 				031247BB2028CCCF0048BBFB /* JSONAPIDecoder.swift in Sources */,
 				0382444120315CA7008B3F3A /* CountLimited.swift in Sources */,
-				03221267202FF81700D8CE84 /* NSNull+Parseable.swift in Sources */,
-				03372412222B9C92001406E2 /* Float+Parseable.swift in Sources */,
+				03221267202FF81700D8CE84 /* NSNull+APIDecodable.swift in Sources */,
+				03372412222B9C92001406E2 /* Float+APIDecodable.swift in Sources */,
 				03316C4E203171E700F87765 /* APIJSONObjectDecoder.swift in Sources */,
 				03CC4FF2202925CC00269CC7 /* JSONRawValueType.swift in Sources */,
-				0341887D20C0F3490074AF0C /* NodeParser+Decoder.swift in Sources */,
-				03372422222B9F74001406E2 /* Int64+Parseable.swift in Sources */,
+				0341887D20C0F3490074AF0C /* APIDecoder+Decoder.swift in Sources */,
+				03372422222B9F74001406E2 /* Int64+APIDecodable.swift in Sources */,
 				031A45A4202EC67E00C706CB /* JSONElement.swift in Sources */,
 				03BD255B202F54CB004B9F06 /* APIDecoder.swift in Sources */,
 				03A7B5FC202AD917005A4BA2 /* APIDataDecoder.swift in Sources */,
-				03A7B5FE202ADAE3005A4BA2 /* Double+Parseable.swift in Sources */,
-				0308092B20BE6E0C00E6C152 /* Dictionary+Parseable.swift in Sources */,
-				0308092920BE54B500E6C152 /* Array+Parseable.swift in Sources */,
-				0341888120C0FE040074AF0C /* UnkeyedNodeParser.swift in Sources */,
+				03A7B5FE202ADAE3005A4BA2 /* Double+APIDecodable.swift in Sources */,
+				0308092B20BE6E0C00E6C152 /* Dictionary+APIDecodable.swift in Sources */,
+				0308092920BE54B500E6C152 /* Array+APIDecodable.swift in Sources */,
+				0341888120C0FE040074AF0C /* APIDecoderUnkeyedDecodingContainer.swift in Sources */,
 				03CC4FF02029232900269CC7 /* APIDecodeError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

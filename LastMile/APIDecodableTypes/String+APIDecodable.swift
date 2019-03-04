@@ -1,5 +1,5 @@
 //
-//  String+Decodable.swift
+//  String+APIDecodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 2/5/18.

@@ -1,5 +1,5 @@
 //
-//  RawRepresentable+Decodable.swift
+//  RawRepresentable+APIDecodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 2/28/19.
