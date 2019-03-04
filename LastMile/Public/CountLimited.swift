@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct CountLimited<Parseable> {
+public struct CountLimited<Decodable> {
     let min: Int?
     let max: Int?
     let isMandatory: Bool

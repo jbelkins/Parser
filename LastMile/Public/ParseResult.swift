@@ -1,5 +1,5 @@
 //
-//  ParseResult.swift
+//  DecodeResult.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 2/27/19.
@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct ParseResult<ParsedValue: Parseable> {
+public struct DecodeResult<ParsedValue: APIDecodable> {
     public let value: ParsedValue?
     public let errors: [ParseError]
 }

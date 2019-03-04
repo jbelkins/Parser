@@ -1,5 +1,5 @@
 //
-//  Bool+Parseable.swift
+//  Bool+Decodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 2/11/18.
@@ -9,12 +9,12 @@
 import Foundation
 
 
-extension Bool: Parseable {
+extension Bool: APIDecodable {
     
-    public init?(parser: Parser) {
-        guard let nsNumber = parser.json as? NSNumber, nsNumber.isBoolean else {
-            let error = ParseError(path: parser.nodePath, actual: parser.node.castableJSONTypes)
-            parser.recordError(error)
+    public init?(from decoder: APIDecoder) {
+        guard let nsNumber = decoder.json as? NSNumber, nsNumber.isBoolean else {
+            let error = ParseError(path: decoder.nodePath, actual: decoder.node.castableJSONTypes)
+            decoder.recordError(error)
             return nil
         }
         self = nsNumber.boolValue

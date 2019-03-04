@@ -12,10 +12,10 @@ import LastMile
 
 class ParserTests: XCTestCase {
     var testJSON1: [String: Any]!
-    var testStruct1: ParseableStruct!
-    var subStruct1: ParseableSubStruct!
-    var subStruct2: ParseableSubStruct!
-    var decodableStruct: DecodableStruct!
+    var testStruct1: MainDecodableStruct!
+    var subStruct1: DecodableSubStruct!
+    var subStruct2: DecodableSubStruct!
+    var decodableStruct: SwiftDecodableStruct!
 
     override func setUp() {
         super.setUp()
@@ -44,29 +44,29 @@ class ParserTests: XCTestCase {
                 "notes": "Pretty cool"
             ]
         ]
-        subStruct1 = ParseableSubStruct(identifier: "Cool array element 0")
-        subStruct2 = ParseableSubStruct(identifier: "Cool array element 1")
-        decodableStruct = DecodableStruct(id: 123, name: "Decodable", notes: "Pretty cool")
+        subStruct1 = DecodableSubStruct(identifier: "Cool array element 0")
+        subStruct2 = DecodableSubStruct(identifier: "Cool array element 1")
+        decodableStruct = SwiftDecodableStruct(id: 123, name: "Decodable", notes: "Pretty cool")
         let subArray = [subStruct1!, subStruct2!]
         let subDict = ["onesy": subStruct1!, "twosy": subStruct2!]
-        testStruct1 = ParseableStruct(id: 8675309, name: "test struct 1", subArray: subArray, null: NSNull(), indexed: subDict, truthy: false, decodable: decodableStruct, falsey: true, decimal: 3.776, description: "Cool structure", substruct: ParseableSubStruct(identifier: "Cool sub structure"))
+        testStruct1 = MainDecodableStruct(id: 8675309, name: "test struct 1", subArray: subArray, null: NSNull(), indexed: subDict, truthy: false, decodable: decodableStruct, falsey: true, decimal: 3.776, description: "Cool structure", substruct: DecodableSubStruct(identifier: "Cool sub structure"))
     }
 
     func testDeserializesAStruct() {
         let data = jsonData(from: testJSON1)
-        let result = DataParser().parse(data: data, to: ParseableStruct.self)
+        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
         XCTAssertEqual(result.value, testStruct1)
     }
 
     func testDeserializesAStructWithSubStruct() {
         let data = jsonData(from: testJSON1)
-        let result = DataParser().parse(data: data, to: ParseableStruct.self)
+        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
         XCTAssertEqual(result.value, testStruct1)
     }
 
     func testDeserializesAnArray() {
         let data = jsonData(from: testJSON1)
-        let result = DataParser().parse(data: data, to: ParseableStruct.self)
+        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
         XCTAssertEqual(result.value?.subArray.count, 2)
         XCTAssertEqual(result.value?.subArray ?? [], [subStruct1, subStruct2])
     }
@@ -75,7 +75,7 @@ class ParserTests: XCTestCase {
         var badTestJSON1 = testJSON1!
         badTestJSON1.removeValue(forKey: "name")
         let data = jsonData(from: badTestJSON1)
-        let result = DataParser().parse(data: data, to: ParseableStruct.self)
+        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
         XCTAssertNil(result.value)
         XCTAssertEqual(result.errors.count, 1)
         XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(actual: [.absent]))
@@ -109,7 +109,7 @@ class ParserTests: XCTestCase {
             ]
         ]
         let data = jsonData(from: badTestJSON1)
-        let result = DataParser().parse(data: data, to: ParseableStruct.self)
+        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
         XCTAssertNotNil(result.value)
         XCTAssertEqual(result.errors.count, 1)
         XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(actual: [.int, .double]))
@@ -143,7 +143,7 @@ class ParserTests: XCTestCase {
             ]
         ]
         let data = jsonData(from: badTestJSON1)
-        let result = DataParser().parse(data: data, to: ParseableStruct.self)
+        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
         XCTAssertNil(result.value)
         XCTAssertEqual(result.errors.count, 2)
         XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(actual: [.double]))
@@ -179,7 +179,7 @@ class ParserTests: XCTestCase {
             ]
         ]
         let data = jsonData(from: badTestJSON1)
-        let result = DataParser().parse(data: data, to: ParseableStruct.self)
+        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
         XCTAssertEqual(result.errors.count, 1)
         XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(actual: [.absent]))
         XCTAssertEqual(result.errors.first?.path.jsonPath, "root[\"substructs\"][2][\"identifier\"]")
@@ -213,7 +213,7 @@ class ParserTests: XCTestCase {
             ]
         ]
         let data = jsonData(from: badTestJSON1)
-        let result = DataParser().parse(data: data, to: ParseableStruct.self)
+        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
         XCTAssertNotNil(result.value)
         XCTAssertEqual(result.value?.decimal, 4)
     }

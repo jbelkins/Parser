@@ -13,11 +13,11 @@ public class DataParser {
 
     public init() {}
 
-    public func parse<ParsedType: Parseable>(data: Data?, to type: ParsedType.Type, options: [String: Any] = [:]) -> ParseResult<ParsedType> {
+    public func parse<DecodedType: APIDecodable>(data: Data?, to type: DecodedType.Type, options: [String: Any] = [:]) -> DecodeResult<DecodedType> {
         let newData = data ?? Data()
         var newOptions = options
         newOptions[ParserOptions.rawDataKey] = newData
         let json: Any? = try? JSONSerialization.jsonObject(with: newData, options: [])
-        return JSONParser().parse(json: json, to: ParsedType.self, options: newOptions)
+        return JSONParser().parse(json: json, to: DecodedType.self, options: newOptions)
     }
 }

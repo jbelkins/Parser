@@ -18,15 +18,15 @@ struct TestArrays: Equatable {
 }
 
 
-extension TestArrays: Parseable {
+extension TestArrays: APIDecodable {
     static let idKey: String? = nil
 
-    init?(parser: Parser) {
-        let arrayWithMin = parser["arrayWithMin"] --> CountLimited<[Int]>(min: 2, isMandatory: false)
-        let arrayWithMax = parser["arrayWithMax"] --> CountLimited<[Int]>(max: 2, isMandatory: true)
-        let arrayWithExact = parser["arrayWithExact"] --> CountLimited<[Int]>(exactly: 2, isMandatory: true)
-        let nonMandatoryArray = parser["nonmandatory"] --> CountLimited<[Int]>(exactly: 2, isMandatory: false)
-        guard parser.succeeded else { return nil }
+    init?(from decoder: APIDecoder) {
+        let arrayWithMin = decoder["arrayWithMin"] --> CountLimited<[Int]>(min: 2, isMandatory: false)
+        let arrayWithMax = decoder["arrayWithMax"] --> CountLimited<[Int]>(max: 2, isMandatory: true)
+        let arrayWithExact = decoder["arrayWithExact"] --> CountLimited<[Int]>(exactly: 2, isMandatory: true)
+        let nonMandatoryArray = decoder["nonmandatory"] --> CountLimited<[Int]>(exactly: 2, isMandatory: false)
+        guard decoder.succeeded else { return nil }
         self.init(arrayWithMin: arrayWithMin!, arrayWithMax: arrayWithMax!, arrayWithExact: arrayWithExact!, nonMandatoryArray: nonMandatoryArray!)
     }
 }
@@ -40,15 +40,15 @@ struct TestDicts: Equatable {
 }
 
 
-extension TestDicts: Parseable {
+extension TestDicts: APIDecodable {
     static var idKey: String? = nil
 
-    init?(parser: Parser) {
-        let dictWithMin = parser["dictWithMin"] --> CountLimited<[String: Int]>(min: 2, isMandatory: true)
-        let dictWithMax = parser["dictWithMax"] --> CountLimited<[String: Int]>(max: 2, isMandatory: true)
-        let dictWithExact = parser["dictWithExact"] --> CountLimited<[String: Int]>(exactly: 2, isMandatory: true)
-        let nonMandatoryDict = parser["nonmandatory"] --> CountLimited<[String: Int]>(exactly: 2, isMandatory: false)
-        guard parser.succeeded else { return nil }
+    init?(from decoder: APIDecoder) {
+        let dictWithMin = decoder["dictWithMin"] --> CountLimited<[String: Int]>(min: 2, isMandatory: true)
+        let dictWithMax = decoder["dictWithMax"] --> CountLimited<[String: Int]>(max: 2, isMandatory: true)
+        let dictWithExact = decoder["dictWithExact"] --> CountLimited<[String: Int]>(exactly: 2, isMandatory: true)
+        let nonMandatoryDict = decoder["nonmandatory"] --> CountLimited<[String: Int]>(exactly: 2, isMandatory: false)
+        guard decoder.succeeded else { return nil }
         self.init(dictWithMin: dictWithMin!, dictWithMax: dictWithMax!, dictWithExact: dictWithExact!, nonMandatoryDict: nonMandatoryDict!)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  Float+Parseable.swift
+//  Float+Decodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 3/2/19.

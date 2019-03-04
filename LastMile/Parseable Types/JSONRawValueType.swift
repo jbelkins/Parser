@@ -9,15 +9,15 @@
 import Foundation
 
 
-protocol JSONRawValueType: Parseable {}
+protocol JSONRawValueType: APIDecodable {}
 
 
 extension JSONRawValueType {
 
-    public init?(parser: Parser) {
-        guard let value = parser.json as? Self else {
-            let error = ParseError(path: parser.nodePath, actual: parser.node.castableJSONTypes)
-            parser.recordError(error)
+    public init?(from decoder: APIDecoder) {
+        guard let value = decoder.json as? Self else {
+            let error = ParseError(path: decoder.nodePath, actual: decoder.node.castableJSONTypes)
+            decoder.recordError(error)
             return nil
         }
         self = value

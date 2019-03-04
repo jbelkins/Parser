@@ -10,13 +10,13 @@ import XCTest
 import LastMile
 
 
-struct TestObject: Parseable, Equatable {
+fileprivate struct TestObject: APIDecodable, Equatable {
     let name: String?
 
     init(name: String?) { self.name = name }
 
-    init?(parser: Parser) {
-        self.init(name: parser["name"] --> String?.self)
+    init?(from decoder: APIDecoder) {
+        self.init(name: decoder["name"] --> String?.self)
     }
 }
 

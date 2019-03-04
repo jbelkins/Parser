@@ -10,15 +10,15 @@ import Foundation
 
 
 class KeyedNodeParser<Key: CodingKey>: KeyedDecodingContainerProtocol {
-    var codingPath: [CodingKey] { return parser.nodePath }
-    let parser: Parser
+    var codingPath: [CodingKey] { return decoder.nodePath }
+    let decoder: APIDecoder
 
-    init(parser: Parser) {
-        self.parser = parser
+    init(decoder: APIDecoder) {
+        self.decoder = decoder
     }
 
     public var allKeys: [Key] {
-        guard let jsonDict = parser.json as? [String: Any] else { return [] }
+        guard let jsonDict = decoder.json as? [String: Any] else { return [] }
         return jsonDict.keys.map { Key.init(stringValue: $0)! }
     }
 
@@ -27,27 +27,27 @@ class KeyedNodeParser<Key: CodingKey>: KeyedDecodingContainerProtocol {
     }
 
     public func decodeNil(forKey key: Key) throws -> Bool {
-        return SingleValueNodeParser(parser: parser[key]).decodeNil()
+        return SingleValueNodeParser(decoder: decoder[key]).decodeNil()
     }
 
-    public func decode<T>(_ type: T.Type, forKey key: Key) throws -> T where T : Decodable {
-        return try SingleValueNodeParser(parser: parser[key]).decode(T.self)
+    public func decode<T>(_ type: T.Type, forKey key: Key) throws -> T where T : Swift.Decodable {
+        return try SingleValueNodeParser(decoder: decoder[key]).decode(T.self)
     }
 
     public func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type, forKey key: Key) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
-        let keyed = KeyedNodeParser<NestedKey>(parser: self.parser[key])
+        let keyed = KeyedNodeParser<NestedKey>(decoder: decoder[key])
         return KeyedDecodingContainer(keyed)
     }
 
     public func nestedUnkeyedContainer(forKey key: Key) throws -> UnkeyedDecodingContainer {
-        return UnkeyedNodeParser(parser: parser[key])
+        return UnkeyedNodeParser(decoder: decoder[key])
     }
 
-    public func superDecoder() throws -> Decoder {
-        return self.parser
+    public func superDecoder() throws -> Swift.Decoder {
+        return NodeParserDecoder(decoder: decoder)
     }
 
-    public func superDecoder(forKey key: Key) throws -> Decoder {
-        return self.parser[key]
+    public func superDecoder(forKey key: Key) throws -> Swift.Decoder {
+        return NodeParserDecoder(decoder: decoder[key])
     }
 }

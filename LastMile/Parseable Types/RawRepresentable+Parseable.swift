@@ -1,5 +1,5 @@
 //
-//  RawRepresentable+Parseable.swift
+//  RawRepresentable+Decodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 2/28/19.
@@ -9,13 +9,13 @@
 import Foundation
 
 
-extension RawRepresentable where RawValue: Parseable {
+extension RawRepresentable where RawValue: APIDecodable {
 
-    public init?(parser: Parser) {
-        guard let rawValue = parser --> RawValue.self else { return nil }
+    public init?(from decoder: APIDecoder) {
+        guard let rawValue = decoder --> RawValue.self else { return nil }
         guard let value = Self.init(rawValue: rawValue) else {
-            let error = ParseError(path: parser.nodePath, rawValue: "\(rawValue)", type: "\(Self.self)")
-            parser.recordError(error)
+            let error = ParseError(path: decoder.nodePath, rawValue: "\(rawValue)", type: "\(Self.self)")
+            decoder.recordError(error)
             return nil
         }
         self = value

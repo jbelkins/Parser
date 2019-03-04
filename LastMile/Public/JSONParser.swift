@@ -13,10 +13,10 @@ public class JSONParser {
 
     public init() {}
 
-    public func parse<ParsedType: Parseable>(json: Any?, to type: ParsedType.Type, options: [String: Any] = [:]) -> ParseResult<ParsedType> {
+    public func parse<DecodedType: APIDecodable>(json: Any?, to type: DecodedType.Type, options: [String: Any] = [:]) -> DecodeResult<DecodedType> {
         let parser = JSONParser.rootParser(json: json, options: options)
-        let result = parser.required(ParsedType.self, min: nil, max: nil)
-        return ParseResult(value: result, errors: parser.errors)
+        let result = parser.required(DecodedType.self, min: nil, max: nil)
+        return DecodeResult(value: result, errors: parser.errors)
     }
 
     private static func rootParser(json: Any?, options: [String: Any]) -> NodeParser {

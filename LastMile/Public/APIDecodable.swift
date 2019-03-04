@@ -1,5 +1,5 @@
 //
-//  Parseable.swift
+//  APIDecodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 2/7/18.
@@ -9,15 +9,15 @@
 import Foundation
 
 
-public protocol Parseable {
+public protocol APIDecodable {
     static var idKey: String? { get }
     var parseableElementCount: Int? { get }
 
-    init?(parser: LastMile.Parser)
+    init?(from decoder: APIDecoder)
 }
 
 
-extension Parseable {
+extension APIDecodable {
     public static var idKey: String? { return nil }
     public var parseableElementCount: Int? { return nil }
 

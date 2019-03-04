@@ -10,7 +10,7 @@ import Foundation
 import LastMile
 
 
-struct DecodableStruct: Decodable, Equatable {
+struct SwiftDecodableStruct: Swift.Decodable, Equatable {
     let id: Int
     let name: String
     let notes: String?

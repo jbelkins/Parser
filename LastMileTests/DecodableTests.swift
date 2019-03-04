@@ -11,11 +11,11 @@ import XCTest
 import LastMile
 
 
-struct TestContainer<Value: Decodable & Equatable>: Parseable  {
+struct TestContainer<Value: Decodable & Equatable>: APIDecodable  {
     let value: Value
 
-    init?(parser: Parser) {
-        guard let v = parser.decode(Value.self) else { return nil }
+    init?(from decoder: APIDecoder) {
+        guard let v = decoder.decode(Value.self) else { return nil }
         value = v
     }
 }

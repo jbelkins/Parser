@@ -1,5 +1,5 @@
 //
-//  Int8+Parseable.swift
+//  Int8+Decodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 3/2/19.

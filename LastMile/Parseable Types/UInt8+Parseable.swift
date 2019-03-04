@@ -1,5 +1,5 @@
 //
-//  UInt8+Parseable.swift
+//  UInt8+Decodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 3/2/19.
@@ -9,12 +9,12 @@
 import Foundation
 
 
-extension UInt8: Parseable {
+extension UInt8: APIDecodable {
 
-    public init?(parser: Parser) {
-        guard let nsNumber = parser.json as? NSNumber, let uint8 = UInt8(exactly: nsNumber) else {
-            let error = ParseError(path: parser.nodePath, actual: parser.node.castableJSONTypes)
-            parser.recordError(error)
+    public init?(from decoder: APIDecoder) {
+        guard let nsNumber = decoder.json as? NSNumber, let uint8 = UInt8(exactly: nsNumber) else {
+            let error = ParseError(path: decoder.nodePath, actual: decoder.node.castableJSONTypes)
+            decoder.recordError(error)
             return nil
         }
         self = uint8

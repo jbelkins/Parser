@@ -1,5 +1,5 @@
 //
-//  Array+Parseable.swift
+//  Array+Decodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 5/29/18.
@@ -8,16 +8,16 @@
 
 import Foundation
 
-extension Array: Parseable where Element: Parseable {
+extension Array: APIDecodable where Element: APIDecodable {
     public var parseableElementCount: Int? { return count }
 
-    public init?(parser: Parser) {
-        guard let jsonArray = parser.json as? [Any] else {
-            let error = ParseError(path: parser.nodePath, actual: parser.node.castableJSONTypes)
-            parser.recordError(error)
+    public init?(from decoder: APIDecoder) {
+        guard let jsonArray = decoder.json as? [Any] else {
+            let error = ParseError(path: decoder.nodePath, actual: decoder.node.castableJSONTypes)
+            decoder.recordError(error)
             return nil
         }
-        let uncompactedArray = jsonArray.indices.map { parser[$0] --> Element.self }
+        let uncompactedArray = jsonArray.indices.map { decoder[$0] --> Element.self }
         self = uncompactedArray.compactMap { $0 }
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 
-public class NodeParser: Parser {
+public class NodeParser: APIDecoder {
     public var codingKey: CodingKey { return node }
     public var codingPath: [CodingKey] { return nodePath }
     public var node: PathNode
@@ -29,46 +29,47 @@ public class NodeParser: Parser {
 
     // MARK: - Creating parsers for JSON sub-elements
 
-    public subscript(key: String) -> Parser {
+    public subscript(key: String) -> APIDecoder {
         let codingKey = PathNode(stringValue: key)!
         let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
         return NodeParser(codingKey: codingKey, json: newJSON, parent: self, options: options)
     }
 
-    public subscript(index: Int) -> Parser {
+    public subscript(index: Int) -> APIDecoder {
         let codingKey = PathNode(intValue: index)!
         let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
         return NodeParser(codingKey: codingKey, json: newJSON, parent: self, options: options)
     }
 
-    public subscript(codingKey: CodingKey) -> Parser {
+    public subscript(codingKey: CodingKey) -> APIDecoder {
         let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
         return NodeParser(codingKey: codingKey, json: newJSON, parent: self, options: options)
     }
 
-    public func superParser() -> Parser {
+    public func superParser() -> APIDecoder {
         return NodeParser(codingKey: codingKey, json: json, parent: self, options: options)
     }
 
-    public func errorHoldingParser() -> Parser {
+    public func errorHoldingParser() -> APIDecoder {
         return NodeParser(codingKey: codingKey, json: json, parent: nil, options: options)
     }
 
     // MARK: - Parsing
 
-    public func required<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType! {
+    public func required<DecodedType: APIDecodable>(_ type: DecodedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> DecodedType! {
         let element = parse(type: type, required: true, min: min, max: max, countsAreMandatory: countsAreMandatory)
         if element == nil { swiftParent?.succeeded = false }
         return element
     }
 
-    public func optional<ParsedType: Parseable>(_ type: ParsedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType? {
+    public func optional<DecodedType: APIDecodable>(_ type: DecodedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> DecodedType? {
         return parse(type: type, required: false, min: min, max: max, countsAreMandatory: countsAreMandatory)
     }
 
     public func decode<DecodedType: Decodable>(_ type: DecodedType.Type) -> DecodedType! {
         do {
-            return try DecodedType.init(from: self)
+            let swiftDecoder = NodeParserDecoder(decoder: self)
+            return try DecodedType.init(from: swiftDecoder)
         } catch let decodingError as DecodingError {
             let parseError = ParseError(path: nodePath, decodingError: decodingError)
             recordError(parseError)
@@ -82,7 +83,8 @@ public class NodeParser: Parser {
 
     public func decodeIfPresent<DecodedType: Decodable>(_ type: DecodedType.Type) -> DecodedType? {
         do {
-            return try DecodedType.init(from: self)
+            let swiftDecoder = NodeParserDecoder(decoder: self)
+            return try DecodedType.init(from: swiftDecoder)
         } catch let decodingError as DecodingError {
             let parseError = ParseError(path: nodePath, decodingError: decodingError)
             recordError(parseError)
@@ -113,7 +115,7 @@ public class NodeParser: Parser {
 
     // MARK: - Private methods
 
-    private func parse<ParsedType: Parseable>(type: ParsedType.Type, required: Bool, min: Int?, max: Int?, countsAreMandatory: Bool) -> ParsedType? {
+    private func parse<DecodedType: APIDecodable>(type: DecodedType.Type, required: Bool, min: Int?, max: Int?, countsAreMandatory: Bool) -> DecodedType? {
         tagNode(type: type)
         guard (json != nil && !(json is NSNull && type != NSNull.self)) || type == ResponseData.self else {
             if required {
@@ -122,7 +124,7 @@ public class NodeParser: Parser {
             }
             return nil
         }
-        let parsed = ParsedType.init(parser: self)
+        let parsed = DecodedType.init(from: self)
         if let count = parsed?.parseableElementCount {
             if let min = min, let max = max, min == max, min != count {
                 recordError(ParseError(path: nodePath, expected: min, actual: count))
@@ -138,7 +140,7 @@ public class NodeParser: Parser {
         return parsed
     }
 
-    private func tagNode(type: Parseable.Type) {
+    private func tagNode(type: APIDecodable.Type) {
         node.swiftType = type
         node.idKey = type.idKey
         node.id = type.id(from: json)

@@ -10,7 +10,7 @@ import XCTest
 import LastMile
 
 
-enum Stooge: String, Parseable {
+enum Stooge: String, APIDecodable {
     case larry
     case curly
     case moe
@@ -25,12 +25,12 @@ struct StoogeStruct: Equatable {
 }
 
 
-extension StoogeStruct: Parseable {
+extension StoogeStruct: APIDecodable {
 
-    init?(parser: Parser) {
-        let stooge1 = parser["stooge1"] --> Stooge.self
-        let stooge2 = parser["stooge2"] --> Stooge?.self
-        guard parser.succeeded else { return nil }
+    init?(from decoder: APIDecoder) {
+        let stooge1 = decoder["stooge1"] --> Stooge.self
+        let stooge2 = decoder["stooge2"] --> Stooge?.self
+        guard decoder.succeeded else { return nil }
         self.init(stooge1: stooge1!, stooge2: stooge2)
     }
 }

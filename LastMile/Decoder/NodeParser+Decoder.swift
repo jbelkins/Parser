@@ -9,22 +9,26 @@
 import Foundation
 
 
-extension NodeParser: Decoder {
-    public var userInfo: [CodingUserInfoKey : Any] {
-        return [:]
+class NodeParserDecoder: Decoder {
+    let decoder: APIDecoder
+    var codingPath: [CodingKey] { return decoder.nodePath }
+    var userInfo: [CodingUserInfoKey : Any] { return [:] }
+
+    init(decoder: APIDecoder) {
+        self.decoder = decoder
     }
 
-    public func container<Key>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> where Key : CodingKey {
-        let keyed = KeyedNodeParser<Key>(parser: self)
+    func container<Key>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> where Key : CodingKey {
+        let keyed = KeyedNodeParser<Key>(decoder: decoder)
         return KeyedDecodingContainer(keyed)
     }
 
-    public func unkeyedContainer() throws -> UnkeyedDecodingContainer {
-        return UnkeyedNodeParser(parser: self)
+    func unkeyedContainer() throws -> UnkeyedDecodingContainer {
+        return UnkeyedNodeParser(decoder: decoder)
     }
 
-    public func singleValueContainer() throws -> SingleValueDecodingContainer {
-        return SingleValueNodeParser(parser: self)
+    func singleValueContainer() throws -> SingleValueDecodingContainer {
+        return SingleValueNodeParser(decoder: decoder)
     }
 
     

@@ -1,5 +1,5 @@
 //
-//  UInt+Parseable.swift
+//  UInt+Decodable.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 3/2/19.

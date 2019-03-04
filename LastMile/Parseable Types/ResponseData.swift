@@ -9,10 +9,10 @@
 import Foundation
 
 
-public struct ResponseData: Parseable {
+public struct ResponseData: APIDecodable {
     public let data: Data?
 
-    public init?(parser: Parser) {
-        self.data = parser.options[ParserOptions.rawDataKey] as? Data
+    public init?(from decoder: APIDecoder) {
+        self.data = decoder.options[ParserOptions.rawDataKey] as? Data
     }
 }

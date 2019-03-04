@@ -10,44 +10,45 @@ import Foundation
 
 
 class UnkeyedNodeParser: UnkeyedDecodingContainer {
-    var codingPath: [CodingKey] { return parser.nodePath }
-    let parser: Parser
+    var codingPath: [CodingKey] { return decoder.nodePath }
+    let decoder: APIDecoder
     var currentIndex: Int = -1
 
-    init(parser: Parser) {
-        self.parser = parser
+    init(decoder: APIDecoder) {
+        self.decoder = decoder
     }
 
-    public func superDecoder() throws -> Decoder {
-        return parser["super"]
+    func superDecoder() throws -> Swift.Decoder {
+        return NodeParserDecoder(decoder: decoder)
     }
 
-    public var count: Int? {
-        return (parser.json as? [Any])?.count
+    var count: Int? {
+        return (decoder.json as? [Any])?.count
     }
 
-    public var isAtEnd: Bool {
+    var isAtEnd: Bool {
         return currentIndex == (count ?? 0) - 1
     }
 
-    public func decodeNil() -> Bool {
-        return SingleValueNodeParser(parser: parser[nextCodingKey()]).decodeNil()
+    func decodeNil() -> Bool {
+        return SingleValueNodeParser(decoder: decoder[nextCodingKey()]).decodeNil()
     }
 
-    public func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
-        return try T.init(from: parser[nextCodingKey()])
+    func decode<T>(_ type: T.Type) throws -> T where T : Swift.Decodable {
+        let swiftDecoder = NodeParserDecoder(decoder: decoder[nextCodingKey()])
+        return try T.init(from: swiftDecoder)
     }
 
-    public func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
-        let keyed = KeyedNodeParser<NestedKey>(parser: parser[nextCodingKey()])
+    func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
+        let keyed = KeyedNodeParser<NestedKey>(decoder: decoder[nextCodingKey()])
         return KeyedDecodingContainer(keyed)
     }
 
-    public func nestedUnkeyedContainer() throws -> UnkeyedDecodingContainer {
-        return UnkeyedNodeParser(parser: parser[nextCodingKey()])
+    func nestedUnkeyedContainer() throws -> UnkeyedDecodingContainer {
+        return UnkeyedNodeParser(decoder: decoder[nextCodingKey()])
     }
 
-    private func nextCodingKey() -> CodingKey {
+    func nextCodingKey() -> CodingKey {
         currentIndex += 1
         return PathNode(intValue: currentIndex)!
     }

@@ -36,11 +36,11 @@ extension PathNode {
         self.init(hashKey: hashKey, arrayIndex: codingKey.intValue, castableJSONTypes: [], swiftType: nil, idKey: nil, id: nil)
     }
 
-    init(hashKey: String, swiftType: Parseable.Type?) {
+    init(hashKey: String, swiftType: Decodable.Type?) {
         self.init(hashKey: hashKey, arrayIndex: nil, castableJSONTypes: [], swiftType: swiftType, idKey: nil, id: nil)
     }
 
-    init(arrayIndex: Int, swiftType: Parseable.Type?) {
+    init(arrayIndex: Int, swiftType: Decodable.Type?) {
         self.init(hashKey: nil, arrayIndex: arrayIndex, castableJSONTypes: [], swiftType: swiftType, idKey: nil, id: nil)
     }
 }
@@ -104,7 +104,7 @@ extension Array where Element == PathNode {
             }
             if let type = node.swiftType {
                 var idString = ""
-                if let parseableType = type as? Parseable.Type, let idKey = parseableType.idKey, let id = node.id {
+                if let parseableType = type as? APIDecodable.Type, let idKey = parseableType.idKey, let id = node.id {
                     idString += " \(idKey)=\(id)"
                 }
                 string += "(\(type)\(idString))"
