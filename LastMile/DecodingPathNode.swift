@@ -1,5 +1,5 @@
 //
-//  PathNode.swift
+//  DecodingPathNode.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 2/5/18.
@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct PathNode: Equatable {
+public struct DecodingPathNode: Equatable {
     public let hashKey: String?
     public let arrayIndex: Int?
     public var castableJSONTypes = Set<JSONElement>()
@@ -19,7 +19,7 @@ public struct PathNode: Equatable {
 }
 
 
-public func ==(lhs: PathNode, rhs: PathNode) -> Bool {
+public func ==(lhs: DecodingPathNode, rhs: DecodingPathNode) -> Bool {
     return lhs as CodingKey == rhs as CodingKey
 }
 
@@ -29,7 +29,7 @@ public func ==(lhs: CodingKey, rhs: CodingKey) -> Bool {
 }
 
 
-extension PathNode {
+extension DecodingPathNode {
 
     init(codingKey: CodingKey) {
         let hashKey = codingKey.intValue == nil ? codingKey.stringValue : nil
@@ -46,7 +46,7 @@ extension PathNode {
 }
 
 
-extension PathNode: CodingKey {
+extension DecodingPathNode: CodingKey {
     public var stringValue: String { return hashKey ?? "\(arrayIndex!)"}
     public var intValue: Int? { return arrayIndex }
 
@@ -60,25 +60,25 @@ extension PathNode: CodingKey {
 }
 
 
-extension PathNode: ExpressibleByIntegerLiteral {
+extension DecodingPathNode: ExpressibleByIntegerLiteral {
     public typealias IntegerLiteralType = Int
 
-    public init(integerLiteral value: PathNode.IntegerLiteralType) {
+    public init(integerLiteral value: DecodingPathNode.IntegerLiteralType) {
         self.init(arrayIndex: value, swiftType: nil)
     }
 }
 
 
-extension PathNode: ExpressibleByStringLiteral {
+extension DecodingPathNode: ExpressibleByStringLiteral {
     public typealias StringLiteralType = String
 
-    public init(stringLiteral value: PathNode.StringLiteralType) {
+    public init(stringLiteral value: DecodingPathNode.StringLiteralType) {
         self.init(hashKey: value, swiftType: nil)
     }
 }
 
 
-extension Array where Element == PathNode {
+extension Array where Element == DecodingPathNode {
 
     public var jsonPath: String {
         guard let firstNode = self.first else { return "" }

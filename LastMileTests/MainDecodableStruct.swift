@@ -36,7 +36,7 @@ extension MainDecodableStruct: APIDecodable {
         let null =        decoder["null"]          --> NSNull.self
         let indexed =     decoder["indexed"]       --> [String: DecodableSubStruct].self
         let truthy =      decoder["truthy"]        --> Bool.self
-        let decodable =   decoder["decodable"]     .decode(SwiftDecodableStruct.self)
+        let decodable =   decoder["decodable"]     .decodeRequired(swiftDecodable: SwiftDecodableStruct.self)
 
         let falsey =      decoder["falsey"]        --> Bool?.self
         let decimal =     decoder["decimal"]       --> Double?.self

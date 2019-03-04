@@ -13,6 +13,6 @@ public struct ResponseData: APIDecodable {
     public let data: Data?
 
     public init?(from decoder: APIDecoder) {
-        self.data = decoder.options[ParserOptions.rawDataKey] as? Data
+        self.data = decoder.options[APIDecodeOptions.rawDataKey] as? Data
     }
 }

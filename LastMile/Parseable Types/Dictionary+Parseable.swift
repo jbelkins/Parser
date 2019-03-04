@@ -14,12 +14,12 @@ extension Dictionary: APIDecodable where Key == String, Value: APIDecodable {
 
     public init?(from decoder: APIDecoder) {
         guard let jsonDict = decoder.json as? [String: Any] else {
-            let error = ParseError(path: decoder.nodePath, actual: decoder.node.castableJSONTypes)
+            let error = APIDecodeError(path: decoder.nodePath, actual: decoder.node.castableJSONTypes)
             decoder.recordError(error)
             return nil
         }
         let parsed: [(String, Value)?] = jsonDict.map { (key, json) -> (String, Value)? in
-            guard let value = decoder[key].required(Value.self) else { return nil }
+            guard let value = decoder[key].decodeRequired(Value.self) else { return nil }
             return (key, value)
         }
         self = Dictionary(uniqueKeysWithValues: parsed.compactMap { $0 })

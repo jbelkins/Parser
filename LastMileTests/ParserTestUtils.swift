@@ -10,7 +10,7 @@ import Foundation
 import LastMile
 
 
-extension Array where Element == PathNode {
+extension Array where Element == DecodingPathNode {
 
     var strings: [String] {
         return map { $0.stringValue }

@@ -20,19 +20,19 @@ infix operator --> : ParseOperationsGroup
 // MARK: --> operator with type
 
 public func --><DecodedType: APIDecodable>(lhs: APIDecoder, rhs: DecodedType.Type) -> DecodedType! {
-    return lhs.required(DecodedType.self)
+    return lhs.decodeRequired(DecodedType.self)
 }
 
 public func --><DecodedType: APIDecodable>(lhs: APIDecoder, rhs: DecodedType?.Type) -> DecodedType? {
-    return lhs.optional(DecodedType.self)
+    return lhs.decodeOptional(DecodedType.self)
 }
 
 // MARK: --> operator with Create instance
 
 public func --><DecodedType: APIDecodable & Collection>(lhs: APIDecoder, rhs: CountLimited<DecodedType>) -> DecodedType! {
-    return lhs.required(DecodedType.self, min: rhs.min, max: rhs.max, countsAreMandatory: rhs.isMandatory)
+    return lhs.decodeRequired(DecodedType.self, min: rhs.min, max: rhs.max, countsAreMandatory: rhs.isMandatory)
 }
 
 public func --><DecodedType: APIDecodable>(lhs: APIDecoder, rhs: CountLimited<DecodedType?>) -> DecodedType? {
-    return lhs.optional(DecodedType.self, min: rhs.min, max: rhs.max, countsAreMandatory: rhs.isMandatory)
+    return lhs.decodeOptional(DecodedType.self, min: rhs.min, max: rhs.max, countsAreMandatory: rhs.isMandatory)
 }

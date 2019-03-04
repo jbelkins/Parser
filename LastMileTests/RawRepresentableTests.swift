@@ -43,7 +43,7 @@ class RawRepresentableTests: XCTestCase {
         let data = try! JSONSerialization.data(withJSONObject: json, options: [])
         let expected = StoogeStruct(stooge1: .larry, stooge2: .joe)
 
-        let result = DataParser().parse(data: data, to: StoogeStruct.self)
+        let result = APIDataDecoder().decode(data: data, to: StoogeStruct.self)
 
         XCTAssertEqual(result.value, expected)
         XCTAssertEqual(result.errors, [])
@@ -54,10 +54,12 @@ class RawRepresentableTests: XCTestCase {
         let data = try! JSONSerialization.data(withJSONObject: json, options: [])
         let expected = StoogeStruct(stooge1: .larry, stooge2: nil)
 
-        let result = DataParser().parse(data: data, to: StoogeStruct.self)
+        let result = APIDataDecoder().decode(data: data, to: StoogeStruct.self)
 
         XCTAssertEqual(result.value, expected)
-        XCTAssertEqual(result.errors.count, 1)
-        XCTAssertEqual(result.errors.first?.type, ParseErrorType.unexpectedRawValue(value: "cletus", type: "Stooge"))
+        let path: [DecodingPathNode] = ["root", "stooge2"]
+        let reason = APIDecodeErrorReason.unexpectedRawValue(value: "cletus", type: "Stooge")
+        let error = APIDecodeError(path: path, reason: reason)
+        XCTAssertEqual(result.errors, [error])
     }
 }

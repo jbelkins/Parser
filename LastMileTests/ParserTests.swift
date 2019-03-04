@@ -54,19 +54,19 @@ class ParserTests: XCTestCase {
 
     func testDeserializesAStruct() {
         let data = jsonData(from: testJSON1)
-        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
+        let result = APIDataDecoder().decode(data: data, to: MainDecodableStruct.self)
         XCTAssertEqual(result.value, testStruct1)
     }
 
     func testDeserializesAStructWithSubStruct() {
         let data = jsonData(from: testJSON1)
-        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
+        let result = APIDataDecoder().decode(data: data, to: MainDecodableStruct.self)
         XCTAssertEqual(result.value, testStruct1)
     }
 
     func testDeserializesAnArray() {
         let data = jsonData(from: testJSON1)
-        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
+        let result = APIDataDecoder().decode(data: data, to: MainDecodableStruct.self)
         XCTAssertEqual(result.value?.subArray.count, 2)
         XCTAssertEqual(result.value?.subArray ?? [], [subStruct1, subStruct2])
     }
@@ -75,10 +75,10 @@ class ParserTests: XCTestCase {
         var badTestJSON1 = testJSON1!
         badTestJSON1.removeValue(forKey: "name")
         let data = jsonData(from: badTestJSON1)
-        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
+        let result = APIDataDecoder().decode(data: data, to: MainDecodableStruct.self)
         XCTAssertNil(result.value)
         XCTAssertEqual(result.errors.count, 1)
-        XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(actual: [.absent]))
+        XCTAssertEqual(result.errors.first?.reason, .unexpectedJSONType(actual: [.absent]))
         XCTAssertEqual(result.errors.map { $0.path.jsonPath }, ["root[\"name\"]"])
     }
 
@@ -109,10 +109,10 @@ class ParserTests: XCTestCase {
             ]
         ]
         let data = jsonData(from: badTestJSON1)
-        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
+        let result = APIDataDecoder().decode(data: data, to: MainDecodableStruct.self)
         XCTAssertNotNil(result.value)
         XCTAssertEqual(result.errors.count, 1)
-        XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(actual: [.int, .double]))
+        XCTAssertEqual(result.errors.first?.reason, .unexpectedJSONType(actual: [.int, .double]))
         XCTAssertEqual(result.errors.map { $0.path.jsonPath }, ["root[\"substruct\"][\"identifier\"]"])
     }
 
@@ -143,11 +143,11 @@ class ParserTests: XCTestCase {
             ]
         ]
         let data = jsonData(from: badTestJSON1)
-        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
+        let result = APIDataDecoder().decode(data: data, to: MainDecodableStruct.self)
         XCTAssertNil(result.value)
         XCTAssertEqual(result.errors.count, 2)
-        XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(actual: [.double]))
-        XCTAssertEqual(result.errors.last?.type, .unexpectedJSONType(actual: [.int, .double]))
+        XCTAssertEqual(result.errors.first?.reason, .unexpectedJSONType(actual: [.double]))
+        XCTAssertEqual(result.errors.last?.reason, .unexpectedJSONType(actual: [.int, .double]))
         XCTAssertEqual(result.errors.map { $0.path.jsonPath }, ["root[\"name\"]", "root[\"substruct\"][\"identifier\"]"])
     }
 
@@ -179,9 +179,9 @@ class ParserTests: XCTestCase {
             ]
         ]
         let data = jsonData(from: badTestJSON1)
-        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
+        let result = APIDataDecoder().decode(data: data, to: MainDecodableStruct.self)
         XCTAssertEqual(result.errors.count, 1)
-        XCTAssertEqual(result.errors.first?.type, .unexpectedJSONType(actual: [.absent]))
+        XCTAssertEqual(result.errors.first?.reason, .unexpectedJSONType(actual: [.absent]))
         XCTAssertEqual(result.errors.first?.path.jsonPath, "root[\"substructs\"][2][\"identifier\"]")
         XCTAssertEqual(result.value?.subArray.count, 2)
     }
@@ -213,7 +213,7 @@ class ParserTests: XCTestCase {
             ]
         ]
         let data = jsonData(from: badTestJSON1)
-        let result = DataParser().parse(data: data, to: MainDecodableStruct.self)
+        let result = APIDataDecoder().decode(data: data, to: MainDecodableStruct.self)
         XCTAssertNotNil(result.value)
         XCTAssertEqual(result.value?.decimal, 4)
     }

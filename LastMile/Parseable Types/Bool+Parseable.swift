@@ -13,7 +13,7 @@ extension Bool: APIDecodable {
     
     public init?(from decoder: APIDecoder) {
         guard let nsNumber = decoder.json as? NSNumber, nsNumber.isBoolean else {
-            let error = ParseError(path: decoder.nodePath, actual: decoder.node.castableJSONTypes)
+            let error = APIDecodeError(path: decoder.nodePath, actual: decoder.node.castableJSONTypes)
             decoder.recordError(error)
             return nil
         }

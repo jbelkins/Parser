@@ -50,6 +50,6 @@ class UnkeyedNodeParser: UnkeyedDecodingContainer {
 
     func nextCodingKey() -> CodingKey {
         currentIndex += 1
-        return PathNode(intValue: currentIndex)!
+        return DecodingPathNode(intValue: currentIndex)!
     }
 }

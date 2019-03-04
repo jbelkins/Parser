@@ -10,16 +10,16 @@ import Foundation
 import LastMile
 
 
-extension ParseError: Equatable {
+extension APIDecodeError: Equatable {
 
-    public static func == (lhs: ParseError, rhs: ParseError) -> Bool {
-        return lhs.path == rhs.path && lhs.type == rhs.type
+    public static func == (lhs: APIDecodeError, rhs: APIDecodeError) -> Bool {
+        return lhs.path == rhs.path && lhs.reason == rhs.reason
     }
 }
 
 
-extension ParseErrorType: Equatable {
-    public static func ==(lhs: ParseErrorType, rhs: ParseErrorType) -> Bool {
+extension APIDecodeErrorReason: Equatable {
+    public static func ==(lhs: APIDecodeErrorReason, rhs: APIDecodeErrorReason) -> Bool {
         switch (lhs, rhs) {
         case (.unexpectedJSONType(let lhsActual), .unexpectedJSONType(let rhsActual)):
             return lhsActual == rhsActual

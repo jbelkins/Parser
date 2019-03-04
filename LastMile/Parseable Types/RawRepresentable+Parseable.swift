@@ -14,7 +14,7 @@ extension RawRepresentable where RawValue: APIDecodable {
     public init?(from decoder: APIDecoder) {
         guard let rawValue = decoder --> RawValue.self else { return nil }
         guard let value = Self.init(rawValue: rawValue) else {
-            let error = ParseError(path: decoder.nodePath, rawValue: "\(rawValue)", type: "\(Self.self)")
+            let error = APIDecodeError(path: decoder.nodePath, rawValue: "\(rawValue)", type: "\(Self.self)")
             decoder.recordError(error)
             return nil
         }

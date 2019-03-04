@@ -14,14 +14,14 @@ class ResponseDataTests: XCTestCase {
 
     func testSucceedsWithRequestData() {
         let data = "thisissomebinarydata".data(using: .utf8)
-        let result = DataParser().parse(data: data, to: ResponseData.self)
+        let result = APIDataDecoder().decode(data: data, to: ResponseData.self)
         XCTAssertNotNil(result.value)
         XCTAssertEqual(result.value?.data, data)
         XCTAssertEqual(result.errors, [])
     }
 
     func testSucceedsWithoutRequestData() {
-        let result = JSONParser().parse(json: nil, to: ResponseData.self)
+        let result = APIJSONObjectDecoder().decode(json: nil, to: ResponseData.self)
         XCTAssertNotNil(result.value)
         XCTAssertEqual(result.value?.data, nil)
         XCTAssertEqual(result.errors, [])

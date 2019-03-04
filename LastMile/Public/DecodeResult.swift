@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct DecodeResult<ParsedValue: APIDecodable> {
-    public let value: ParsedValue?
-    public let errors: [ParseError]
+public struct DecodeResult<DecodedValue: APIDecodable> {
+    public let value: DecodedValue?
+    public let errors: [APIDecodeError]
 }
