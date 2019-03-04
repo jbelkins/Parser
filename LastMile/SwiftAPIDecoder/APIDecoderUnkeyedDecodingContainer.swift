@@ -10,7 +10,7 @@ import Foundation
 
 
 class APIDecoderUnkeyedDecodingContainer: UnkeyedDecodingContainer {
-    var codingPath: [CodingKey] { return decoder.nodePath }
+    var codingPath: [CodingKey] { return decoder.codingPath }
     let decoder: APIDecoder
     var currentIndex: Int = -1
 
@@ -19,7 +19,7 @@ class APIDecoderUnkeyedDecodingContainer: UnkeyedDecodingContainer {
     }
 
     func superDecoder() throws -> Swift.Decoder {
-        return NodeParserDecoder(decoder: decoder)
+        return SwiftAPIDecoder(decoder: decoder)
     }
 
     var count: Int? {

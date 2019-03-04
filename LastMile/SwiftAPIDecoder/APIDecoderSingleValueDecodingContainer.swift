@@ -10,7 +10,7 @@ import Foundation
 
 
 class APIDecoderSingleValueDecodingContainer: SingleValueDecodingContainer {
-    var codingPath: [CodingKey] { return decoder.nodePath }
+    var codingPath: [CodingKey] { return decoder.codingPath }
     let decoder: APIDecoder
 
     init(decoder: APIDecoder) {

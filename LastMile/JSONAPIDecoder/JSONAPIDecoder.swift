@@ -11,7 +11,7 @@ import Foundation
 
 public class JSONAPIDecoder: APIDecoder {
     public var codingKey: CodingKey { return node }
-    public var codingPath: [CodingKey] { return nodePath }
+    public var codingPath: [CodingKey] { return Array(nodePath.dropFirst()) }
     public var node: APICodingKey
     public let json: Any?
     public var succeeded = true
@@ -68,7 +68,7 @@ public class JSONAPIDecoder: APIDecoder {
 
     public func decodeRequired<DecodedType: Decodable>(swiftDecodable type: DecodedType.Type) -> DecodedType! {
         do {
-            let swiftDecoder = NodeParserDecoder(decoder: self)
+            let swiftDecoder = SwiftAPIDecoder(decoder: self)
             return try DecodedType.init(from: swiftDecoder)
         } catch let decodingError as DecodingError {
             let parseError = APIDecodeError(path: nodePath, decodingError: decodingError)
@@ -83,7 +83,7 @@ public class JSONAPIDecoder: APIDecoder {
 
     public func decodeOptional<DecodedType: Decodable>(swiftDecodable type: DecodedType.Type) -> DecodedType? {
         do {
-            let swiftDecoder = NodeParserDecoder(decoder: self)
+            let swiftDecoder = SwiftAPIDecoder(decoder: self)
             return try DecodedType.init(from: swiftDecoder)
         } catch let decodingError as DecodingError {
             let parseError = APIDecodeError(path: nodePath, decodingError: decodingError)

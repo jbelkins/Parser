@@ -13,7 +13,7 @@ import LastMile
 extension DecodingError: Equatable {
 
     public static func ==(lhs: DecodingError, rhs: DecodingError) -> Bool {
-        return lhs.errorDescription == rhs.errorDescription && lhs.failureReason == rhs.failureReason && lhs.helpAnchor == rhs.helpAnchor && lhs.localizedDescription == rhs.localizedDescription && lhs.recoverySuggestion == rhs.recoverySuggestion && areCasesEqual(lhs: lhs, rhs: rhs)
+        return areCasesEqual(lhs: lhs, rhs: rhs)
     }
 
     // Returns true if the error case and coding path match, false otherwise.

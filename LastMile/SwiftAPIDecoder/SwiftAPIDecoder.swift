@@ -1,5 +1,5 @@
 //
-//  APIDecoder+Decoder.swift
+//  SwiftAPIDecoder.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 5/31/18.
@@ -9,9 +9,9 @@
 import Foundation
 
 
-class NodeParserDecoder: Decoder {
+class SwiftAPIDecoder: Decoder {
     let decoder: APIDecoder
-    var codingPath: [CodingKey] { return decoder.nodePath }
+    var codingPath: [CodingKey] { return decoder.codingPath }
     var userInfo: [CodingUserInfoKey : Any] { return [:] }
 
     init(decoder: APIDecoder) {

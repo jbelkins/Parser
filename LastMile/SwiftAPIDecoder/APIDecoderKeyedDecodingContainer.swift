@@ -10,7 +10,7 @@ import Foundation
 
 
 class APIDecoderKeyedDecodingContainer<Key: CodingKey>: KeyedDecodingContainerProtocol {
-    var codingPath: [CodingKey] { return decoder.nodePath }
+    var codingPath: [CodingKey] { return decoder.codingPath }
     let decoder: APIDecoder
 
     init(decoder: APIDecoder) {
@@ -44,10 +44,10 @@ class APIDecoderKeyedDecodingContainer<Key: CodingKey>: KeyedDecodingContainerPr
     }
 
     public func superDecoder() throws -> Swift.Decoder {
-        return NodeParserDecoder(decoder: decoder)
+        return SwiftAPIDecoder(decoder: decoder["super"])
     }
 
     public func superDecoder(forKey key: Key) throws -> Swift.Decoder {
-        return NodeParserDecoder(decoder: decoder[key])
+        return SwiftAPIDecoder(decoder: decoder[key])
     }
 }
