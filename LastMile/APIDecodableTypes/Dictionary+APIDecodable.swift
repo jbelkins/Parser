@@ -14,7 +14,7 @@ extension Dictionary: APIDecodable where Key == String, Value: APIDecodable {
 
     public init?(from decoder: APIDecoder) {
         guard let jsonDict = decoder.json as? [String: Any] else {
-            let error = APIDecodeError(path: decoder.nodePath, actual: decoder.node.castableJSONTypes)
+            let error = APIDecodeError(path: decoder.nodePath, actual: decoder.node.jsonType)
             decoder.recordError(error)
             return nil
         }

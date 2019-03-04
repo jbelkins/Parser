@@ -13,42 +13,42 @@ import XCTest
 class JSONElementTests: XCTestCase {
 
     func testDictIsAnObject() {
-        let types = JSONElement.types(for: [AnyHashable: Any]())
-        XCTAssertEqual(types, [.object])
+        let type = JSONElement.type(for: [AnyHashable: Any]())
+        XCTAssertEqual(type, .object)
     }
 
     func testArrayIsArray() {
-        let types = JSONElement.types(for: [Any]())
-        XCTAssertEqual(types, [.array])
+        let type = JSONElement.type(for: [Any]())
+        XCTAssertEqual(type, .array)
     }
 
-    func testIntegerNSNumberIsIntOrDouble() {
-        let types = JSONElement.types(for: NSNumber(value: 12))
-        XCTAssertEqual(types, [.int, .double])
+    func testIntegerNSNumberIsInteger() {
+        let type = JSONElement.type(for: NSNumber(value: 12))
+        XCTAssertEqual(type, .integer)
     }
 
-    func testDecimalNSNumberIsDouble() {
-        let types = JSONElement.types(for: NSNumber(value: 12.5))
-        XCTAssertEqual(types, [.double])
+    func testDecimalNSNumberIsDecimal() {
+        let type = JSONElement.type(for: NSNumber(value: 12.5))
+        XCTAssertEqual(type, .decimal)
     }
 
     func testBooleanNSNumberIsBool() {
-        let types = JSONElement.types(for: NSNumber(value: true))
-        XCTAssertEqual(types, [.bool])
+        let type = JSONElement.type(for: NSNumber(value: true))
+        XCTAssertEqual(type, .boolean)
     }
 
     func testStringIsAString() {
-        let types = JSONElement.types(for: "name")
-        XCTAssertEqual(types, [.string])
+        let type = JSONElement.type(for: "name")
+        XCTAssertEqual(type, .string)
     }
 
     func testNSNullIsNull() {
-        let types = JSONElement.types(for: NSNull())
-        XCTAssertEqual(types, [.null])
+        let type = JSONElement.type(for: NSNull())
+        XCTAssertEqual(type, .null)
     }
 
     func testNilJSONIsAbsent() {
-        let types = JSONElement.types(for: nil)
-        XCTAssertEqual(types, [.absent])
+        let type = JSONElement.type(for: nil)
+        XCTAssertEqual(type, .absent)
     }
 }

@@ -13,8 +13,8 @@ public protocol APIDecoder: class {
     var json: Any? { get }
     var codingKey: CodingKey { get }
     var codingPath: [CodingKey] { get }
-    var node: DecodingPathNode { get }
-    var nodePath: [DecodingPathNode] { get }
+    var node: APICodingKey { get }
+    var nodePath: [APICodingKey] { get }
     subscript(key: String) -> APIDecoder { get }
     subscript(index: Int) -> APIDecoder { get }
     subscript(codingKey: CodingKey) -> APIDecoder { get }

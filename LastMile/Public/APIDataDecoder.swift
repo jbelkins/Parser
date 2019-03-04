@@ -13,7 +13,7 @@ public class APIDataDecoder {
 
     public init() {}
 
-    public func decode<DecodedType: APIDecodable>(data: Data?, to type: DecodedType.Type, options: [String: Any] = [:]) -> DecodeResult<DecodedType> {
+    public func decode<DecodedType: APIDecodable>(data: Data?, to type: DecodedType.Type, options: [String: Any] = [:]) -> APIDecodeResult<DecodedType> {
         let newData = data ?? Data()
         var newOptions = options
         newOptions[APIDecodeOptions.rawDataKey] = newData

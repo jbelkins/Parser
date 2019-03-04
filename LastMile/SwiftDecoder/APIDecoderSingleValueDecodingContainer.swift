@@ -127,7 +127,7 @@ class APIDecoderSingleValueDecodingContainer: SingleValueDecodingContainer {
     }
 
     private func throwTypeMismatch(`for` type: Any.Type) throws -> Never {
-        let parseError = APIDecodeError(path: decoder.nodePath, actual: decoder.node.castableJSONTypes)
+        let parseError = APIDecodeError(path: decoder.nodePath, actual: decoder.node.jsonType)
         throw DecodingError.typeMismatch(type, DecodingError.Context(codingPath: codingPath, debugDescription: parseError.localizedDescription))
     }
 }

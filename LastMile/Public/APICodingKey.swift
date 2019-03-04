@@ -9,17 +9,17 @@
 import Foundation
 
 
-public struct DecodingPathNode: Equatable {
+public struct APICodingKey: Equatable {
     public let hashKey: String?
     public let arrayIndex: Int?
-    public var castableJSONTypes = Set<JSONElement>()
+    public var jsonType: JSONElement
     public var swiftType: Any.Type?
     public var idKey: String?
     public var id: String?
 }
 
 
-public func ==(lhs: DecodingPathNode, rhs: DecodingPathNode) -> Bool {
+public func ==(lhs: APICodingKey, rhs: APICodingKey) -> Bool {
     return lhs as CodingKey == rhs as CodingKey
 }
 
@@ -29,24 +29,24 @@ public func ==(lhs: CodingKey, rhs: CodingKey) -> Bool {
 }
 
 
-extension DecodingPathNode {
+extension APICodingKey {
 
     init(codingKey: CodingKey) {
         let hashKey = codingKey.intValue == nil ? codingKey.stringValue : nil
-        self.init(hashKey: hashKey, arrayIndex: codingKey.intValue, castableJSONTypes: [], swiftType: nil, idKey: nil, id: nil)
+        self.init(hashKey: hashKey, arrayIndex: codingKey.intValue, jsonType: .unknown, swiftType: nil, idKey: nil, id: nil)
     }
 
     init(hashKey: String, swiftType: Decodable.Type?) {
-        self.init(hashKey: hashKey, arrayIndex: nil, castableJSONTypes: [], swiftType: swiftType, idKey: nil, id: nil)
+        self.init(hashKey: hashKey, arrayIndex: nil, jsonType: .unknown, swiftType: swiftType, idKey: nil, id: nil)
     }
 
     init(arrayIndex: Int, swiftType: Decodable.Type?) {
-        self.init(hashKey: nil, arrayIndex: arrayIndex, castableJSONTypes: [], swiftType: swiftType, idKey: nil, id: nil)
+        self.init(hashKey: nil, arrayIndex: arrayIndex, jsonType: .unknown, swiftType: swiftType, idKey: nil, id: nil)
     }
 }
 
 
-extension DecodingPathNode: CodingKey {
+extension APICodingKey: CodingKey {
     public var stringValue: String { return hashKey ?? "\(arrayIndex!)"}
     public var intValue: Int? { return arrayIndex }
 
@@ -60,25 +60,25 @@ extension DecodingPathNode: CodingKey {
 }
 
 
-extension DecodingPathNode: ExpressibleByIntegerLiteral {
+extension APICodingKey: ExpressibleByIntegerLiteral {
     public typealias IntegerLiteralType = Int
 
-    public init(integerLiteral value: DecodingPathNode.IntegerLiteralType) {
+    public init(integerLiteral value: APICodingKey.IntegerLiteralType) {
         self.init(arrayIndex: value, swiftType: nil)
     }
 }
 
 
-extension DecodingPathNode: ExpressibleByStringLiteral {
+extension APICodingKey: ExpressibleByStringLiteral {
     public typealias StringLiteralType = String
 
-    public init(stringLiteral value: DecodingPathNode.StringLiteralType) {
+    public init(stringLiteral value: APICodingKey.StringLiteralType) {
         self.init(hashKey: value, swiftType: nil)
     }
 }
 
 
-extension Array where Element == DecodingPathNode {
+extension Array where Element == APICodingKey {
 
     public var jsonPath: String {
         guard let firstNode = self.first else { return "" }

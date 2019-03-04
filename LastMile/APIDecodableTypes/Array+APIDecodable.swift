@@ -13,7 +13,7 @@ extension Array: APIDecodable where Element: APIDecodable {
 
     public init?(from decoder: APIDecoder) {
         guard let jsonArray = decoder.json as? [Any] else {
-            let error = APIDecodeError(path: decoder.nodePath, actual: decoder.node.castableJSONTypes)
+            let error = APIDecodeError(path: decoder.nodePath, actual: decoder.node.jsonType)
             decoder.recordError(error)
             return nil
         }

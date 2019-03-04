@@ -49,6 +49,6 @@ class APIDecoderUnkeyedDecodingContainer: UnkeyedDecodingContainer {
 
     func nextCodingKey() -> CodingKey {
         currentIndex += 1
-        return DecodingPathNode(intValue: currentIndex)!
+        return APICodingKey(intValue: currentIndex)!
     }
 }

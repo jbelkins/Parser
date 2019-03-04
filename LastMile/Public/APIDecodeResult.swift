@@ -1,5 +1,5 @@
 //
-//  DecodeResult.swift
+//  APIDecodeResult.swift
 //  LastMile
 //
 //  Created by Josh Elkins on 2/27/19.
@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct DecodeResult<DecodedValue: APIDecodable> {
+public struct APIDecodeResult<DecodedValue: APIDecodable> {
     public let value: DecodedValue?
     public let errors: [APIDecodeError]
 }

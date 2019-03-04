@@ -57,7 +57,7 @@ class RawRepresentableTests: XCTestCase {
         let result = APIDataDecoder().decode(data: data, to: StoogeStruct.self)
 
         XCTAssertEqual(result.value, expected)
-        let path: [DecodingPathNode] = ["root", "stooge2"]
+        let path: [APICodingKey] = ["root", "stooge2"]
         let reason = APIDecodeErrorReason.unexpectedRawValue(value: "cletus", type: "Stooge")
         let error = APIDecodeError(path: path, reason: reason)
         XCTAssertEqual(result.errors, [error])

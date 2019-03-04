@@ -10,7 +10,7 @@ import Foundation
 import LastMile
 
 
-extension Array where Element == DecodingPathNode {
+extension Array where Element == APICodingKey {
 
     var strings: [String] {
         return map { $0.stringValue }

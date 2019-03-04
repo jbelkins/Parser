@@ -10,7 +10,7 @@ import Foundation
 
 
 public enum APIDecodeErrorReason {
-    case unexpectedJSONType(actual: Set<JSONElement>)
+    case unexpectedJSONType(actual: JSONElement)
     case countNotExact(expected: Int, actual: Int)
     case countBelowMinimum(minimum: Int, actual: Int)
     case countAboveMaximum(maximum: Int, actual: Int)
@@ -21,45 +21,45 @@ public enum APIDecodeErrorReason {
 
 
 public struct APIDecodeError {
-    public let path: [DecodingPathNode]
+    public let path: [APICodingKey]
     public let reason: APIDecodeErrorReason
 
-    public init(path: [DecodingPathNode], reason: APIDecodeErrorReason) {
+    public init(path: [APICodingKey], reason: APIDecodeErrorReason) {
         self.path = path
         self.reason = reason
     }
 
-    public init(path: [DecodingPathNode], actual: Set<JSONElement>) {
+    public init(path: [APICodingKey], actual: JSONElement) {
         self.path = path
         reason = .unexpectedJSONType(actual: actual)
     }
 
-    public init(path: [DecodingPathNode], expected: Int, actual: Int) {
+    public init(path: [APICodingKey], expected: Int, actual: Int) {
         self.path = path
         reason = .countNotExact(expected: expected, actual: actual)
     }
 
-    public init(path: [DecodingPathNode], minimum: Int, actual: Int) {
+    public init(path: [APICodingKey], minimum: Int, actual: Int) {
         self.path = path
         reason = .countBelowMinimum(minimum: minimum, actual: actual)
     }
 
-    public init(path: [DecodingPathNode], maximum: Int, actual: Int) {
+    public init(path: [APICodingKey], maximum: Int, actual: Int) {
         self.path = path
         reason = .countAboveMaximum(maximum: maximum, actual: actual)
     }
 
-    public init(path: [DecodingPathNode], rawValue: String, type: String) {
+    public init(path: [APICodingKey], rawValue: String, type: String) {
         self.path = path
         self.reason = .unexpectedRawValue(value: rawValue, type: type)
     }
 
-    public init(path: [DecodingPathNode], decodingError: DecodingError) {
+    public init(path: [APICodingKey], decodingError: DecodingError) {
         self.path = path
         reason = .swiftDecodingError(decodingError)
     }
 
-    public init(path: [DecodingPathNode], message: String) {
+    public init(path: [APICodingKey], message: String) {
         self.path = path
         reason = .other(message: message)
     }
@@ -71,8 +71,8 @@ extension APIDecodeError: Error {
     public var localizedDescription: String {
         switch reason {
         case .unexpectedJSONType(let actual):
-            if actual == [.absent] { return "No value is present" }
-            return "Unexpected JSON type: casts to [\(actual.map { $0.rawValue }.joined(separator: ", "))]"
+            if actual == .absent { return "No value is present" }
+            return "Unexpected JSON type: casts to \(actual)"
         case .countNotExact(let expected, let actual):
             return "Count not exact: expected \(expected), actual \(actual)"
         case .countBelowMinimum(let minimum, let actual):

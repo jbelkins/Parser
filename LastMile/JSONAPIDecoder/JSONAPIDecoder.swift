@@ -12,7 +12,7 @@ import Foundation
 public class JSONAPIDecoder: APIDecoder {
     public var codingKey: CodingKey { return node }
     public var codingPath: [CodingKey] { return nodePath }
-    public var node: DecodingPathNode
+    public var node: APICodingKey
     public let json: Any?
     public var succeeded = true
     public let options: [String: Any]
@@ -20,8 +20,8 @@ public class JSONAPIDecoder: APIDecoder {
     let parent: JSONAPIDecoder?
 
     init(codingKey: CodingKey, json: Any?, parent: JSONAPIDecoder?, options: [String: Any]) {
-        self.node = DecodingPathNode(codingKey: codingKey)
-        self.node.castableJSONTypes = JSONElement.types(for: json)
+        self.node = APICodingKey(codingKey: codingKey)
+        self.node.jsonType = JSONElement.type(for: json)
         self.json = json
         self.parent = parent
         self.options = options
@@ -30,13 +30,13 @@ public class JSONAPIDecoder: APIDecoder {
     // MARK: - Creating parsers for JSON sub-elements
 
     public subscript(key: String) -> APIDecoder {
-        let codingKey = DecodingPathNode(stringValue: key)!
+        let codingKey = APICodingKey(stringValue: key)!
         let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
         return JSONAPIDecoder(codingKey: codingKey, json: newJSON, parent: self, options: options)
     }
 
     public subscript(index: Int) -> APIDecoder {
-        let codingKey = DecodingPathNode(intValue: index)!
+        let codingKey = APICodingKey(intValue: index)!
         let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
         return JSONAPIDecoder(codingKey: codingKey, json: newJSON, parent: self, options: options)
     }
@@ -102,7 +102,7 @@ public class JSONAPIDecoder: APIDecoder {
 
     // MARK: - Path retrieval
 
-    public var nodePath: [DecodingPathNode] {
+    public var nodePath: [APICodingKey] {
         guard let parent = parent else { return [node] }
         return parent.nodePath + [node]
     }
@@ -119,7 +119,7 @@ public class JSONAPIDecoder: APIDecoder {
         tagNode(type: type)
         guard (json != nil && !(json is NSNull && type != NSNull.self)) || type == ResponseData.self else {
             if required {
-                let error = APIDecodeError(path: nodePath, actual: node.castableJSONTypes)
+                let error = APIDecodeError(path: nodePath, actual: node.jsonType)
                 recordError(error)
             }
             return nil

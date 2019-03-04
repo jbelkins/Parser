@@ -10,29 +10,30 @@ import Foundation
 
 
 public enum JSONElement: String, Equatable {
-    case object = "[String: Any]"
-    case array = "[Any]"
-    case int = "Int"
-    case bool = "Bool"
-    case double = "Double"
+    case object = "Object"
+    case array = "Array"
+    case integer = "Integer"
+    case boolean = "Boolean"
+    case decimal = "Decimal"
     case string = "String"
-    case null = "NSNull"
-    case absent = "absent"
+    case null = "Null"
+    case absent = "no value present"
+    case unknown = "Unknown"
 
-    static func types(`for` json: Any?) -> Set<JSONElement> {
-        var types = Set<JSONElement>()
-        if let _ = json as? [String: Any] { types.insert(.object) }
-        if let _ = json as? [Any] { types.insert(.array) }
+    static func type(`for` json: Any?) -> JSONElement {
+        guard let json = json else { return .absent }
+        if let _ = json as? [String: Any] { return .object }
+        if let _ = json as? [Any] { return .array }
         if let nsNumber = json as? NSNumber {
             if nsNumber.isBoolean {
-                types.insert(.bool)
+                return .boolean
             } else {
-                if let _ = Int(exactly: nsNumber) { types.insert(.int) }
-                if let _ = Double(exactly: nsNumber) { types.insert(.double) }
+                if let _ = Int(exactly: nsNumber) { return .integer }
+                if let _ = Double(exactly: nsNumber) { return .decimal }
             }
         }
-        if let _ = json as? String { types.insert(.string) }
-        if let _ = json as? NSNull { types.insert(.null) }
-        return types.isEmpty ? [.absent] : types
+        if let _ = json as? String { return .string }
+        if let _ = json as? NSNull { return .null }
+        return .unknown
     }
 }
