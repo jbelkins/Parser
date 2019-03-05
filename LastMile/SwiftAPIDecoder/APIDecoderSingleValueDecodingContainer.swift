@@ -22,7 +22,8 @@ class APIDecoderSingleValueDecodingContainer: SingleValueDecodingContainer {
     }
 
     func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
-        return try decodeAndReturnOrThrow(swiftDecodableType: T.self)
+        let swiftDecoder = SwiftAPIDecoder(decoder: decoder)
+        return try T.init(from: swiftDecoder)
     }
 
     public func decode(_ type: Bool.Type) throws -> Bool {
@@ -84,14 +85,6 @@ class APIDecoderSingleValueDecodingContainer: SingleValueDecodingContainer {
     private func decodeAndReturnOrThrow<DecodedType: APIDecodable>(_ type: DecodedType.Type) throws -> DecodedType {
         let isolatedDecoder = decoder.errorHoldingDecoder()
         guard let value = isolatedDecoder.decodeRequired(DecodedType.self) else {
-            try throwError(decoder: isolatedDecoder, type: DecodedType.self)
-        }
-        return value
-    }
-
-    private func decodeAndReturnOrThrow<DecodedType: Decodable>(swiftDecodableType: DecodedType.Type) throws -> DecodedType {
-        let isolatedDecoder = decoder.errorHoldingDecoder()
-        guard let value = isolatedDecoder.decodeRequired(swiftDecodable: DecodedType.self) else {
             try throwError(decoder: isolatedDecoder, type: DecodedType.self)
         }
         return value
