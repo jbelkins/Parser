@@ -18,14 +18,14 @@ public class JSONAPIDecoder: APIDecoder {
     public let options: [String: Any]
     public var errors = [APIDecodeError]()
     let parent: JSONAPIDecoder?
-    let holdsErrors: Bool
+    let errorTarget: JSONAPIDecoder?
 
-    init(codingKey: CodingKey, json: Any?, parent: JSONAPIDecoder?, holdsErrors: Bool, options: [String: Any]) {
+    init(codingKey: CodingKey, json: Any?, parent: JSONAPIDecoder?, errorTarget: JSONAPIDecoder?, options: [String: Any]) {
         self.key = APICodingKey(codingKey: codingKey)
         self.key.jsonType = JSONElement.type(for: json)
         self.json = json
         self.parent = parent
-        self.holdsErrors = holdsErrors
+        self.errorTarget = errorTarget
         self.options = options
     }
 
@@ -34,26 +34,26 @@ public class JSONAPIDecoder: APIDecoder {
     public subscript(key: String) -> APIDecoder {
         let codingKey = APICodingKey(stringValue: key)!
         let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
-        return JSONAPIDecoder(codingKey: codingKey, json: newJSON, parent: self, holdsErrors: false, options: options)
+        return JSONAPIDecoder(codingKey: codingKey, json: newJSON, parent: self, errorTarget: self, options: options)
     }
 
     public subscript(index: Int) -> APIDecoder {
         let codingKey = APICodingKey(intValue: index)!
         let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
-        return JSONAPIDecoder(codingKey: codingKey, json: newJSON, parent: self, holdsErrors: false, options: options)
+        return JSONAPIDecoder(codingKey: codingKey, json: newJSON, parent: self, errorTarget: self, options: options)
     }
 
     public subscript(codingKey: CodingKey) -> APIDecoder {
         let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
-        return JSONAPIDecoder(codingKey: codingKey, json: newJSON, parent: self, holdsErrors: false, options: options)
+        return JSONAPIDecoder(codingKey: codingKey, json: newJSON, parent: self, errorTarget: self, options: options)
     }
 
     public func superDecoder() -> APIDecoder {
-        return JSONAPIDecoder(codingKey: codingKey, json: json, parent: parent, holdsErrors: false, options: options)
+        return JSONAPIDecoder(codingKey: codingKey, json: json, parent: parent, errorTarget: self, options: options)
     }
 
     public func errorHoldingDecoder() -> APIDecoder {
-        return JSONAPIDecoder(codingKey: codingKey, json: json, parent: parent, holdsErrors: true, options: options)
+        return JSONAPIDecoder(codingKey: codingKey, json: json, parent: parent, errorTarget: nil, options: options)
     }
 
     // MARK: - Decoding
@@ -97,8 +97,8 @@ public class JSONAPIDecoder: APIDecoder {
     }
 
     public func recordError(_ error: APIDecodeError) {
-        guard let parent = parent, !holdsErrors else { errors.append(error); return }
-        parent.recordError(error)
+        guard let errorTarget = errorTarget else { errors.append(error); return }
+        errorTarget.recordError(error)
     }
 
     // MARK: - Path retrieval
@@ -142,8 +142,8 @@ public class JSONAPIDecoder: APIDecoder {
     }
 
     private func tagKey(type: APIDecodable.Type) {
-        key.swiftType = type
-        key.idKey = type.idKey
-        key.id = type.id(from: json)
+        key.swiftType = key.swiftType ?? type
+        key.idKey = key.idKey ?? type.idKey
+        key.id = key.id ?? type.id(from: json)
     }
 }

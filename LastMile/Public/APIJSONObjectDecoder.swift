@@ -22,6 +22,6 @@ public class APIJSONObjectDecoder {
     private static func rootDecoder(json: Any?, options: [String: Any]) -> JSONAPIDecoder {
         let rootNodeName = options[APIDecodeOptions.rootNodeNameKey] as? String ?? "root"
         let rootNode = APICodingKey(hashKey: rootNodeName, swiftType: nil)
-        return JSONAPIDecoder(codingKey: rootNode, json: json, parent: nil, holdsErrors: true, options: options)
+        return JSONAPIDecoder(codingKey: rootNode, json: json, parent: nil, errorTarget: nil, options: options)
     }
 }
