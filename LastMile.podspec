@@ -15,7 +15,7 @@ Pod::Spec.new do |spec|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  spec.name         = "Parser"
+  spec.name         = "LastMile"
   spec.version      = "0.0.1"
   spec.summary      = "Parses data encoded in UTF-8 to deserialized Swift objects"
 
@@ -91,7 +91,7 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "Parser", "Parser/**/*.swift"
+  spec.source_files  = "LastMile", "LastMile/**/*.swift"
   # spec.exclude_files = "Classes/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
