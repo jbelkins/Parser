@@ -9,4 +9,14 @@
 import Foundation
 
 
-extension Int16: JSONRawValueType {}
+extension Int16: APIDecodable {
+
+    public init?(from decoder: APIDecoder) {
+        guard let nsNumber = decoder.json as? NSNumber, !nsNumber.isBoolean, let int16 = Int16(exactly: nsNumber) else {
+            let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
+            decoder.recordError(error)
+            return nil
+        }
+        self = int16
+    }
+}

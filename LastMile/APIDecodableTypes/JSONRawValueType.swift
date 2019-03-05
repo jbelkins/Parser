@@ -16,7 +16,7 @@ extension JSONRawValueType {
 
     public init?(from decoder: APIDecoder) {
         guard let value = decoder.json as? Self else {
-            let error = APIDecodeError(path: decoder.nodePath, actual: decoder.node.jsonType)
+            let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
             decoder.recordError(error)
             return nil
         }

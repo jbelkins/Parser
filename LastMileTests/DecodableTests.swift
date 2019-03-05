@@ -63,6 +63,16 @@ class DecodableTests: XCTestCase {
         compareResults(data: data, outputType: HasAnInt.self)
     }
 
+    func testDoesNotDecode1Point0To1() {
+
+        struct HasAnInt: Decodable, Equatable {
+            let intValue: Int
+        }
+
+        let data = try! JSONSerialization.data(withJSONObject: ["intValue": 1.0], options: [])
+        compareResults(data: data, outputType: HasAnInt.self)
+    }
+
     func testDecodesAClassThatInherits() {
         let original = SubClass(id: 567, name: "jerry")
         let data = try! JSONEncoder().encode(original)
@@ -125,7 +135,7 @@ extension APIDataDecoder: DecodesJSONDataToEquatable {
         if let container = result.value {
             return container.value
         } else {
-            throw result.errors[1]
+            throw result.errors.last!
         }
     }
 }

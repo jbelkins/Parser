@@ -13,7 +13,7 @@ extension UInt8: APIDecodable {
 
     public init?(from decoder: APIDecoder) {
         guard let nsNumber = decoder.json as? NSNumber, let uint8 = UInt8(exactly: nsNumber) else {
-            let error = APIDecodeError(path: decoder.nodePath, actual: decoder.node.jsonType)
+            let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
             decoder.recordError(error)
             return nil
         }

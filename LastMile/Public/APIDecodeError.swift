@@ -15,6 +15,8 @@ public enum APIDecodeErrorReason {
     case countBelowMinimum(minimum: Int, actual: Int)
     case countAboveMaximum(maximum: Int, actual: Int)
     case unexpectedRawValue(value: String, type: String)
+    case numericOverflow(value: String, type: String)
+    case lossOfPrecision(value: String, type: String)
     case swiftDecodingError(DecodingError)
     case other(message: String)
 }
@@ -23,6 +25,8 @@ public enum APIDecodeErrorReason {
 public struct APIDecodeError {
     public let path: [APICodingKey]
     public let reason: APIDecodeErrorReason
+    public var codingPath: [CodingKey] { return Array(path.dropFirst())}
+    public var codingKey: CodingKey { return path.last! }
 
     public init(path: [APICodingKey], reason: APIDecodeErrorReason) {
         self.path = path
@@ -54,9 +58,19 @@ public struct APIDecodeError {
         self.reason = .unexpectedRawValue(value: rawValue, type: type)
     }
 
-    public init(path: [APICodingKey], decodingError: DecodingError) {
+    public init(path: [APICodingKey], value: String, overflowedType: String) {
         self.path = path
-        reason = .swiftDecodingError(decodingError)
+        self.reason = .numericOverflow(value: value, type: overflowedType)
+    }
+
+    public init(path: [APICodingKey], value: String, impreciseType: String) {
+        self.path = path
+        self.reason = .lossOfPrecision(value: value, type: impreciseType)
+    }
+
+    public init(path: [APICodingKey], swiftDecodingError: DecodingError) {
+        self.path = path
+        reason = .swiftDecodingError(swiftDecodingError)
     }
 
     public init(path: [APICodingKey], message: String) {
@@ -81,8 +95,12 @@ extension APIDecodeError: Error {
             return "Count above max: max \(maximum), actual \(actual)"
         case .unexpectedRawValue(let value, let type):
             return "Raw value of \"\(value)\" for type \(type) not defined"
-        case .swiftDecodingError(let error):
-            return "Swift DecodingError: \(error.localizedDescription)"
+        case .numericOverflow(let value, let type):
+            return "Value \(value) does not fit in \(type)"
+        case .lossOfPrecision(let value, let type):
+            return "Type \(type) does not have precision to represent \(value)"
+        case .swiftDecodingError(let decodingError):
+            return "Swift DecodingError: \(decodingError)"
         case .other(let message):
             return message
         }
