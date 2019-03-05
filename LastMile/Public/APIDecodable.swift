@@ -11,6 +11,7 @@ import Foundation
 
 public protocol APIDecodable {
     static var idKey: String? { get }
+    static var alwaysSucceeds: Bool { get }
     var parseableElementCount: Int? { get }
 
     init?(from decoder: APIDecoder)
@@ -19,6 +20,7 @@ public protocol APIDecodable {
 
 extension APIDecodable {
     public static var idKey: String? { return nil }
+    public static var alwaysSucceeds: Bool { return false }
     public var parseableElementCount: Int? { return nil }
 
     static func id(from json: Any?) -> String? {

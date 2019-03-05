@@ -10,6 +10,7 @@ import Foundation
 
 
 public struct ResponseData: APIDecodable {
+    public static var alwaysSucceeds: Bool { return true }
     public let data: Data?
 
     public init?(from decoder: APIDecoder) {

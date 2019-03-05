@@ -118,7 +118,7 @@ public class JSONAPIDecoder: APIDecoder {
 
     private func decode<DecodedType: APIDecodable>(type: DecodedType.Type, required: Bool, min: Int?, max: Int?, countsAreMandatory: Bool) -> DecodedType? {
         tagKey(type: type)
-        guard (json != nil && !(json is NSNull && type != NSNull.self)) || type == ResponseData.self else {
+        guard (json != nil && !(json is NSNull && type != NSNull.self)) || type.alwaysSucceeds else {
             if required {
                 let error = APIDecodeError(path: path, actual: key.jsonType)
                 recordError(error)

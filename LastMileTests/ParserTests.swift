@@ -218,6 +218,13 @@ class ParserTests: XCTestCase {
         XCTAssertEqual(result.value?.decimal, 4)
     }
 
+    func testDeserializesAResponseDataObject() {
+        let garbage = "dfjnaf;kbenva.wjebvwrv k.weJBF kriuogh;oaifnr;ognhaeioprghn".data(using: .utf8)
+        let result = APIDataDecoder().decode(data: garbage, to: ResponseData.self)
+        XCTAssertEqual(result.value?.data, garbage)
+        XCTAssertEqual(result.errors.count, 0)
+    }
+
     func jsonData(from object: Any?) -> Data {
         guard let object = object else { return Data() }
         let data = try? JSONSerialization.data(withJSONObject: object, options: [])
