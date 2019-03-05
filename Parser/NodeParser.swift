@@ -49,7 +49,7 @@ public class NodeParser: Parser {
     }
 
     public func superParser() -> Parser {
-        return NodeParser(codingKey: codingKey, json: json, parent: self, options: options)
+        return NodeParser(codingKey: codingKey, json: json, parent: parent, options: options)
     }
 
     public func errorHoldingParser() -> Parser {
@@ -141,8 +141,8 @@ public class NodeParser: Parser {
     }
 
     private func tagNode(type: Parseable.Type) {
-        node.swiftType = type
-        node.idKey = type.idKey
-        node.id = type.id(from: json)
+        node.swiftType = node.swiftType ?? type
+        node.idKey = node.idKey ?? type.idKey
+        node.id = node.id ?? type.id(from: json)
     }
 }
