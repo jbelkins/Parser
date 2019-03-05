@@ -29,6 +29,7 @@ public protocol Parser: class, Decoder, UnkeyedDecodingContainer, SingleValueDec
     var succeeded: Bool { get set }
     var isUnkeyedContainer: Bool { get set }
     var options: [String: Any] { get }
+    var errors: [ParseError] { get }
 }
 
 
