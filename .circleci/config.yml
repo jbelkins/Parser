@@ -1,0 +1,34 @@
+# Specify the config version - version 2 is latest.
+version: 2
+
+jobs:
+  unit-test:
+    macos:
+      xcode: "10.1.0"
+    shell: /bin/bash --login -eo pipefail
+    steps:
+      - checkout
+      - run:
+          name: Run Fastlane
+          command: bundle exec fastlane scan
+      - run:
+          name: Move test results
+          command: mv fastlane/test_output/report.junit fastlane/test_output/report.xml || true
+      - store_test_results:
+          path: fastlane/test_output
+          destination: junit
+      - store_artifacts:
+          path: fastlane/test_output
+          destination: junit
+      - store_artifacts:
+          path: ~/Library/Logs/gym
+          destination: gym-logs
+      - store_artifacts:
+          path: ~/Library/Logs/scan
+          destination: scan-logs
+
+workflows:
+  version: 2
+  unit-test:
+    jobs:
+      - unit-test
