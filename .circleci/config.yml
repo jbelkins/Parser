@@ -8,6 +8,15 @@ jobs:
     shell: /bin/bash --login -eo pipefail
     steps:
       - checkout
+      - restore_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: Install bundled gems
+          command: bundle check --path vendor/bundle || bundle install --path vendor/bundle
+      - save_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
       - run:
           name: Run Fastlane
           command: bundle exec fastlane scan
