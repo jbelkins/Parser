@@ -17,7 +17,7 @@ Pod::Spec.new do |spec|
 
   spec.name         = "LastMile"
   spec.version      = "0.0.1"
-  spec.summary      = "Parses data encoded in UTF-8 to deserialized Swift objects"
+  spec.summary      = "Decodes data encoded in JSON to Swift objects"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,10 +25,10 @@ Pod::Spec.new do |spec|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   spec.description  = <<-DESC
-  Parses JSON to objects, producing errors along the way.
+  Decodes JSON into objects, with simple, elegant syntax, flexible and resilient parsing, and insightful error reporting.
                    DESC
 
-  spec.homepage     = "https://github.com/ParkWhiz/JSONParser-iOS"
+  spec.homepage     = "https://github.com/jbelkins/LastMile-iOS"
   # spec.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -53,7 +53,7 @@ Pod::Spec.new do |spec|
   #  profile URL.
   #
 
-  spec.author             = { "Josh Elkins" => "jelkins@parkwhiz.com" }
+  spec.author             = { "Josh Elkins" => "jelkins@arrive.com" }
   # Or just: spec.author    = "Josh Elkins"
   # spec.authors            = { "Josh Elkins" => "jelkins@parkwhiz.com" }
   # spec.social_media_url   = "https://twitter.com/Josh Elkins"
@@ -80,7 +80,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/ParkWhiz/JSONParser-iOS.git", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/jbelkins/LastMile-iOS.git", :tag => "v#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -117,7 +117,7 @@ Pod::Spec.new do |spec|
   #  the lib prefix of their name.
   #
 
-  # spec.framework  = "SomeFramework"
+  spec.framework  = "Foundation"
   # spec.frameworks = "SomeFramework", "AnotherFramework"
 
   # spec.library   = "iconv"
