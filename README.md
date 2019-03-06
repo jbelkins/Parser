@@ -1,73 +1,65 @@
-_This is a work in progress.  Not recommended for production use._
-
-# Parser
-Robust parsing for JSON APIs
+# LastMile
+Robust decoding of model objects, tailored for use with JSON APIs
 
 - Type-safe access to JSON from Swift
-- Simple, clean syntax for initializing model objects
+- Simple, clean syntax for decoding model objects
 - Collects errors for abnormalities in the received JSON
+- Built-in handling for Swift enumerations
 
 ## Syntax
 Here is a sample model object:
 ```
-struct DemoStruct {
+struct Person {
     let id: Int
-    let name: String
-    let first: DemoSubStruct
-
-    let description: String?
-    var substruct: DemoSubStruct?
+    let lastName: String
+    let firstName: DemoSubStruct
+    let phoneNumber: String?
+    let gender: String?
 }
 ```
-`id`, `name`, and `first` are required fields.  `description` and `substruct` are optionals.
+`id`, `lastName`, and `firstName` are required fields.  `phoneNumber` and `gender` are optional.
 
-Here is the JSON we will parse this object from:
+Here is the JSON we will decode this object from:
 ```
 {
     "id": 8675309,
-    "name": "test struct 1",
-    "description": "Cool structure",
-    "substruct": {
-        "identifier": "Cool sub structure"
-    },
-    "substructs": [
-        {"identifier": "Cool array element 0"},
-        {"identifier": "Cool array element 1"}
-    ]
+    "first_name": "Mary",
+    "last_name": "Smith",
+    "phone_number": "(312) 555-1212",
+    "hair_color": 7.5
 }
 ```
 
-All JSON primitive types (hash/dictionary, array, integer, double, string, boolean, null) are extended to comply with `Parseable` out of the box; `DemoSubStruct` is a custom type that has already been extended to comply.  Here is an extension to `DemoStruct` with a failable initializer that complies with the `Parseable` protocol.
-
-Because `id`, `name`, and `first` are required, we want our `DemoStruct` initializer to fail if any of these are not present.  The presence or absence of `description` and `substruct` will not affect whether the creation of a DemoStruct succeeds or fails.
-
+And here is an `APIDecodable` extension for `Person` that will create a new instance:
 ```
-extension DemoStruct: Parseable {
+extension Person: APIDecodable {
 
-    init?(parser: Parser) {
+    init?(from decoder: APIDecoder) {
         // 1a
-        let id = parser["id"].required(Int.self)
-        let name = parser["name"].required(String.self)
-        let first = parser["substructs"][0].required(DemoSubStruct.self)
+        let id =          decoder["id"]           --> Int.self
+        let firstName =   decoder["first_name"]   --> String.self
+        let lastName =    decoder["last_name"]    --> String.self
+        
         // 1b
-        let description = parser["description"].optional(String.self)
-        let substruct = parser["substruct"].optional(DemoSubStruct.self)
+        let phoneNumber = decoder["phone_number"] --> String?.self
+        let gender =      decoder["gender"]       --> String?.self
+        let hairColor =   decoder["hair_color"]   --> String?.self
         
         // 2
-        guard parser.succeeded else { return nil }
+        guard decoder.succeeded else { return nil }
         
         // 3
-        self.init(id: id!, name: name!, first: first!, description: description, substruct: substruct)
+        self.init(id: id!, firstName: firstName!, lastName: lastName!, gender: gender, hairColor: hairColor)
     }
 }
 ```
-There are three steps within this initializer:
+There are three steps to this initializer:
 
-1) The parser is used to create all of the fields required to initialize a `DemoStruct`.  Using one or more subscripts on the parser lets you safely access JSON subelements, then you call either (1a) `.required(_:)` or (1b) `.optional(_:)` as appropriate for the optionality of the value you are parsing.  Both `.required(_:)` and `.optional(_:)` return an optional value of the passed type.
+1) The decoder is used to create all of the values required to initialize a `DemoStruct`.  Using one or more subscripts on the parser lets you safely access JSON subelements, then you use the `-->` operator with either a type that is (1a) `APIDecodable` or (1b) an optional `APIDecodable`.
 
-2) The initializer is made to fail if `parser.succeeded` is false.  This will happen whenever any of the `.required(_:)` calls returned a nil value.
+2) The initializer fails by returning `nil` if `decoder.succeeded` is false.  This will happen whenever any non-optional value is not present.
 
-3) Finally, the structure is initialized by calling the memberwise initializer.  Required values `id`, `name`, and `first` may be force-unwrapped safely if `parser.succeeded` was true, since it means all required values were non-nil.
+3) Finally, the structure is initialized by calling the memberwise initializer.  Required values `id`, `firstName`, and `lastName` may be force-unwrapped safely if `decoder.succeeded` was true.
 
 ## Using
 
