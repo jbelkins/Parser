@@ -25,8 +25,8 @@ extension APIDecodable {
 
     static func id(from json: Any?) -> String? {
         guard let idKey = idKey, let jsonDictionary = json as? [String: Any] else { return nil }
-        if let id: CustomStringConvertible = jsonDictionary[idKey] as? Int ?? jsonDictionary[idKey] as? String {
-            return String(describing: id)
+        if let id = jsonDictionary[idKey] as? CustomStringConvertible {
+            return "\(id)"
         }
         return nil
     }

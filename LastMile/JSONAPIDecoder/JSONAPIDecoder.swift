@@ -96,6 +96,9 @@ public class JSONAPIDecoder: APIDecoder {
         return nil
     }
 
+    /// Adds an error to the decoder's collection.
+    ///
+    /// - Parameter error: The APIDecodeError to be added.
     public func recordError(_ error: APIDecodeError) {
         guard let errorTarget = errorTarget else { errors.append(error); return }
         errorTarget.recordError(error)
