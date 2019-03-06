@@ -14,7 +14,7 @@ LastMile aims exclusively to tackle the problem of building model objects from y
 - LastMile keeps track of everything that is unexpectedly missing or in a different type than expected in your API response, and makes a list of everything wrong in the form of a collection of error objects.  The info from error objects can cut hours off of debugging and production downtime by leading you to the problem faster.  By contrast, Swift Decodable will give you one error per API response: the one that made it quit.
 
 ## Using LastMile
-(See test file PersonTests.swift in the project to see this operation demonstrated.)
+(See test file [PersonTests.swift](https://github.com/ParkWhiz/LastMile-iOS/blob/master/LastMileTests/PersonTests.swift) in the project to see this operation demonstrated.)
 Here is a sample model object:
 ```
 struct Person {
@@ -45,7 +45,7 @@ extension Person: APIDecodable {
 
     init?(from decoder: APIDecoder) {
         // 1a
-        let id =          decoder["person_id"]           --> Int.self
+        let id =          decoder["person_id"]    --> Int.self
         let firstName =   decoder["first_name"]   --> String.self
         let lastName =    decoder["last_name"]    --> String.self
 
@@ -77,8 +77,10 @@ To decode a `Person` from a data object containing JSON received by HTTP:
 ```
     let decodeResult = APIDataDecoder().decode(data: data, to: Person.self)
     print(decodeResult.value ?? "nil")
-    // prints Person(id: 8675309, firstName: "Mary", lastName: "Smith", phoneNumber: Optional<String>.some("(312) 555-1212"), height: nil)
+    // prints:
+    // Person(id: 8675309, firstName: "Mary", lastName: "Smith", phoneNumber: Optional("(312) 555-1212"), height: nil)
     
     print(decodeResult.errors.first ?? "nil")
-    // prints: root(Person id=8675309) > "height"(String) : 
+    // prints: 
+    // root(Person person_id=8675309) > "height"(Double) : Unexpectedly found a string 
 ```
