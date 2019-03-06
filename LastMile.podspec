@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "LastMile"
-  spec.version      = "0.0.1"
+  spec.version      = "0.0.2"
   spec.summary      = "Decodes data encoded in JSON to Swift objects"
 
   # This description is used to generate tags and improve search results.
@@ -73,7 +73,7 @@ Pod::Spec.new do |spec|
   # spec.watchos.deployment_target = "2.0"
   # spec.tvos.deployment_target = "9.0"
 
-  spec.swift_version = "4.2"
+  spec.swift_version = "4.0"
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
