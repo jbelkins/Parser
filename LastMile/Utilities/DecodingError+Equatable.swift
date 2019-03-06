@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 import Foundation
-import LastMile
 
 
 extension DecodingError: Equatable {
@@ -57,7 +56,7 @@ fileprivate extension Array where Element == CodingKey {
     }
 }
 
-extension CodingKey {
+fileprivate extension CodingKey {
 
     static func ==(lhs: CodingKey, rhs: CodingKey) -> Bool {
         return lhs.stringValue == rhs.stringValue && lhs.intValue == rhs.intValue

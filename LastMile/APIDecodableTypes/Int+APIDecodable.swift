@@ -28,21 +28,8 @@ import Foundation
 extension Int: APIDecodable {
 
     public init?(from decoder: APIDecoder) {
-        guard let nsNumber = decoder.json as? NSNumber, !nsNumber.isBoolean else {
-            let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
-            decoder.recordError(error)
-            return nil
-        }
-        guard let int = Int(exactly: nsNumber) else {
-            let error = APIDecodeError(path: decoder.path, value: "\(nsNumber)", impreciseType: "\(Int.self)")
-            decoder.recordError(error)
-            return nil
-        }
-        self = int
+        let constructor: (NSNumber) -> Int? = { return Int(exactly: $0) }
+        guard let value = FixedWidthIntegerTools.creator(decoder: decoder, constructor: constructor) else { return nil }
+        self = value
     }
-}
-
-
-extension NSNumber {
-    var isIntegral: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
 }

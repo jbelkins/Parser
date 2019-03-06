@@ -27,7 +27,7 @@ import XCTest
 import LastMile
 
 
-struct TestContainer<Value: Decodable & Equatable>: APIDecodable  {
+fileprivate struct TestContainer<Value: Decodable & Equatable>: APIDecodable  {
     let value: Value
 
     init?(from decoder: APIDecoder) {
@@ -139,13 +139,14 @@ enum DecodeResult<T: Decodable & Equatable>: Equatable {
 }
 
 
-protocol DecodesJSONDataToEquatable {
+fileprivate protocol DecodesJSONDataToEquatable {
     func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable & Equatable
 }
 
 extension JSONDecoder: DecodesJSONDataToEquatable {}
 
 extension APIDataDecoder: DecodesJSONDataToEquatable {
+
     func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable & Equatable {
         let result = decode(data: data, to: TestContainer<T>.self)
         if let container = result.value {

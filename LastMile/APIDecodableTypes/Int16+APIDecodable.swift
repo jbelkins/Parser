@@ -28,11 +28,8 @@ import Foundation
 extension Int16: APIDecodable {
 
     public init?(from decoder: APIDecoder) {
-        guard let nsNumber = decoder.json as? NSNumber, !nsNumber.isBoolean, let int16 = Int16(exactly: nsNumber) else {
-            let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
-            decoder.recordError(error)
-            return nil
-        }
-        self = int16
+        let constructor: (NSNumber) -> Int16? = { return Int16(exactly: $0) }
+        guard let value = FixedWidthIntegerTools.creator(decoder: decoder, constructor: constructor) else { return nil }
+        self = value
     }
 }

@@ -1,8 +1,8 @@
 //
-//  Int8+APIDecodable.swift
+//  FixedWidthInteger+APIDecodable.swift
 //  LastMile
 //
-//  Copyright (c) 2018 Josh Elkins
+//  Copyright (c) 2019 Josh Elkins
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,15 +21,29 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
+//
 
 import Foundation
 
 
-extension Int8: APIDecodable {
+enum FixedWidthIntegerTools {
 
-    public init?(from decoder: APIDecoder) {
-        let constructor: (NSNumber) -> Int8? = { return Int8(exactly: $0) }
-        guard let value = FixedWidthIntegerTools.creator(decoder: decoder, constructor: constructor) else { return nil }
-        self = value
+    static func creator<T: APIDecodable & Equatable & FixedWidthInteger>(decoder: APIDecoder, constructor: (NSNumber) -> T?) -> T? {
+        guard let nsNumber = decoder.json as? NSNumber, !nsNumber.isBoolean else {
+            let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
+            decoder.recordError(error)
+            return nil
+        }
+        guard nsNumber.intValue <= T.max else {
+            let error = APIDecodeError(path: decoder.path, value: Decimal(nsNumber.doubleValue), overflowedType: "\(T.self)")
+            decoder.recordError(error)
+            return nil
+        }
+        guard let value = constructor(nsNumber) else {
+            let error = APIDecodeError(path: decoder.path, value: Decimal(nsNumber.doubleValue), impreciseType: "\(T.self)")
+            decoder.recordError(error)
+            return nil
+        }
+        return value
     }
 }

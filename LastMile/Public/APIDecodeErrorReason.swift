@@ -25,14 +25,14 @@
 import Foundation
 
 
-public enum APIDecodeErrorReason {
+public enum APIDecodeErrorReason: Equatable {
     case unexpectedJSONType(actual: JSONElement)
     case countNotExact(expected: Int, actual: Int)
     case countBelowMinimum(minimum: Int, actual: Int)
     case countAboveMaximum(maximum: Int, actual: Int)
     case unexpectedRawValue(value: String, type: String)
-    case numericOverflow(value: String, type: String)
-    case lossOfPrecision(value: String, type: String)
+    case numericOverflow(value: Decimal, type: String)
+    case lossOfPrecision(value: Decimal, type: String)
     case swiftDecodingError(DecodingError)
     case other(message: String)
 }

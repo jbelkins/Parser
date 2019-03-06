@@ -18,6 +18,7 @@ LastMile aims exclusively to tackle the problem of building model objects from y
 (See test file [PersonTests.swift](https://github.com/jbelkins/LastMile-iOS/blob/master/LastMileTests/PersonTests.swift) in the project to see this demo code in operation.)
 
 Here is a sample model object:
+
     struct Person {
         let id: Int
         let firstName: String
@@ -25,6 +26,7 @@ Here is a sample model object:
         let phoneNumber: String?
         let height: Double?
     }
+
 `id`, `firstName`, and `lastName` are required fields.  `phoneNumber` and `height` are optional.
 
 Here is the JSON we will decode this object from:

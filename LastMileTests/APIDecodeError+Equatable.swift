@@ -1,5 +1,5 @@
 //
-//  Int8+APIDecodable.swift
+//  APIDecodeError+Equatable.swift
 //  LastMile
 //
 //  Copyright (c) 2018 Josh Elkins
@@ -23,13 +23,27 @@
 //  SOFTWARE.
 
 import Foundation
+import LastMile
 
 
-extension Int8: APIDecodable {
+extension APIDecodeError: Equatable {
 
-    public init?(from decoder: APIDecoder) {
-        let constructor: (NSNumber) -> Int8? = { return Int8(exactly: $0) }
-        guard let value = FixedWidthIntegerTools.creator(decoder: decoder, constructor: constructor) else { return nil }
-        self = value
+    //  For the purposes of testing, an APIDecodeError is equal to another if:
+    //  1) the coding keys in `codingPath` are equal (string and int values only)
+    //  2) the reasons are equal.
+    public static func == (lhs: APIDecodeError, rhs: APIDecodeError) -> Bool {
+        return lhs.codingPath.keysAreEqual(rhs.codingPath) && lhs.reason == rhs.reason
+    }
+}
+
+
+extension Array where Element == CodingKey {
+
+    fileprivate func keysAreEqual(_ other: [CodingKey]) -> Bool {
+        guard self.count == other.count else { return false }
+        for (lh, rh) in zip(self, other) {
+            if lh.stringValue != rh.stringValue || lh.intValue != rh.intValue { return false }
+        }
+        return true
     }
 }

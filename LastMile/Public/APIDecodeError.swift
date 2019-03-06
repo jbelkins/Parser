@@ -61,12 +61,12 @@ public struct APIDecodeError {
         self.reason = .unexpectedRawValue(value: rawValue, type: type)
     }
 
-    public init(path: [APICodingKey], value: String, overflowedType: String) {
+    public init(path: [APICodingKey], value: Decimal, overflowedType: String) {
         self.path = path
         self.reason = .numericOverflow(value: value, type: overflowedType)
     }
 
-    public init(path: [APICodingKey], value: String, impreciseType: String) {
+    public init(path: [APICodingKey], value: Decimal, impreciseType: String) {
         self.path = path
         self.reason = .lossOfPrecision(value: value, type: impreciseType)
     }

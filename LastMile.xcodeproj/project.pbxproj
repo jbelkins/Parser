@@ -38,12 +38,14 @@
 		0341888320C0FFCB0074AF0C /* APIDecoderSingleValueDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341888220C0FFCB0074AF0C /* APIDecoderSingleValueDecodingContainer.swift */; };
 		035A0B85222F94D80030EBCF /* PersonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A0B84222F94D80030EBCF /* PersonTests.swift */; };
 		035A0B87222FA63A0030EBCF /* APIDecodeErrorReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A0B86222FA63A0030EBCF /* APIDecodeErrorReason.swift */; };
+		035A0B96223066FC0030EBCF /* IntegerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A0B95223066FC0030EBCF /* IntegerTests.swift */; };
+		035A0B98223070A00030EBCF /* DecodingError+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */; };
+		035A0B9A223079E20030EBCF /* FixedWidthInteger+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A0B99223079E20030EBCF /* FixedWidthInteger+APIDecodable.swift */; };
 		035A3BCA203148F900DDBAB5 /* Bool+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A3BC9203148F900DDBAB5 /* Bool+APIDecodable.swift */; };
 		0370663F2228E60800ABD6C5 /* RawRepresentable+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0370663E2228E60800ABD6C5 /* RawRepresentable+APIDecodable.swift */; };
 		037066432228E8FE00ABD6C5 /* RawRepresentableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037066422228E8FE00ABD6C5 /* RawRepresentableTests.swift */; };
 		0382444120315CA7008B3F3A /* CountLimited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382444020315CA7008B3F3A /* CountLimited.swift */; };
 		038B8E512227ABF7006B14EB /* APIDecodeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038B8E502227ABF7006B14EB /* APIDecodeResult.swift */; };
-		03A1E7F7220AB3960074D0E1 /* DecodingError+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */; };
 		03A1E7F9220AD1910074D0E1 /* ParserCountLimitedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1E7F8220AD1910074D0E1 /* ParserCountLimitedTests.swift */; };
 		03A7B5FC202AD917005A4BA2 /* APIDataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FB202AD917005A4BA2 /* APIDataDecoder.swift */; };
 		03A7B5FE202ADAE3005A4BA2 /* Double+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FD202ADAE3005A4BA2 /* Double+APIDecodable.swift */; };
@@ -59,7 +61,7 @@
 		03E923A422299FA60050983D /* DataParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E923A322299FA60050983D /* DataParserTests.swift */; };
 		03E923A82229C3D10050983D /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E923A72229C3D10050983D /* ResponseData.swift */; };
 		03E923AA2229C6FE0050983D /* ResponseDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E923A92229C6FE0050983D /* ResponseDataTests.swift */; };
-		03E923AC2229F73B0050983D /* ParseError+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E923AB2229F73B0050983D /* ParseError+Equatable.swift */; };
+		03E923AC2229F73B0050983D /* APIDecodeError+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E923AB2229F73B0050983D /* APIDecodeError+Equatable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +109,8 @@
 		0341888220C0FFCB0074AF0C /* APIDecoderSingleValueDecodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecoderSingleValueDecodingContainer.swift; sourceTree = "<group>"; };
 		035A0B84222F94D80030EBCF /* PersonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonTests.swift; sourceTree = "<group>"; };
 		035A0B86222FA63A0030EBCF /* APIDecodeErrorReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecodeErrorReason.swift; sourceTree = "<group>"; };
+		035A0B95223066FC0030EBCF /* IntegerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerTests.swift; sourceTree = "<group>"; };
+		035A0B99223079E20030EBCF /* FixedWidthInteger+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FixedWidthInteger+APIDecodable.swift"; sourceTree = "<group>"; };
 		035A3BC9203148F900DDBAB5 /* Bool+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+APIDecodable.swift"; sourceTree = "<group>"; };
 		0370663E2228E60800ABD6C5 /* RawRepresentable+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RawRepresentable+APIDecodable.swift"; sourceTree = "<group>"; };
 		037066422228E8FE00ABD6C5 /* RawRepresentableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawRepresentableTests.swift; sourceTree = "<group>"; };
@@ -128,7 +132,7 @@
 		03E923A322299FA60050983D /* DataParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParserTests.swift; sourceTree = "<group>"; };
 		03E923A72229C3D10050983D /* ResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
 		03E923A92229C6FE0050983D /* ResponseDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDataTests.swift; sourceTree = "<group>"; };
-		03E923AB2229F73B0050983D /* ParseError+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParseError+Equatable.swift"; sourceTree = "<group>"; };
+		03E923AB2229F73B0050983D /* APIDecodeError+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIDecodeError+Equatable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +179,7 @@
 				03372424222D9AB0001406E2 /* SwiftAPIDecoder */,
 				03372423222D9956001406E2 /* JSONAPIDecoder */,
 				03CC4FF3202926D200269CC7 /* APIDecodableTypes */,
+				035A0B97223070020030EBCF /* Utilities */,
 				031247A32028CC780048BBFB /* LastMile.h */,
 				031247A42028CC780048BBFB /* Info.plist */,
 			);
@@ -194,10 +199,10 @@
 				03E923A322299FA60050983D /* DataParserTests.swift */,
 				03E923A92229C6FE0050983D /* ResponseDataTests.swift */,
 				03316C522031772400F87765 /* SwiftDecodableStruct.swift */,
-				03E923AB2229F73B0050983D /* ParseError+Equatable.swift */,
-				03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */,
+				03E923AB2229F73B0050983D /* APIDecodeError+Equatable.swift */,
 				03CA8E342217C8E90086538F /* ParserTestUtils.swift */,
 				035A0B84222F94D80030EBCF /* PersonTests.swift */,
+				035A0B95223066FC0030EBCF /* IntegerTests.swift */,
 				031247B02028CC780048BBFB /* Info.plist */,
 			);
 			path = LastMileTests;
@@ -241,6 +246,14 @@
 			path = SwiftAPIDecoder;
 			sourceTree = "<group>";
 		};
+		035A0B97223070020030EBCF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		03CC4FF3202926D200269CC7 /* APIDecodableTypes */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +271,7 @@
 				03372413222B9D17001406E2 /* UInt16+APIDecodable.swift */,
 				03372415222B9EAC001406E2 /* UInt32+APIDecodable.swift */,
 				03372417222B9EBB001406E2 /* UInt64+APIDecodable.swift */,
+				035A0B99223079E20030EBCF /* FixedWidthInteger+APIDecodable.swift */,
 				03A7B5FD202ADAE3005A4BA2 /* Double+APIDecodable.swift */,
 				03372411222B9C92001406E2 /* Float+APIDecodable.swift */,
 				035A3BC9203148F900DDBAB5 /* Bool+APIDecodable.swift */,
@@ -390,6 +404,7 @@
 				0341888320C0FFCB0074AF0C /* APIDecoderSingleValueDecodingContainer.swift in Sources */,
 				035A3BCA203148F900DDBAB5 /* Bool+APIDecodable.swift in Sources */,
 				0337241C222B9F26001406E2 /* Int8+APIDecodable.swift in Sources */,
+				035A0B98223070A00030EBCF /* DecodingError+Equatable.swift in Sources */,
 				0337241E222B9F43001406E2 /* Int16+APIDecodable.swift in Sources */,
 				0337241A222B9EF4001406E2 /* UInt+APIDecodable.swift in Sources */,
 				0341887F20C0F4550074AF0C /* APIDecoderKeyedDecodingContainer.swift in Sources */,
@@ -414,6 +429,7 @@
 				03A7B5FC202AD917005A4BA2 /* APIDataDecoder.swift in Sources */,
 				03A7B5FE202ADAE3005A4BA2 /* Double+APIDecodable.swift in Sources */,
 				0308092B20BE6E0C00E6C152 /* Dictionary+APIDecodable.swift in Sources */,
+				035A0B9A223079E20030EBCF /* FixedWidthInteger+APIDecodable.swift in Sources */,
 				0308092920BE54B500E6C152 /* Array+APIDecodable.swift in Sources */,
 				0341888120C0FE040074AF0C /* APIDecoderUnkeyedDecodingContainer.swift in Sources */,
 				03CC4FF02029232900269CC7 /* APIDecodeError.swift in Sources */,
@@ -429,8 +445,7 @@
 				035A0B85222F94D80030EBCF /* PersonTests.swift in Sources */,
 				03E923AA2229C6FE0050983D /* ResponseDataTests.swift in Sources */,
 				03CC4FEE20291A2200269CC7 /* DecodableSubStruct.swift in Sources */,
-				03E923AC2229F73B0050983D /* ParseError+Equatable.swift in Sources */,
-				03A1E7F7220AB3960074D0E1 /* DecodingError+Equatable.swift in Sources */,
+				03E923AC2229F73B0050983D /* APIDecodeError+Equatable.swift in Sources */,
 				037066432228E8FE00ABD6C5 /* RawRepresentableTests.swift in Sources */,
 				03E923A422299FA60050983D /* DataParserTests.swift in Sources */,
 				031247BF2028D1530048BBFB /* MainDecodableStruct.swift in Sources */,
@@ -438,6 +453,7 @@
 				03CA8E352217C8E90086538F /* ParserTestUtils.swift in Sources */,
 				03E923A0222972440050983D /* JSONElementTests.swift in Sources */,
 				031247AF2028CC780048BBFB /* ParserTests.swift in Sources */,
+				035A0B96223066FC0030EBCF /* IntegerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
