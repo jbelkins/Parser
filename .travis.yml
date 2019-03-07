@@ -1,0 +1,6 @@
+language: swift
+osx_image: xcode10
+sudo: false
+xcode_project: LastMile.xcodeproj
+xcode_scheme: LastMile
+xcode_destination: platform=iOS Simulator,OS=12.1,name=iPhone SE
