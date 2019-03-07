@@ -25,11 +25,6 @@
 import Foundation
 
 
-extension Int32: APIDecodable {
-
-    public init?(from decoder: APIDecoder) {
-        let constructor: (NSNumber) -> Int32? = { return Int32(exactly: $0) }
-        guard let value = FixedWidthIntegerTools.creator(decoder: decoder, constructor: constructor) else { return nil }
-        self = value
-    }
+extension Int32: APIDecodableInteger {
+    var decimal: Decimal { return NSDecimalNumber(value: self).decimalValue }
 }

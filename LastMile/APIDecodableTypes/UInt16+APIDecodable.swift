@@ -25,4 +25,6 @@
 import Foundation
 
 
-extension UInt16: JSONRawValueType {}
+extension UInt16: APIDecodableInteger {
+    var decimal: Decimal { return NSDecimalNumber(value: self).decimalValue }
+}

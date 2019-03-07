@@ -1,8 +1,8 @@
 //
-//  ParserTestUtils.swift
+//  APIDecodableIntegralType.swift
 //  LastMile
 //
-//  Copyright (c) 2018 Josh Elkins
+//  Copyright (c) 2019 Josh Elkins
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,14 +21,36 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
+//
 
 import Foundation
-import LastMile
 
 
-extension Array where Element == APICodingKey {
+protocol APIDecodableInteger: APIDecodable, FixedWidthInteger {
+    init?(exactly: NSNumber)
+    var decimal: Decimal { get }
+}
 
-    var strings: [String] {
-        return map { $0.stringValue }
+
+extension APIDecodableInteger {
+
+    public init?(from decoder: APIDecoder) {
+        guard let nsNumber = decoder.json as? NSNumber, !nsNumber.isBoolean else {
+            let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
+            decoder.recordError(error)
+            return nil
+        }
+        let decimal = nsNumber.decimalValue
+        guard decimal <= Self.max.decimal, decimal >= Self.min.decimal else {
+            let error = APIDecodeError(path: decoder.path, value: decimal, overflowedType: "\(Self.self)")
+            decoder.recordError(error)
+            return nil
+        }
+        guard let value = Self.init(exactly: nsNumber) else {
+            let error = APIDecodeError(path: decoder.path, value: decimal, impreciseType: "\(Self.self)")
+            decoder.recordError(error)
+            return nil
+        }
+        self = value
     }
 }
