@@ -4,15 +4,15 @@ Robust decoding of model objects, tailored for use with JSON APIs
 - Type-safe access to JSON from Swift
 - Simple, clean syntax for decoding model objects
 - Collects errors detailing abnormalities in the received JSON
-- Built-in handling for Swift enumerations
+- Built-in decoding for common Swift types
 
 ## LastMile vs. Swift Codable
 LastMile aims exclusively to tackle the problem of building model objects from your API's JSON easily and consistently.  LastMile's not a substitute for Swift Codable, nor is Swift Codable a substitute for LastMile.  Rather, the two can be used side-by-side on the same model objects but for different purposes.
 
-- _Harmonious coexistence._ You can use LastMile and Swift Codable independently on the same type.  Using LastMile for decoding API responses allows you to use Codable exclusively for internal serialization & deserialization, resulting in cleaner, simpler, more focused code.
-- _Flexibility._ LastMile reaches through multiple levels of JSON effortlessly.  If you need to reach deep into nested JSON to get `["items"][0]["values"][0]["name"]`, just say so.  Swift Decodable excels at decoding data that Swift encoded with Encodable on the same type; it's not suited to pick values out of JSON that doesn't match the structure of your internal models. 
-- _Resilience._ Swift Decodable throws an error and quits decoding when it hits an unexpected value, because such errors are unlikely when decoding data that was encoded internally.  LastMile keeps on decoding past the error, returning whatever it can salvage from JSON that has missing or mistyped fields.  If you have an array of 100 values and one is malformed, LastMile will give you an array with the other 99.  Codable will throw you an error for your trouble.
-- _Accountability._ LastMile keeps track of everything that is unexpectedly missing or in a different type than expected in your API response, and makes a list of everything wrong in the form of a collection of error objects.  The info from error objects can cut hours off of debugging and production downtime by leading you to the problem faster.  By contrast, Swift Decodable will give you one error per API response: the one that made it quit.
+- _Harmonious coexistence._ You can use LastMile and Swift Codable independently on the same type.  Using LastMile for decoding API responses allows you to use Codable exclusively for internal serialization needs, resulting in cleaner, simpler, more focused code.
+- _Flexibility._ LastMile reaches through multiple levels of JSON effortlessly.  If you need to reach deep into nested JSON to get `["items"][0]["values"][0]["name"]`, just say so.  Swift Decodable excels at decoding data that Swift encoded with Encodable on the same type, but it's not suited to pick values out of JSON that doesn't match the structure of your internal models. 
+- _Resilience._ Swift Decodable throws an error and quits decoding when it hits an unexpected value, because such errors are unlikely when decoding data that was encoded internally.  LastMile keeps on decoding past the error, returning whatever it can salvage from JSON that has missing or mistyped fields.  If you decode an array of 100 values and one is malformed, LastMile will give you an array with the other 99 plus error objects describing why that bad element failed.  Codable will throw an error and return no part of the response.
+- _Accountability._ LastMile makes a note of everything that is unexpectedly missing or in a different type than expected in your API response, and returns a list of everything wrong in the form of a collection of error objects, whether or not a response is returned.  The info from error objects can cut hours off of debugging and production downtime by leading you to the problem faster.  By contrast, Swift Decodable will give you one error per API response: the one that made it quit decoding.
 
 ## Using LastMile
 (See test file [PersonTests.swift](https://github.com/jbelkins/LastMile-iOS/blob/master/LastMileTests/PersonTests.swift) in the project to see this demo code in operation.)
@@ -83,6 +83,6 @@ To decode a `Person` from a data object containing JSON received by HTTP:
     // prints:
     // Person(id: 8675309, firstName: "Mary", lastName: "Smith", phoneNumber: Optional("(312) 555-1212"), height: nil)
 
-    print(decodeResult.errors.first ?? "nil")
+    decodeResult.errors.forEach { print($0) }
     // prints:
     // root(Person person_id=8675309) > "height"(Double) : Unexpectedly found a string
