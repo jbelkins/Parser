@@ -47,7 +47,7 @@ extension DecodingError: Equatable {
 
 fileprivate extension Array where Element == CodingKey {
 
-    fileprivate func isSamePath(`as` other: [CodingKey]) -> Bool {
+    func isSamePath(`as` other: [CodingKey]) -> Bool {
         guard count == other.count else { return false }
         for (lhs, rhs) in zip(self, other) {
             if !(lhs == rhs) { return false }
