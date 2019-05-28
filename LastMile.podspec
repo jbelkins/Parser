@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "LastMile"
-  spec.version      = "0.0.4"
+  spec.version      = "0.0.5"
   spec.summary      = "Decodes data encoded in JSON to Swift objects"
 
   # This description is used to generate tags and improve search results.
