@@ -38,18 +38,15 @@ public enum JSONElement: String, Equatable {
 
     static func type(`for` json: Any?) -> JSONElement {
         guard let json = json else { return .absent }
-        if let _ = json as? [String: Any] { return .object }
-        if let _ = json as? [Any] { return .array }
+        if json is [String: Any] { return .object }
+        if json is [Any] { return .array }
+        if json is String { return .string }
+        if json is NSNull { return .null }
         if let nsNumber = json as? NSNumber {
-            if nsNumber.isBoolean {
-                return .boolean
-            } else {
-                if let _ = Int(exactly: nsNumber) { return .integer }
-                if let _ = Double(exactly: nsNumber) { return .decimal }
-            }
+            guard !nsNumber.isBoolean else { return .boolean }
+            if let _ = Int(exactly: nsNumber) { return .integer }
+            if let _ = Double(exactly: nsNumber) { return .decimal }
         }
-        if let _ = json as? String { return .string }
-        if let _ = json as? NSNull { return .null }
         return .unknown
     }
 }
