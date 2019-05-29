@@ -112,6 +112,7 @@
 		035A0B95223066FC0030EBCF /* IntegerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerTests.swift; sourceTree = "<group>"; };
 		035A0B99223079E20030EBCF /* APIDecodableInteger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecodableInteger.swift; sourceTree = "<group>"; };
 		035A3BC9203148F900DDBAB5 /* Bool+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+APIDecodable.swift"; sourceTree = "<group>"; };
+		036F025B229DEBF000991283 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0370663E2228E60800ABD6C5 /* RawRepresentable+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RawRepresentable+APIDecodable.swift"; sourceTree = "<group>"; };
 		037066422228E8FE00ABD6C5 /* RawRepresentableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawRepresentableTests.swift; sourceTree = "<group>"; };
 		0382444020315CA7008B3F3A /* CountLimited.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountLimited.swift; sourceTree = "<group>"; };
@@ -157,6 +158,7 @@
 		031247962028CC780048BBFB = {
 			isa = PBXGroup;
 			children = (
+				036F025B229DEBF000991283 /* MyPlayground.playground */,
 				031247A22028CC780048BBFB /* LastMile */,
 				031247AD2028CC780048BBFB /* LastMileTests */,
 				031247A12028CC780048BBFB /* Products */,
