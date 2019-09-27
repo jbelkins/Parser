@@ -34,10 +34,11 @@ extension Dictionary: APIDecodable where Key == String, Value: APIDecodable {
             decoder.recordError(error)
             return nil
         }
-        var dict = [String: Value?](minimumCapacity: jsonDict.count)
-        jsonDict.keys.forEach {
-            dict[$0] = decoder[$0].decodeRequired(Value.self)
+        let pairs: [(String, Value)] = jsonDict.compactMap { arg in
+            let (key, _) = arg
+            guard let value = decoder[key].decodeRequired(Value.self) else { return nil }
+            return (key, value)
         }
-        self = dict.compactMapValues { $0 }
+        self = Dictionary<String, Value>(uniqueKeysWithValues: pairs)
     }
 }

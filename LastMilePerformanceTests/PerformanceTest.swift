@@ -31,11 +31,11 @@ struct Element: Codable {
     let name: String
     let pairs: [String: String]
 
-    static func random() -> Element {
+    static func random(pairCount: Int) -> Element {
         let id = Int(arc4random())
         let name = UUID().uuidString
-        var pairs = Dictionary<String, String>(minimumCapacity: 100)
-        (0..<100).forEach { _ in
+        var pairs = Dictionary<String, String>(minimumCapacity: pairCount)
+        (0..<pairCount).forEach { _ in
             pairs[UUID().uuidString] = UUID().uuidString
         }
         return Element(id: id, name: name, pairs: pairs)
@@ -55,27 +55,44 @@ extension Element: APIDecodable {
 
 
 class PerformanceTest: XCTestCase {
+    let arrayCount = 100
+    let pairCount = 100
     var jsonData: Data!
 
     override func setUp() {
         super.setUp()
         var elements = [Element]()
-        (0..<100).forEach { i in
-            elements.append(Element.random())
+        (0..<arrayCount).forEach { i in
+            elements.append(Element.random(pairCount: pairCount))
         }
         jsonData = try! JSONEncoder().encode(elements)
     }
 
     func testSwiftDecoderPerformance() {
+        var value: [Element]?
+        var error: Error?
         self.measure {
-            let _ = try! JSONDecoder().decode([Element].self, from: jsonData)
+            do {
+                value = try JSONDecoder().decode([Element].self, from: jsonData)
+            } catch let e {
+                error = e
+            }
         }
+        XCTAssertNotNil(value)
+        XCTAssertEqual(value?.count ?? -1, arrayCount)
+        XCTAssertNil(error)
     }
 
     func testLastMileDecoderPerformance() {
+        var value: [Element]?
+        var errors: [APIDecodeError] = []
         self.measure {
-            let _ = APIDataDecoder().decode(data: jsonData, to: [Element].self)
+            let result = APIDataDecoder().decode(data: jsonData, to: [Element].self)
+            value = result.value
+            errors = result.errors
         }
+        XCTAssertNotNil(value)
+        XCTAssertEqual(value?.count ?? -1, arrayCount)
+        XCTAssertEqual(errors.count, 0)
     }
-
 }
