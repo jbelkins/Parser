@@ -85,7 +85,7 @@ public class JSONAPIDecoder: APIDecoder {
         return decode(type: type, required: false, min: min, max: max, countsAreMandatory: countsAreMandatory)
     }
 
-    public var decodesToNull: Bool {
+    public var isJSONNull: Bool {
         return node?.contents == .null
     }
 

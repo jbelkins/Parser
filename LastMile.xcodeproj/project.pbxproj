@@ -19,7 +19,6 @@
 		031247C32028F1950048BBFB /* String+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031247C22028F1950048BBFB /* String+APIDecodable.swift */; };
 		031A45A2202EB62900C706CB /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031A45A1202EB62900C706CB /* Operators.swift */; };
 		031A45A4202EC67E00C706CB /* JSONElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031A45A3202EC67E00C706CB /* JSONElement.swift */; };
-		03221267202FF81700D8CE84 /* NSNull+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03221266202FF81700D8CE84 /* NSNull+APIDecodable.swift */; };
 		03316C4E203171E700F87765 /* APIJSONObjectDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03316C4D203171E700F87765 /* APIJSONObjectDecoder.swift */; };
 		03316C532031772400F87765 /* SwiftDecodableStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03316C522031772400F87765 /* SwiftDecodableStruct.swift */; };
 		03372410222B9A06001406E2 /* UInt8+APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337240F222B9A06001406E2 /* UInt8+APIDecodable.swift */; };
@@ -99,7 +98,6 @@
 		031247C22028F1950048BBFB /* String+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+APIDecodable.swift"; sourceTree = "<group>"; };
 		031A45A1202EB62900C706CB /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		031A45A3202EC67E00C706CB /* JSONElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONElement.swift; sourceTree = "<group>"; };
-		03221266202FF81700D8CE84 /* NSNull+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNull+APIDecodable.swift"; sourceTree = "<group>"; };
 		03316C4D203171E700F87765 /* APIJSONObjectDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIJSONObjectDecoder.swift; sourceTree = "<group>"; };
 		03316C522031772400F87765 /* SwiftDecodableStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDecodableStruct.swift; sourceTree = "<group>"; };
 		0337240F222B9A06001406E2 /* UInt8+APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt8+APIDecodable.swift"; sourceTree = "<group>"; };
@@ -308,7 +306,6 @@
 				03A7B5FD202ADAE3005A4BA2 /* Double+APIDecodable.swift */,
 				03372411222B9C92001406E2 /* Float+APIDecodable.swift */,
 				035A3BC9203148F900DDBAB5 /* Bool+APIDecodable.swift */,
-				03221266202FF81700D8CE84 /* NSNull+APIDecodable.swift */,
 				0370663E2228E60800ABD6C5 /* RawRepresentable+APIDecodable.swift */,
 				03E923A72229C3D10050983D /* ResponseData.swift */,
 			);
@@ -482,7 +479,6 @@
 				03372414222B9D17001406E2 /* UInt16+APIDecodable.swift in Sources */,
 				031247BB2028CCCF0048BBFB /* JSONAPIDecoder.swift in Sources */,
 				0382444120315CA7008B3F3A /* CountLimited.swift in Sources */,
-				03221267202FF81700D8CE84 /* NSNull+APIDecodable.swift in Sources */,
 				03372412222B9C92001406E2 /* Float+APIDecodable.swift in Sources */,
 				03316C4E203171E700F87765 /* APIJSONObjectDecoder.swift in Sources */,
 				035A0B87222FA63A0030EBCF /* APIDecodeErrorReason.swift in Sources */,
