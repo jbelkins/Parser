@@ -27,14 +27,14 @@ import Foundation
 
 struct JSONTools {
 
-    static func traverseJSON(json: Any?, at node: CodingKey) -> Any? {
-        if let arrayIndex = node.intValue {
-            guard let localJSONArray = json as? [Any] else { return nil }
+    static func traverseJSON(node: JSONNode?, at codingKey: CodingKey) -> JSONNode? {
+        if let arrayIndex = codingKey.intValue {
+            guard case .array(let localJSONArray) = node?.contents else { return nil }
             guard arrayIndex < localJSONArray.count else { return nil }
             return localJSONArray[arrayIndex]
         } else {
-            guard let localJSONDict = json as? [String: Any] else { return nil }
-            return localJSONDict[node.stringValue]
+            guard case .object(let localJSONDict) = node?.contents else { return nil }
+            return localJSONDict[codingKey.stringValue]
         }
     }
 }

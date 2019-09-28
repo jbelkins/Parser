@@ -28,12 +28,12 @@ import Foundation
 extension Bool: APIDecodable {
     
     public init?(from decoder: APIDecoder) {
-        guard let nsNumber = decoder.json as? NSNumber, nsNumber.isBoolean else {
+        guard case .bool(let bool) = decoder.node?.contents else {
             let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
             decoder.recordError(error)
             return nil
         }
-        self = nsNumber.boolValue
+        self = bool
     }
 }
 

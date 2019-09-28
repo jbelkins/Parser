@@ -35,7 +35,7 @@ protocol APIDecodableInteger: APIDecodable, FixedWidthInteger {
 extension APIDecodableInteger {
 
     public init?(from decoder: APIDecoder) {
-        guard let nsNumber = decoder.json as? NSNumber, !nsNumber.isBoolean else {
+        guard case .number(let nsNumber) = decoder.node?.contents, !nsNumber.isBoolean else {
             let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
             decoder.recordError(error)
             return nil

@@ -34,6 +34,7 @@ public class APIDataDecoder {
         var newOptions = options
         newOptions[APIDecodeOptions.rawDataKey] = newData
         let json: Any? = try? JSONSerialization.jsonObject(with: newData, options: [])
-        return APIJSONObjectDecoder().decode(json: json, to: DecodedType.self, options: newOptions)
+        let node = JSONNode.tree(from: json)
+        return APIJSONObjectDecoder().decode(node: node, to: DecodedType.self, options: newOptions)
     }
 }

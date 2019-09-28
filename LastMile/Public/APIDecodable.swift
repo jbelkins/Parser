@@ -39,11 +39,14 @@ extension APIDecodable {
     public static var alwaysSucceeds: Bool { return false }
     public var parseableElementCount: Int? { return nil }
 
-    static func id(from json: Any?) -> String? {
-        guard let idKey = idKey, let jsonDictionary = json as? [String: Any] else { return nil }
-        if let id = jsonDictionary[idKey] as? CustomStringConvertible {
-            return "\(id)"
+    static func id(from node: JSONNode?) -> String? {
+        guard let idKey = idKey, case .object(let dictionary) = node?.contents else { return nil }
+        switch dictionary[idKey]?.contents {
+        case .number(let number): return "\(number)"
+        case .string(let string): return string
+        case .bool(let bool): return "\(bool)"
+        case .null: return "null"
+        default: return nil
         }
-        return nil
     }
 }

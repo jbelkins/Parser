@@ -30,7 +30,7 @@ struct MainDecodableStruct: Equatable {
     let id: Int
     let name: String
     let subArray: [DecodableSubStruct]
-    let null: NSNull
+    let null: NSNull?
     let indexed: [String: DecodableSubStruct]
     let truthy: Bool
     let decodable: SwiftDecodableStruct
@@ -49,7 +49,7 @@ extension MainDecodableStruct: APIDecodable {
         let id =          decoder["id"]            --> Int.self
         let name =        decoder["name"]          --> String.self
         let subArray =    decoder["substructs"]    --> CountLimited<[DecodableSubStruct]>(exactly: 2)
-        let null =        decoder["null"]          --> NSNull.self
+        let null =        decoder.decodesToNull ? NSNull() : nil
         let indexed =     decoder["indexed"]       --> [String: DecodableSubStruct].self
         let truthy =      decoder["truthy"]        --> Bool.self
         let decodable =   decoder["decodable"]     .decodeRequired(swiftDecodable: SwiftDecodableStruct.self)
@@ -60,7 +60,7 @@ extension MainDecodableStruct: APIDecodable {
         let substruct =   decoder["substruct"]     --> DecodableSubStruct?.self
 
         guard decoder.succeeded else { return nil }
-        self.init(id: id!, name: name!, subArray: subArray!, null: null!, indexed: indexed!, truthy: truthy!, decodable: decodable!, falsey: falsey, decimal: decimal, description: description, substruct: substruct)
+        self.init(id: id!, name: name!, subArray: subArray!, null: null, indexed: indexed!, truthy: truthy!, decodable: decodable!, falsey: falsey, decimal: decimal, description: description, substruct: substruct)
     }
 }
 

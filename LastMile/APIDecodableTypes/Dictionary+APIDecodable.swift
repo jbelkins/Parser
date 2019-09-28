@@ -29,14 +29,14 @@ extension Dictionary: APIDecodable where Key == String, Value: APIDecodable {
     public var parseableElementCount: Int? { return count }
 
     public init?(from decoder: APIDecoder) {
-        guard let jsonDict = decoder.json as? [String: Any] else {
+        guard case .object(let jsonDict) = decoder.node?.contents else {
             let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
             decoder.recordError(error)
             return nil
         }
-        let pairs: [(String, Value)] = jsonDict.compactMap { arg in
-            let (key, _) = arg
-            guard let value = decoder[key].decodeRequired(Value.self) else { return nil }
+        let pairs: [(String, Value)] = jsonDict.compactMap { (key, _) in
+            let newDecoder = decoder[key]
+            guard let value = newDecoder.decodeRequired(Value.self) else { return nil }
             return (key, value)
         }
         self = Dictionary<String, Value>(uniqueKeysWithValues: pairs)

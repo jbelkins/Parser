@@ -29,37 +29,44 @@ import XCTest
 class JSONElementTests: XCTestCase {
 
     func testDictIsAnObject() {
-        let type = JSONElement.type(for: [AnyHashable: Any]())
+        let node = JSONNode(contents: .object([String: JSONNode]()))
+        let type = JSONElement.type(for: node)
         XCTAssertEqual(type, .object)
     }
 
     func testArrayIsArray() {
-        let type = JSONElement.type(for: [Any]())
+        let node = JSONNode(contents: .array([JSONNode]()))
+        let type = JSONElement.type(for: node)
         XCTAssertEqual(type, .array)
     }
 
     func testIntegerNSNumberIsInteger() {
-        let type = JSONElement.type(for: NSNumber(value: 12))
+        let node = JSONNode(contents: .number(NSNumber(value: 12)))
+        let type = JSONElement.type(for: node)
         XCTAssertEqual(type, .integer)
     }
 
     func testDecimalNSNumberIsDecimal() {
-        let type = JSONElement.type(for: NSNumber(value: 12.5))
+        let node = JSONNode(contents: .number(NSNumber(value: 12.5)))
+        let type = JSONElement.type(for: node)
         XCTAssertEqual(type, .decimal)
     }
 
     func testBooleanNSNumberIsBool() {
-        let type = JSONElement.type(for: NSNumber(value: true))
+        let node = JSONNode(contents: .bool(true))
+        let type = JSONElement.type(for: node)
         XCTAssertEqual(type, .boolean)
     }
 
     func testStringIsAString() {
-        let type = JSONElement.type(for: "name")
+        let node = JSONNode(contents: .string("name"))
+        let type = JSONElement.type(for: node)
         XCTAssertEqual(type, .string)
     }
 
     func testNSNullIsNull() {
-        let type = JSONElement.type(for: NSNull())
+        let node = JSONNode(contents: .null)
+        let type = JSONElement.type(for: node)
         XCTAssertEqual(type, .null)
     }
 

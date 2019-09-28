@@ -25,4 +25,14 @@
 import Foundation
 
 
-extension NSNull: JSONRawValueType {}
+//extension NSNull: APIDecodable {
+//
+//    public init?(from decoder: APIDecoder) {
+//        guard decoder.node?.contents == .null else {
+//            let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
+//            decoder.recordError(error)
+//            return nil
+//        }
+//        return
+//    }
+//}

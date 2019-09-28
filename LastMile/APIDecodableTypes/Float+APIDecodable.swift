@@ -25,4 +25,14 @@
 import Foundation
 
 
-extension Float: JSONRawValueType {}
+extension Float: APIDecodable {
+
+    public init?(from decoder: APIDecoder) {
+        guard case .number(let nsNumber) = decoder.node?.contents else {
+            let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
+            decoder.recordError(error)
+            return nil
+        }
+        self = nsNumber.floatValue
+    }
+}

@@ -37,7 +37,7 @@ class ResponseDataTests: XCTestCase {
     }
 
     func testSucceedsWithoutRequestData() {
-        let result = APIJSONObjectDecoder().decode(json: nil, to: ResponseData.self)
+        let result = APIJSONObjectDecoder().decode(node: nil, to: ResponseData.self)
         XCTAssertNotNil(result.value)
         XCTAssertEqual(result.value?.data, nil)
         XCTAssertEqual(result.errors, [])

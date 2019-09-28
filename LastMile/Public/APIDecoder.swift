@@ -26,7 +26,7 @@ import Foundation
 
 
 public protocol APIDecoder: class {
-    var json: Any? { get }
+    var node: JSONNode? { get }
     var codingKey: CodingKey { get }
     var codingPath: [CodingKey] { get }
     var key: APICodingKey { get }
@@ -41,6 +41,7 @@ public protocol APIDecoder: class {
     func decodeOptional<DecodedType: APIDecodable>(_ type: DecodedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> DecodedType?
     func decodeRequired<DecodedType: Decodable>(swiftDecodable type: DecodedType.Type) -> DecodedType!
     func decodeOptional<DecodedType: Decodable>(swiftDecodable type: DecodedType.Type) -> DecodedType?
+    var decodesToNull: Bool { get }
     func recordError(_ error: APIDecodeError)
     var succeeded: Bool { get set }
     var options: [String: Any] { get }

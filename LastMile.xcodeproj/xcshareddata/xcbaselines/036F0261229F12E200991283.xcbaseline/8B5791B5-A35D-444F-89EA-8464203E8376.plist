@@ -4,6 +4,129 @@
 <dict>
 	<key>classNames</key>
 	<dict>
+		<key>CollectionTests</key>
+		<dict>
+			<key>test_LastMileArray100()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.0041005</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:34:40 PM</string>
+				</dict>
+			</dict>
+			<key>test_LastMileArray1000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.038573</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:34:40 PM</string>
+				</dict>
+			</dict>
+			<key>test_LastMileArray10000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.38921</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:34:40 PM</string>
+				</dict>
+			</dict>
+			<key>test_LastMileDict100()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.0046894</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:34:40 PM</string>
+				</dict>
+			</dict>
+			<key>test_LastMileDict1000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.040538</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:34:40 PM</string>
+				</dict>
+			</dict>
+			<key>test_LastMileDict10000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.4202</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:34:40 PM</string>
+				</dict>
+			</dict>
+			<key>test_SwiftArray100()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.0011126</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:34:40 PM</string>
+				</dict>
+			</dict>
+			<key>test_SwiftArray1000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.011385</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:34:40 PM</string>
+				</dict>
+			</dict>
+			<key>test_SwiftArray10000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.1086</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:34:40 PM</string>
+				</dict>
+			</dict>
+			<key>test_SwiftDict100()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.0014526</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:34:40 PM</string>
+				</dict>
+			</dict>
+			<key>test_SwiftDict1000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.012994</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:34:40 PM</string>
+				</dict>
+			</dict>
+			<key>test_SwiftDict10000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.13763</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:34:40 PM</string>
+				</dict>
+			</dict>
+		</dict>
 		<key>PerformanceTest</key>
 		<dict>
 			<key>testLastMileArrayDecoderPerformance()</key>
@@ -81,9 +204,9 @@
 				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
 				<dict>
 					<key>baselineAverage</key>
-					<real>0.0080797</real>
+					<real>0.0041056</real>
 					<key>baselineIntegrationDisplayName</key>
-					<string>Sep 28, 2019 at 12:21:33 PM</string>
+					<string>Sep 28, 2019 at 5:32:05 PM</string>
 				</dict>
 			</dict>
 			<key>test_LastMileArray1000()</key>
@@ -91,9 +214,19 @@
 				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
 				<dict>
 					<key>baselineAverage</key>
-					<real>0.40504</real>
+					<real>0.038947</real>
 					<key>baselineIntegrationDisplayName</key>
-					<string>Sep 28, 2019 at 12:21:33 PM</string>
+					<string>Sep 28, 2019 at 5:32:05 PM</string>
+				</dict>
+			</dict>
+			<key>test_LastMileArray10000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.386</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:32:05 PM</string>
 				</dict>
 			</dict>
 			<key>test_LastMileDict10()</key>
@@ -111,9 +244,9 @@
 				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
 				<dict>
 					<key>baselineAverage</key>
-					<real>0.012063</real>
+					<real>0.0045957</real>
 					<key>baselineIntegrationDisplayName</key>
-					<string>Sep 28, 2019 at 12:21:33 PM</string>
+					<string>Sep 28, 2019 at 5:32:05 PM</string>
 				</dict>
 			</dict>
 			<key>test_LastMileDict1000()</key>
@@ -121,9 +254,19 @@
 				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
 				<dict>
 					<key>baselineAverage</key>
-					<real>0.68844</real>
+					<real>0.04038</real>
 					<key>baselineIntegrationDisplayName</key>
-					<string>Sep 28, 2019 at 12:21:33 PM</string>
+					<string>Sep 28, 2019 at 5:32:05 PM</string>
+				</dict>
+			</dict>
+			<key>test_LastMileDict10000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.41468</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:32:05 PM</string>
 				</dict>
 			</dict>
 			<key>test_SwiftArray10()</key>
@@ -141,9 +284,9 @@
 				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
 				<dict>
 					<key>baselineAverage</key>
-					<real>0.0013199</real>
+					<real>0.0011109</real>
 					<key>baselineIntegrationDisplayName</key>
-					<string>Sep 28, 2019 at 12:21:33 PM</string>
+					<string>Sep 28, 2019 at 5:32:05 PM</string>
 				</dict>
 			</dict>
 			<key>test_SwiftArray1000()</key>
@@ -151,9 +294,19 @@
 				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
 				<dict>
 					<key>baselineAverage</key>
-					<real>0.011176</real>
+					<real>0.01141</real>
 					<key>baselineIntegrationDisplayName</key>
-					<string>Sep 28, 2019 at 12:21:33 PM</string>
+					<string>Sep 28, 2019 at 5:32:05 PM</string>
+				</dict>
+			</dict>
+			<key>test_SwiftArray10000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.10977</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:32:05 PM</string>
 				</dict>
 			</dict>
 			<key>test_SwiftDict10()</key>
@@ -171,9 +324,9 @@
 				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
 				<dict>
 					<key>baselineAverage</key>
-					<real>0.0013624</real>
+					<real>0.0018716</real>
 					<key>baselineIntegrationDisplayName</key>
-					<string>Sep 28, 2019 at 12:21:33 PM</string>
+					<string>Sep 28, 2019 at 5:32:05 PM</string>
 				</dict>
 			</dict>
 			<key>test_SwiftDict1000()</key>
@@ -181,9 +334,19 @@
 				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
 				<dict>
 					<key>baselineAverage</key>
-					<real>0.012651</real>
+					<real>0.013247</real>
 					<key>baselineIntegrationDisplayName</key>
-					<string>Sep 28, 2019 at 12:21:33 PM</string>
+					<string>Sep 28, 2019 at 5:32:05 PM</string>
+				</dict>
+			</dict>
+			<key>test_SwiftDict10000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.13867</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Sep 28, 2019 at 5:32:05 PM</string>
 				</dict>
 			</dict>
 		</dict>

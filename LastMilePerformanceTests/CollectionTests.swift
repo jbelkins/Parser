@@ -1,5 +1,5 @@
 //
-//  PerformanceTest.swift
+//  CollectionTests.swift
 //  LastMile
 //
 //  Copyright (c) 2019 Josh Elkins
@@ -48,7 +48,7 @@ extension Element: APIDecodable {
 }
 
 
-class PerformanceTest: XCTestCase {
+class CollectionTests: XCTestCase {
     let arrayCount = 100
     let pairCount = 100
     var array: [Element]!
@@ -77,46 +77,46 @@ class PerformanceTest: XCTestCase {
     func test_SwiftArray100() {
         setupArray(count: 100)
         measure {
-            xtestSwiftArrayDecoderPerformance(count: 100)
+            runSwiftArrayDecoderPerformanceTest(count: 100)
         }
     }
 
     func test_LastMileArray100() {
         setupArray(count: 100)
         measure {
-            xtestLastMileArrayDecoderPerformance(count: 100)
+            runLastMileArrayDecoderPerformanceTest(count: 100)
         }
     }
 
     func test_SwiftArray1000() {
         setupArray(count: 1000)
         measure {
-            xtestSwiftArrayDecoderPerformance(count: 1000)
+            runSwiftArrayDecoderPerformanceTest(count: 1000)
         }
     }
 
     func test_LastMileArray1000() {
         setupArray(count: 1000)
         measure {
-            xtestLastMileArrayDecoderPerformance(count: 1000)
+            runLastMileArrayDecoderPerformanceTest(count: 1000)
         }
     }
 
-//    func test_SwiftArray10000() {
-//        setupArray(count: 10000)
-//        measure {
-//            xtestSwiftArrayDecoderPerformance(count: 10000)
-//        }
-//    }
-//
-//    func test_LastMileArray10000() {
-//        setupArray(count: 10000)
-//        measure {
-//            xtestLastMileArrayDecoderPerformance(count: 10000)
-//        }
-//    }
+    func test_SwiftArray10000() {
+        setupArray(count: 10000)
+        measure {
+            runSwiftArrayDecoderPerformanceTest(count: 10000)
+        }
+    }
 
-    private func xtestSwiftArrayDecoderPerformance(count: Int) {
+    func test_LastMileArray10000() {
+        setupArray(count: 10000)
+        measure {
+            runLastMileArrayDecoderPerformanceTest(count: 10000)
+        }
+    }
+
+    private func runSwiftArrayDecoderPerformanceTest(count: Int) {
         var value: [Element]?
         var error: Error?
         do {
@@ -129,7 +129,7 @@ class PerformanceTest: XCTestCase {
         XCTAssertNil(error)
     }
 
-    private func xtestLastMileArrayDecoderPerformance(count: Int) {
+    private func runLastMileArrayDecoderPerformanceTest(count: Int) {
         var value: [Element]?
         var errors: [APIDecodeError] = []
         let result = APIDataDecoder().decode(data: arrayJSONData, to: [Element].self)
@@ -145,46 +145,46 @@ class PerformanceTest: XCTestCase {
     func test_SwiftDict100() {
         setupDict(count: 100)
         measure {
-            xtestSwiftDictDecoderPerformance(count: 100)
+            runSwiftDictDecoderPerformanceTest(count: 100)
         }
     }
 
     func test_LastMileDict100() {
         setupDict(count: 100)
         measure {
-            xtestLastMileDictDecoderPerformance(count: 100)
+            runLastMileDictDecoderPerformanceTest(count: 100)
         }
     }
 
     func test_SwiftDict1000() {
         setupDict(count: 1000)
         measure {
-            xtestSwiftDictDecoderPerformance(count: 1000)
+            runSwiftDictDecoderPerformanceTest(count: 1000)
         }
     }
 
     func test_LastMileDict1000() {
         setupDict(count: 1000)
         measure {
-            xtestLastMileDictDecoderPerformance(count: 1000)
+            runLastMileDictDecoderPerformanceTest(count: 1000)
         }
     }
 
-//    func test_SwiftDict10000() {
-//        setupDict(count: 10000)
-//        measure {
-//            xtestSwiftDictDecoderPerformance(count: 10000)
-//        }
-//    }
-//
-//    func test_LastMileDict10000() {
-//        setupDict(count: 10000)
-//        measure {
-//            xtestLastMileDictDecoderPerformance(count: 10000)
-//        }
-//    }
-//
-    func xtestSwiftDictDecoderPerformance(count: Int) {
+    func test_SwiftDict10000() {
+        setupDict(count: 10000)
+        measure {
+            runSwiftDictDecoderPerformanceTest(count: 10000)
+        }
+    }
+
+    func test_LastMileDict10000() {
+        setupDict(count: 10000)
+        measure {
+            runLastMileDictDecoderPerformanceTest(count: 10000)
+        }
+    }
+
+    func runSwiftDictDecoderPerformanceTest(count: Int) {
         var value: [String: Element]?
         var error: Error?
         do {
@@ -197,7 +197,7 @@ class PerformanceTest: XCTestCase {
         XCTAssertNil(error)
     }
 
-    func xtestLastMileDictDecoderPerformance(count: Int) {
+    func runLastMileDictDecoderPerformanceTest(count: Int) {
         var value: [String: Element]?
         var errors: [APIDecodeError] = []
         let result = APIDataDecoder().decode(data: dictJSONData, to: [String: Element].self)
