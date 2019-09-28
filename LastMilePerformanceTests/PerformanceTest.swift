@@ -26,19 +26,14 @@
 import XCTest
 import LastMile
 
-struct Element: Codable {
+struct Element: Codable, Equatable {
     let id: Int
     let name: String
-    let pairs: [String: String]
 
-    static func random(pairCount: Int) -> Element {
+    static func random() -> Element {
         let id = Int(arc4random())
         let name = UUID().uuidString
-        var pairs = Dictionary<String, String>(minimumCapacity: pairCount)
-        (0..<pairCount).forEach { _ in
-            pairs[UUID().uuidString] = UUID().uuidString
-        }
-        return Element(id: id, name: name, pairs: pairs)
+        return Element(id: id, name: name)
     }
 }
 
@@ -47,9 +42,8 @@ extension Element: APIDecodable {
     init?(from decoder: APIDecoder) {
         let id = decoder["id"] --> Int.self
         let name = decoder["name"] --> String.self
-        let pairs = decoder["pairs"] --> [String: String].self
         guard decoder.succeeded else { return nil }
-        self.init(id: id!, name: name!, pairs: pairs!)
+        self.init(id: id!, name: name!)
     }
 }
 
@@ -57,42 +51,161 @@ extension Element: APIDecodable {
 class PerformanceTest: XCTestCase {
     let arrayCount = 100
     let pairCount = 100
-    var jsonData: Data!
+    var array: [Element]!
+    var dict: [String: Element]!
+    var arrayJSONData: Data!
+    var dictJSONData: Data!
 
-    override func setUp() {
-        super.setUp()
-        var elements = [Element]()
-        (0..<arrayCount).forEach { i in
-            elements.append(Element.random(pairCount: pairCount))
+    func setupArray(count: Int) {
+        array = [Element]()
+        (0..<count).forEach { i in
+            array.append(Element.random())
         }
-        jsonData = try! JSONEncoder().encode(elements)
+        arrayJSONData = try! JSONEncoder().encode(array)
     }
 
-    func testSwiftDecoderPerformance() {
+    func setupDict(count: Int) {
+        dict = [String: Element]()
+        (0..<count).forEach { i in
+            dict[UUID().uuidString] = Element.random()
+        }
+        dictJSONData = try! JSONEncoder().encode(dict)
+    }
+
+    // MARK: - Array performance tests
+
+    func test_SwiftArray100() {
+        setupArray(count: 100)
+        measure {
+            xtestSwiftArrayDecoderPerformance(count: 100)
+        }
+    }
+
+    func test_LastMileArray100() {
+        setupArray(count: 100)
+        measure {
+            xtestLastMileArrayDecoderPerformance(count: 100)
+        }
+    }
+
+    func test_SwiftArray1000() {
+        setupArray(count: 1000)
+        measure {
+            xtestSwiftArrayDecoderPerformance(count: 1000)
+        }
+    }
+
+    func test_LastMileArray1000() {
+        setupArray(count: 1000)
+        measure {
+            xtestLastMileArrayDecoderPerformance(count: 1000)
+        }
+    }
+
+//    func test_SwiftArray10000() {
+//        setupArray(count: 10000)
+//        measure {
+//            xtestSwiftArrayDecoderPerformance(count: 10000)
+//        }
+//    }
+//
+//    func test_LastMileArray10000() {
+//        setupArray(count: 10000)
+//        measure {
+//            xtestLastMileArrayDecoderPerformance(count: 10000)
+//        }
+//    }
+
+    private func xtestSwiftArrayDecoderPerformance(count: Int) {
         var value: [Element]?
         var error: Error?
-        self.measure {
-            do {
-                value = try JSONDecoder().decode([Element].self, from: jsonData)
-            } catch let e {
-                error = e
-            }
+        do {
+            value = try JSONDecoder().decode([Element].self, from: arrayJSONData)
+        } catch let e {
+            error = e
         }
-        XCTAssertNotNil(value)
-        XCTAssertEqual(value?.count ?? -1, arrayCount)
+        XCTAssertEqual(value, array)
+        XCTAssertEqual(value?.count ?? -1, count)
         XCTAssertNil(error)
     }
 
-    func testLastMileDecoderPerformance() {
+    private func xtestLastMileArrayDecoderPerformance(count: Int) {
         var value: [Element]?
         var errors: [APIDecodeError] = []
-        self.measure {
-            let result = APIDataDecoder().decode(data: jsonData, to: [Element].self)
-            value = result.value
-            errors = result.errors
+        let result = APIDataDecoder().decode(data: arrayJSONData, to: [Element].self)
+        value = result.value
+        errors = result.errors
+        XCTAssertEqual(value, array)
+        XCTAssertEqual(value?.count ?? -1, count)
+        XCTAssertEqual(errors.count, 0)
+    }
+
+    // MARK: - Dictionary performance tests
+
+    func test_SwiftDict100() {
+        setupDict(count: 100)
+        measure {
+            xtestSwiftDictDecoderPerformance(count: 100)
         }
-        XCTAssertNotNil(value)
-        XCTAssertEqual(value?.count ?? -1, arrayCount)
+    }
+
+    func test_LastMileDict100() {
+        setupDict(count: 100)
+        measure {
+            xtestLastMileDictDecoderPerformance(count: 100)
+        }
+    }
+
+    func test_SwiftDict1000() {
+        setupDict(count: 1000)
+        measure {
+            xtestSwiftDictDecoderPerformance(count: 1000)
+        }
+    }
+
+    func test_LastMileDict1000() {
+        setupDict(count: 1000)
+        measure {
+            xtestLastMileDictDecoderPerformance(count: 1000)
+        }
+    }
+
+//    func test_SwiftDict10000() {
+//        setupDict(count: 10000)
+//        measure {
+//            xtestSwiftDictDecoderPerformance(count: 10000)
+//        }
+//    }
+//
+//    func test_LastMileDict10000() {
+//        setupDict(count: 10000)
+//        measure {
+//            xtestLastMileDictDecoderPerformance(count: 10000)
+//        }
+//    }
+//
+    func xtestSwiftDictDecoderPerformance(count: Int) {
+        var value: [String: Element]?
+        var error: Error?
+        do {
+            value = try JSONDecoder().decode([String: Element].self, from: dictJSONData)
+        } catch let e {
+            error = e
+        }
+        XCTAssertEqual(value, dict)
+        XCTAssertEqual(value?.count ?? -1, count)
+        XCTAssertNil(error)
+    }
+
+    func xtestLastMileDictDecoderPerformance(count: Int) {
+        var value: [String: Element]?
+        var errors: [APIDecodeError] = []
+        let result = APIDataDecoder().decode(data: dictJSONData, to: [String: Element].self)
+        value = result.value
+        errors = result.errors
+        XCTAssertEqual(value, dict)
+        XCTAssertEqual(value?.count ?? -1, count)
         XCTAssertEqual(errors.count, 0)
     }
 }
+
