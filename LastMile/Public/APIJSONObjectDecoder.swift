@@ -29,15 +29,8 @@ public class APIJSONObjectDecoder {
 
     public init() {}
 
-    public func decode<DecodedType: APIDecodable>(node: JSONNode?, to type: DecodedType.Type, options: [String: Any] = [:]) -> APIDecodeResult<DecodedType> {
-        let decoder = APIJSONObjectDecoder.rootDecoder(node: node, options: options)
-        let result = decoder.decodeRequired(DecodedType.self, min: nil, max: nil)
-        return APIDecodeResult(value: result, errors: decoder.errors)
-    }
-
-    private static func rootDecoder(node: JSONNode?, options: [String: Any]) -> JSONAPIDecoder {
-        let rootNodeName = options[APIDecodeOptions.rootNodeNameKey] as? String ?? "root"
-        let rootNode = APICodingKey(hashKey: rootNodeName, swiftType: nil)
-        return JSONAPIDecoder(codingKey: rootNode, node: node, parent: nil, errorTarget: nil, options: options)
+    public func decode<DecodedType: APIDecodable>(jsonObject: Any?, to type: DecodedType.Type, options: [String: Any] = [:]) -> APIDecodeResult<DecodedType> {
+        let node = JSONNode.tree(from: jsonObject)
+        return APIJSONNodeDecoder().decode(node: node, to: DecodedType.self, options: options)
     }
 }

@@ -26,43 +26,16 @@
 import Foundation
 
 
-public enum JSONContents {
-    case object([String: JSONNode])
-    case array([JSONNode])
-    case number(NSNumber)
-    case string(String)
-    case bool(Bool)
-    case null
-    case unknown(Any)
-}
-
-
-extension JSONContents: Equatable {
-
-    public static func ==(lhs: JSONContents, rhs: JSONContents) -> Bool {
-        switch (lhs, rhs) {
-        case (.object(let lhs), .object(let rhs)): return lhs == rhs
-        case (.array(let lhs), .array(let rhs)): return lhs == rhs
-        case (.number(let lhs), .number(let rhs)): return lhs == rhs
-        case (.string(let lhs), .string(let rhs)): return lhs == rhs
-        case (.bool(let lhs), .bool(let rhs)): return lhs == rhs
-        case(.null, .null): return true
-        default: return false
-        }
-    }
-}
-
-
-public class JSONNode: Equatable {
+public class JSONNode {
     let contents: JSONContents
 
     init(contents: JSONContents) {
         self.contents = contents
     }
+}
 
-    public static func ==(lhs: JSONNode, rhs: JSONNode) -> Bool {
-        return lhs.contents == rhs.contents
-    }
+
+extension JSONNode {
 
     static func tree(from json: Any?) -> JSONNode? {
         guard let json = json else { return nil }
@@ -87,5 +60,28 @@ public class JSONNode: Equatable {
         } else {
             return JSONNode(contents: .unknown(json))
         }
+    }
+}
+
+
+extension JSONNode {
+
+    subscript(key: CodingKey) -> JSONNode? {
+        if let index = key.intValue {
+            guard case .array(let array) = contents else { return nil }
+            guard index < array.count else { return nil }
+            return array[index]
+        } else {
+            guard case .object(let dict) = contents else { return nil }
+            return dict[key.stringValue]
+        }
+    }
+}
+
+
+extension JSONNode: Equatable {
+
+    public static func ==(lhs: JSONNode, rhs: JSONNode) -> Bool {
+        return lhs.contents == rhs.contents
     }
 }

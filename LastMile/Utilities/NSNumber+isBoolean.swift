@@ -1,8 +1,8 @@
 //
-//  APIDataDecoder.swift
+//  NSNumber+isBoolean.swift
 //  LastMile
 //
-//  Copyright (c) 2018 Josh Elkins
+//  Copyright (c) 2019 Josh Elkins
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,19 +21,11 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
+//
 
 import Foundation
 
 
-public class APIDataDecoder {
-
-    public init() {}
-
-    public func decode<DecodedType: APIDecodable>(data: Data?, to type: DecodedType.Type, options: [String: Any] = [:]) -> APIDecodeResult<DecodedType> {
-        let newData = data ?? Data()
-        var newOptions = options
-        newOptions[APIDecodeOptions.rawDataKey] = newData
-        let jsonObject: Any? = try? JSONSerialization.jsonObject(with: newData, options: [])
-        return APIJSONObjectDecoder().decode(jsonObject: jsonObject, to: DecodedType.self, options: newOptions)
-    }
+extension NSNumber {
+    var isBoolean: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
 }

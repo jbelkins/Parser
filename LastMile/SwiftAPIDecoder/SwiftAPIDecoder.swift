@@ -46,6 +46,4 @@ class SwiftAPIDecoder: Decoder {
     func singleValueContainer() throws -> SingleValueDecodingContainer {
         return APIDecoderSingleValueDecodingContainer(decoder: decoder)
     }
-
-    
 }

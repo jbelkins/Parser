@@ -36,8 +36,3 @@ extension Bool: APIDecodable {
         self = bool
     }
 }
-
-
-extension NSNumber {
-    var isBoolean: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
-}

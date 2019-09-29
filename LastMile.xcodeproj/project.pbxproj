@@ -53,8 +53,10 @@
 		03A7B600202ADB25005A4BA2 /* APIDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7B5FF202ADB25005A4BA2 /* APIDecodable.swift */; };
 		03AACD9C20BC8578007624F7 /* DecodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AACD9B20BC8578007624F7 /* DecodableTests.swift */; };
 		03AE7A75233FEBCE00762815 /* JSONNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AE7A74233FEBCE00762815 /* JSONNode.swift */; };
+		03AE7A772341131C00762815 /* JSONContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AE7A762341131C00762815 /* JSONContents.swift */; };
+		03AE7A79234115AB00762815 /* NSNumber+isBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AE7A78234115AB00762815 /* NSNumber+isBoolean.swift */; };
+		03AE7A7B234116D100762815 /* APIJSONNodeDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AE7A7A234116D100762815 /* APIJSONNodeDecoder.swift */; };
 		03B21FB52230D2F000C349FA /* BoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B21FB42230D2F000C349FA /* BoolTests.swift */; };
-		03BD2559202F53D9004B9F06 /* JSONTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BD2558202F53D9004B9F06 /* JSONTools.swift */; };
 		03BD255B202F54CB004B9F06 /* APIDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BD255A202F54CB004B9F06 /* APIDecoder.swift */; };
 		03CC4FEE20291A2200269CC7 /* DecodableSubStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC4FED20291A2200269CC7 /* DecodableSubStruct.swift */; };
 		03CC4FF02029232900269CC7 /* APIDecodeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CC4FEF2029232900269CC7 /* APIDecodeError.swift */; };
@@ -134,8 +136,10 @@
 		03A7B5FF202ADB25005A4BA2 /* APIDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecodable.swift; sourceTree = "<group>"; };
 		03AACD9B20BC8578007624F7 /* DecodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableTests.swift; sourceTree = "<group>"; };
 		03AE7A74233FEBCE00762815 /* JSONNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONNode.swift; sourceTree = "<group>"; };
+		03AE7A762341131C00762815 /* JSONContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONContents.swift; sourceTree = "<group>"; };
+		03AE7A78234115AB00762815 /* NSNumber+isBoolean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNumber+isBoolean.swift"; sourceTree = "<group>"; };
+		03AE7A7A234116D100762815 /* APIJSONNodeDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIJSONNodeDecoder.swift; sourceTree = "<group>"; };
 		03B21FB42230D2F000C349FA /* BoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolTests.swift; sourceTree = "<group>"; };
-		03BD2558202F53D9004B9F06 /* JSONTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTools.swift; sourceTree = "<group>"; };
 		03BD255A202F54CB004B9F06 /* APIDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecoder.swift; sourceTree = "<group>"; };
 		03CC4FED20291A2200269CC7 /* DecodableSubStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableSubStruct.swift; sourceTree = "<group>"; };
 		03CC4FEF2029232900269CC7 /* APIDecodeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecodeError.swift; sourceTree = "<group>"; };
@@ -245,6 +249,7 @@
 				035A0B86222FA63A0030EBCF /* APIDecodeErrorReason.swift */,
 				031A45A3202EC67E00C706CB /* JSONElement.swift */,
 				03AE7A74233FEBCE00762815 /* JSONNode.swift */,
+				03AE7A762341131C00762815 /* JSONContents.swift */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -253,7 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				031247BA2028CCCF0048BBFB /* JSONAPIDecoder.swift */,
-				03BD2558202F53D9004B9F06 /* JSONTools.swift */,
+				03AE7A7A234116D100762815 /* APIJSONNodeDecoder.swift */,
 			);
 			path = JSONAPIDecoder;
 			sourceTree = "<group>";
@@ -273,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				03A1E7F6220AB3960074D0E1 /* DecodingError+Equatable.swift */,
+				03AE7A78234115AB00762815 /* NSNumber+isBoolean.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -458,9 +464,9 @@
 				03E923A82229C3D10050983D /* ResponseData.swift in Sources */,
 				03372410222B9A06001406E2 /* UInt8+APIDecodable.swift in Sources */,
 				031A45A2202EB62900C706CB /* Operators.swift in Sources */,
+				03AE7A7B234116D100762815 /* APIJSONNodeDecoder.swift in Sources */,
 				031247C12028F0B50048BBFB /* Int+APIDecodable.swift in Sources */,
 				03372418222B9EBB001406E2 /* UInt64+APIDecodable.swift in Sources */,
-				03BD2559202F53D9004B9F06 /* JSONTools.swift in Sources */,
 				031247BD2028CE360048BBFB /* APICodingKey.swift in Sources */,
 				0341888320C0FFCB0074AF0C /* APIDecoderSingleValueDecodingContainer.swift in Sources */,
 				035A3BCA203148F900DDBAB5 /* Bool+APIDecodable.swift in Sources */,
@@ -485,9 +491,11 @@
 				0341887D20C0F3490074AF0C /* SwiftAPIDecoder.swift in Sources */,
 				03372422222B9F74001406E2 /* Int64+APIDecodable.swift in Sources */,
 				031A45A4202EC67E00C706CB /* JSONElement.swift in Sources */,
+				03AE7A772341131C00762815 /* JSONContents.swift in Sources */,
 				03BD255B202F54CB004B9F06 /* APIDecoder.swift in Sources */,
 				03A7B5FC202AD917005A4BA2 /* APIDataDecoder.swift in Sources */,
 				03A7B5FE202ADAE3005A4BA2 /* Double+APIDecodable.swift in Sources */,
+				03AE7A79234115AB00762815 /* NSNumber+isBoolean.swift in Sources */,
 				0308092B20BE6E0C00E6C152 /* Dictionary+APIDecodable.swift in Sources */,
 				035A0B9A223079E20030EBCF /* APIDecodableInteger.swift in Sources */,
 				0308092920BE54B500E6C152 /* Array+APIDecodable.swift in Sources */,

@@ -1,8 +1,8 @@
 //
-//  JSONTools.swift
+//  JSONContents.swift
 //  LastMile
 //
-//  Copyright (c) 2018 Josh Elkins
+//  Copyright (c) 2019 Josh Elkins
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,20 +21,33 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
+//
 
 import Foundation
 
 
-struct JSONTools {
+public enum JSONContents {
+    case object([String: JSONNode])
+    case array([JSONNode])
+    case number(NSNumber)
+    case string(String)
+    case bool(Bool)
+    case null
+    case unknown(Any)
+}
 
-    static func traverseJSON(node: JSONNode?, at codingKey: CodingKey) -> JSONNode? {
-        if let arrayIndex = codingKey.intValue {
-            guard case .array(let localJSONArray) = node?.contents else { return nil }
-            guard arrayIndex < localJSONArray.count else { return nil }
-            return localJSONArray[arrayIndex]
-        } else {
-            guard case .object(let localJSONDict) = node?.contents else { return nil }
-            return localJSONDict[codingKey.stringValue]
+
+extension JSONContents: Equatable {
+
+    public static func ==(lhs: JSONContents, rhs: JSONContents) -> Bool {
+        switch (lhs, rhs) {
+        case (.object(let lhs), .object(let rhs)): return lhs == rhs
+        case (.array(let lhs), .array(let rhs)): return lhs == rhs
+        case (.number(let lhs), .number(let rhs)): return lhs == rhs
+        case (.string(let lhs), .string(let rhs)): return lhs == rhs
+        case (.bool(let lhs), .bool(let rhs)): return lhs == rhs
+        case(.null, .null): return true
+        default: return false
         }
     }
 }

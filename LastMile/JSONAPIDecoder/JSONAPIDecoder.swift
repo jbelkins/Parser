@@ -49,19 +49,16 @@ public class JSONAPIDecoder: APIDecoder {
 
     public subscript(key: String) -> APIDecoder {
         let codingKey = APICodingKey(stringValue: key)!
-        let newNode = JSONTools.traverseJSON(node: node, at: codingKey)
-        return JSONAPIDecoder(codingKey: codingKey, node: newNode, parent: self, errorTarget: self, options: options)
+        return JSONAPIDecoder(codingKey: codingKey, node: node?[codingKey], parent: self, errorTarget: self, options: options)
     }
 
     public subscript(index: Int) -> APIDecoder {
         let codingKey = APICodingKey(intValue: index)!
-        let newNode = JSONTools.traverseJSON(node: node, at: codingKey)
-        return JSONAPIDecoder(codingKey: codingKey, node: newNode, parent: self, errorTarget: self, options: options)
+        return JSONAPIDecoder(codingKey: codingKey, node: node?[codingKey], parent: self, errorTarget: self, options: options)
     }
 
     public subscript(codingKey: CodingKey) -> APIDecoder {
-        let newNode = JSONTools.traverseJSON(node: node, at: codingKey)
-        return JSONAPIDecoder(codingKey: codingKey, node: newNode, parent: self, errorTarget: self, options: options)
+        return JSONAPIDecoder(codingKey: codingKey, node: node?[codingKey], parent: self, errorTarget: self, options: options)
     }
 
     public func superDecoder() -> APIDecoder {
