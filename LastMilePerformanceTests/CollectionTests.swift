@@ -117,27 +117,18 @@ class CollectionTests: XCTestCase {
     }
 
     private func runSwiftArrayDecoderPerformanceTest(count: Int) {
-        var value: [Element]?
-        var error: Error?
         do {
-            value = try JSONDecoder().decode([Element].self, from: arrayJSONData)
-        } catch let e {
-            error = e
+            let value = try JSONDecoder().decode([Element].self, from: arrayJSONData)
+            XCTAssertEqual(value, array)
+        } catch {
+            XCTFail("threw error: \(error)")
         }
-        XCTAssertEqual(value, array)
-        XCTAssertEqual(value?.count ?? -1, count)
-        XCTAssertNil(error)
     }
 
     private func runLastMileArrayDecoderPerformanceTest(count: Int) {
-        var value: [Element]?
-        var errors: [APIDecodeError] = []
         let result = APIDataDecoder().decode(data: arrayJSONData, to: [Element].self)
-        value = result.value
-        errors = result.errors
-        XCTAssertEqual(value, array)
-        XCTAssertEqual(value?.count ?? -1, count)
-        XCTAssertEqual(errors.count, 0)
+        XCTAssertEqual(result.value, array)
+        XCTAssertEqual(result.errors.count, 0)
     }
 
     // MARK: - Dictionary performance tests
@@ -145,67 +136,58 @@ class CollectionTests: XCTestCase {
     func test_SwiftDict100() {
         setupDict(count: 100)
         measure {
-            runSwiftDictDecoderPerformanceTest(count: 100)
+            runSwiftDictDecoderPerformanceTest()
         }
     }
 
     func test_LastMileDict100() {
         setupDict(count: 100)
         measure {
-            runLastMileDictDecoderPerformanceTest(count: 100)
+            runLastMileDictDecoderPerformanceTest()
         }
     }
 
     func test_SwiftDict1000() {
         setupDict(count: 1000)
         measure {
-            runSwiftDictDecoderPerformanceTest(count: 1000)
+            runSwiftDictDecoderPerformanceTest()
         }
     }
 
     func test_LastMileDict1000() {
         setupDict(count: 1000)
         measure {
-            runLastMileDictDecoderPerformanceTest(count: 1000)
+            runLastMileDictDecoderPerformanceTest()
         }
     }
 
     func test_SwiftDict10000() {
         setupDict(count: 10000)
         measure {
-            runSwiftDictDecoderPerformanceTest(count: 10000)
+            runSwiftDictDecoderPerformanceTest()
         }
     }
 
     func test_LastMileDict10000() {
         setupDict(count: 10000)
         measure {
-            runLastMileDictDecoderPerformanceTest(count: 10000)
+            runLastMileDictDecoderPerformanceTest()
         }
     }
 
-    func runSwiftDictDecoderPerformanceTest(count: Int) {
-        var value: [String: Element]?
-        var error: Error?
+    func runSwiftDictDecoderPerformanceTest() {
         do {
-            value = try JSONDecoder().decode([String: Element].self, from: dictJSONData)
-        } catch let e {
-            error = e
+            let value = try JSONDecoder().decode([String: Element].self, from: dictJSONData)
+            XCTAssertEqual(value, dict)
+        } catch {
+            XCTFail("threw error: \(error)")
         }
-        XCTAssertEqual(value, dict)
-        XCTAssertEqual(value?.count ?? -1, count)
-        XCTAssertNil(error)
     }
 
-    func runLastMileDictDecoderPerformanceTest(count: Int) {
-        var value: [String: Element]?
-        var errors: [APIDecodeError] = []
+    func runLastMileDictDecoderPerformanceTest() {
         let result = APIDataDecoder().decode(data: dictJSONData, to: [String: Element].self)
-        value = result.value
-        errors = result.errors
-        XCTAssertEqual(value, dict)
-        XCTAssertEqual(value?.count ?? -1, count)
-        XCTAssertEqual(errors.count, 0)
+        XCTAssertEqual(result.value, dict)
+        XCTAssertEqual(result.errors.count, 0)
     }
 }
 

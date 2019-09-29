@@ -25,13 +25,19 @@
 
 import Foundation
 
-public enum JSONContents: Equatable {
+
+public enum JSONContents {
     case object([String: JSONNode])
     case array([JSONNode])
     case number(NSNumber)
     case string(String)
     case bool(Bool)
     case null
+    case unknown(Any)
+}
+
+
+extension JSONContents: Equatable {
 
     public static func ==(lhs: JSONContents, rhs: JSONContents) -> Bool {
         switch (lhs, rhs) {
@@ -45,6 +51,7 @@ public enum JSONContents: Equatable {
         }
     }
 }
+
 
 public class JSONNode: Equatable {
     let contents: JSONContents
@@ -78,7 +85,7 @@ public class JSONNode: Equatable {
         } else if json is NSNull {
             return JSONNode(contents: .null)
         } else {
-            fatalError("object passed in is not a JSON object")
+            return JSONNode(contents: .unknown(json))
         }
     }
 }

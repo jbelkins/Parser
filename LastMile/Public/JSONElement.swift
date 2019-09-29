@@ -46,6 +46,7 @@ public enum JSONElement: String, Equatable {
             return Int(exactly: nsNumber) != nil ? .integer : .decimal
         case .bool: return .boolean
         case .null: return .null
+        case .unknown: return .unknown
         }
     }
 }
