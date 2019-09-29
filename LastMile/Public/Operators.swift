@@ -33,7 +33,7 @@ infix operator --> : ParseOperationsGroup
 
 // MARK: - Single element
 
-// MARK: --> operator with type
+// MARK: the --> operator with type
 
 public func --><DecodedType: APIDecodable>(lhs: APIDecoder, rhs: DecodedType.Type) -> DecodedType! {
     return lhs.decodeRequired(DecodedType.self)
@@ -43,7 +43,7 @@ public func --><DecodedType: APIDecodable>(lhs: APIDecoder, rhs: DecodedType?.Ty
     return lhs.decodeOptional(DecodedType.self)
 }
 
-// MARK: --> operator with Create instance
+// MARK: the --> operator with Create instance
 
 public func --><DecodedType: APIDecodable & Collection>(lhs: APIDecoder, rhs: CountLimited<DecodedType>) -> DecodedType! {
     return lhs.decodeRequired(DecodedType.self, min: rhs.min, max: rhs.max, countsAreMandatory: rhs.isMandatory)

@@ -28,7 +28,7 @@ extension Array: APIDecodable where Element: APIDecodable {
     public var parseableElementCount: Int? { return count }
 
     public init?(from decoder: APIDecoder) {
-        guard let jsonArray = decoder.json as? [Any] else {
+        guard case .array(let jsonArray) = decoder.node?.contents else {
             let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
             decoder.recordError(error)
             return nil

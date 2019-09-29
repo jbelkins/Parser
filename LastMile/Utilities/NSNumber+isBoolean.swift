@@ -1,8 +1,8 @@
 //
-//  JSONTools.swift
+//  NSNumber+isBoolean.swift
 //  LastMile
 //
-//  Copyright (c) 2018 Josh Elkins
+//  Copyright (c) 2019 Josh Elkins
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,20 +21,11 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
+//
 
 import Foundation
 
 
-struct JSONTools {
-
-    static func traverseJSON(json: Any?, at node: CodingKey) -> Any? {
-        if let arrayIndex = node.intValue {
-            guard let localJSONArray = json as? [Any] else { return nil }
-            guard arrayIndex < localJSONArray.count else { return nil }
-            return localJSONArray[arrayIndex]
-        } else {
-            guard let localJSONDict = json as? [String: Any] else { return nil }
-            return localJSONDict[node.stringValue]
-        }
-    }
+extension NSNumber {
+    var isBoolean: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
 }

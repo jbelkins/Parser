@@ -34,7 +34,8 @@ class APIDecoderSingleValueDecodingContainer: SingleValueDecodingContainer {
     }
 
     func decodeNil() -> Bool {
-        return decoder.json is NSNull
+        guard let node = decoder.node else { return false }
+        return node.contents == JSONContents.null
     }
 
     func decode<T>(_ type: T.Type) throws -> T where T : Decodable {

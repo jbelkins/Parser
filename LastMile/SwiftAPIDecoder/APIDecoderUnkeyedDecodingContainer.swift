@@ -39,7 +39,8 @@ class APIDecoderUnkeyedDecodingContainer: UnkeyedDecodingContainer {
     }
 
     var count: Int? {
-        return (decoder.json as? [Any])?.count
+        guard case .array(let array) = decoder.node?.contents else { return nil }
+        return array.count
     }
 
     var isAtEnd: Bool {

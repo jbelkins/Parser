@@ -1,8 +1,8 @@
 //
-//  NSNull+APIDecodable.swift
+//  APIJSONNodeDecoder.swift
 //  LastMile
 //
-//  Copyright (c) 2018 Josh Elkins
+//  Copyright (c) 2019 Josh Elkins
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,8 +21,24 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
+//
 
 import Foundation
 
 
-extension NSNull: JSONRawValueType {}
+public class APIJSONNodeDecoder {
+
+    public init() {}
+
+    public func decode<DecodedType: APIDecodable>(node: JSONNode?, to type: DecodedType.Type, options: [String: Any] = [:]) -> APIDecodeResult<DecodedType> {
+        let decoder = APIJSONNodeDecoder.rootDecoder(node: node, options: options)
+        let result = decoder.decodeRequired(DecodedType.self, min: nil, max: nil)
+        return APIDecodeResult(value: result, errors: decoder.errors)
+    }
+
+    private static func rootDecoder(node: JSONNode?, options: [String: Any]) -> JSONAPIDecoder {
+        let rootNodeName = options[APIDecodeOptions.rootNodeNameKey] as? String ?? "root"
+        let rootNode = APICodingKey(hashKey: rootNodeName, swiftType: nil)
+        return JSONAPIDecoder(codingKey: rootNode, node: node, parent: nil, errorTarget: nil, options: options)
+    }
+}

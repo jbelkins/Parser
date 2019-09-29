@@ -29,17 +29,17 @@ public class JSONAPIDecoder: APIDecoder {
     public var codingKey: CodingKey { return key }
     public var codingPath: [CodingKey] { return Array(path.dropFirst()) }
     public var key: APICodingKey
-    public let json: Any?
+    public let node: JSONNode?
     public var succeeded = true
     public let options: [String: Any]
     public var errors = [APIDecodeError]()
     let parent: JSONAPIDecoder?
     let errorTarget: JSONAPIDecoder?
 
-    init(codingKey: CodingKey, json: Any?, parent: JSONAPIDecoder?, errorTarget: JSONAPIDecoder?, options: [String: Any]) {
+    init(codingKey: CodingKey, node: JSONNode?, parent: JSONAPIDecoder?, errorTarget: JSONAPIDecoder?, options: [String: Any]) {
         self.key = APICodingKey(codingKey: codingKey)
-        self.key.jsonType = JSONElement.type(for: json)
-        self.json = json
+        self.key.jsonType = JSONElement.type(for: node)
+        self.node = node
         self.parent = parent
         self.errorTarget = errorTarget
         self.options = options
@@ -49,27 +49,24 @@ public class JSONAPIDecoder: APIDecoder {
 
     public subscript(key: String) -> APIDecoder {
         let codingKey = APICodingKey(stringValue: key)!
-        let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
-        return JSONAPIDecoder(codingKey: codingKey, json: newJSON, parent: self, errorTarget: self, options: options)
+        return JSONAPIDecoder(codingKey: codingKey, node: node?[codingKey], parent: self, errorTarget: self, options: options)
     }
 
     public subscript(index: Int) -> APIDecoder {
         let codingKey = APICodingKey(intValue: index)!
-        let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
-        return JSONAPIDecoder(codingKey: codingKey, json: newJSON, parent: self, errorTarget: self, options: options)
+        return JSONAPIDecoder(codingKey: codingKey, node: node?[codingKey], parent: self, errorTarget: self, options: options)
     }
 
     public subscript(codingKey: CodingKey) -> APIDecoder {
-        let newJSON = JSONTools.traverseJSON(json: json, at: codingKey)
-        return JSONAPIDecoder(codingKey: codingKey, json: newJSON, parent: self, errorTarget: self, options: options)
+        return JSONAPIDecoder(codingKey: codingKey, node: node?[codingKey], parent: self, errorTarget: self, options: options)
     }
 
     public func superDecoder() -> APIDecoder {
-        return JSONAPIDecoder(codingKey: codingKey, json: json, parent: parent, errorTarget: self, options: options)
+        return JSONAPIDecoder(codingKey: codingKey, node: node, parent: parent, errorTarget: self, options: options)
     }
 
     public func errorHoldingDecoder() -> APIDecoder {
-        return JSONAPIDecoder(codingKey: codingKey, json: json, parent: parent, errorTarget: nil, options: options)
+        return JSONAPIDecoder(codingKey: codingKey, node: node, parent: parent, errorTarget: nil, options: options)
     }
 
     // MARK: - Decoding
@@ -83,6 +80,10 @@ public class JSONAPIDecoder: APIDecoder {
 
     public func decodeOptional<DecodedType: APIDecodable>(_ type: DecodedType.Type, min: Int?, max: Int?, countsAreMandatory: Bool) -> DecodedType? {
         return decode(type: type, required: false, min: min, max: max, countsAreMandatory: countsAreMandatory)
+    }
+
+    public var isJSONNull: Bool {
+        return node?.contents == .null
     }
 
     // MARK: Swift Decodable
@@ -137,7 +138,7 @@ public class JSONAPIDecoder: APIDecoder {
 
     private func decode<DecodedType: APIDecodable>(type: DecodedType.Type, required: Bool, min: Int?, max: Int?, countsAreMandatory: Bool) -> DecodedType? {
         tagKey(type: type)
-        guard (json != nil && !(json is NSNull && type != NSNull.self)) || type.alwaysSucceeds else {
+        guard (node != nil && !(node?.contents == .null && type != NSNull.self)) || type.alwaysSucceeds else {
             if required {
                 let error = APIDecodeError(path: path, actual: key.jsonType)
                 recordError(error)
@@ -163,6 +164,6 @@ public class JSONAPIDecoder: APIDecoder {
     private func tagKey(type: APIDecodable.Type) {
         key.swiftType = key.swiftType ?? type
         key.idKey = key.idKey ?? type.idKey
-        key.id = key.id ?? type.id(from: json)
+        key.id = key.id ?? type.id(from: node)
     }
 }

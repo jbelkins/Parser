@@ -49,7 +49,7 @@ extension MainDecodableStruct: APIDecodable {
         let id =          decoder["id"]            --> Int.self
         let name =        decoder["name"]          --> String.self
         let subArray =    decoder["substructs"]    --> CountLimited<[DecodableSubStruct]>(exactly: 2)
-        let null =        decoder["null"]          --> NSNull.self
+        let null =        decoder["null"].isJSONNull ? NSNull() : nil
         let indexed =     decoder["indexed"]       --> [String: DecodableSubStruct].self
         let truthy =      decoder["truthy"]        --> Bool.self
         let decodable =   decoder["decodable"]     .decodeRequired(swiftDecodable: SwiftDecodableStruct.self)

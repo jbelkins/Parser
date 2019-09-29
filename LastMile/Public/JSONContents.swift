@@ -1,8 +1,8 @@
 //
-//  JSONRawValueType.swift
+//  JSONContents.swift
 //  LastMile
 //
-//  Copyright (c) 2018 Josh Elkins
+//  Copyright (c) 2019 Josh Elkins
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,21 +21,33 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
+//
 
 import Foundation
 
 
-protocol JSONRawValueType: APIDecodable {}
+public enum JSONContents {
+    case object([String: JSONNode])
+    case array([JSONNode])
+    case number(NSNumber)
+    case string(String)
+    case bool(Bool)
+    case null
+    case unknown(Any)
+}
 
 
-extension JSONRawValueType {
+extension JSONContents: Equatable {
 
-    public init?(from decoder: APIDecoder) {
-        guard let value = decoder.json as? Self else {
-            let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
-            decoder.recordError(error)
-            return nil
+    public static func ==(lhs: JSONContents, rhs: JSONContents) -> Bool {
+        switch (lhs, rhs) {
+        case (.object(let lhs), .object(let rhs)): return lhs == rhs
+        case (.array(let lhs), .array(let rhs)): return lhs == rhs
+        case (.number(let lhs), .number(let rhs)): return lhs == rhs
+        case (.string(let lhs), .string(let rhs)): return lhs == rhs
+        case (.bool(let lhs), .bool(let rhs)): return lhs == rhs
+        case(.null, .null): return true
+        default: return false
         }
-        self = value
     }
 }

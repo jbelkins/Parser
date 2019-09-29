@@ -34,7 +34,7 @@ class APIDecoderKeyedDecodingContainer<Key: CodingKey>: KeyedDecodingContainerPr
     }
 
     public var allKeys: [Key] {
-        guard let jsonDict = decoder.json as? [String: Any] else { return [] }
+        guard case .object(let jsonDict) = decoder.node?.contents else { return [] }
         return jsonDict.keys.map { Key.init(stringValue: $0)! }
     }
 

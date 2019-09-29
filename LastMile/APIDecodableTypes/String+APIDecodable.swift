@@ -25,5 +25,15 @@
 import Foundation
 
 
-extension String: JSONRawValueType {}
+extension String: APIDecodable {
+
+    public init?(from decoder: APIDecoder) {
+        guard case .string(let string) = decoder.node?.contents else {
+            let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
+            decoder.recordError(error)
+            return nil
+        }
+        self = string
+    }
+}
 

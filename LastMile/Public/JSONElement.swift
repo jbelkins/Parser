@@ -36,17 +36,17 @@ public enum JSONElement: String, Equatable {
     case absent = "no value present"
     case unknown = "Unknown"
 
-    static func type(`for` json: Any?) -> JSONElement {
-        guard let json = json else { return .absent }
-        if json is [String: Any] { return .object }
-        if json is [Any] { return .array }
-        if json is String { return .string }
-        if json is NSNull { return .null }
-        if let nsNumber = json as? NSNumber {
-            guard !nsNumber.isBoolean else { return .boolean }
-            if let _ = Int(exactly: nsNumber) { return .integer }
-            if let _ = Double(exactly: nsNumber) { return .decimal }
+    static func type(`for` node: JSONNode?) -> JSONElement {
+        guard let contents = node?.contents else { return .absent }
+        switch contents {
+        case .object: return .object
+        case .array: return .array
+        case .string: return .string
+        case .number(let nsNumber):
+            return Int(exactly: nsNumber) != nil ? .integer : .decimal
+        case .bool: return .boolean
+        case .null: return .null
+        case .unknown: return .unknown
         }
-        return .unknown
     }
 }
