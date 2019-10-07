@@ -79,6 +79,23 @@ extension JSONNode {
 }
 
 
+extension JSONNode {
+
+    var type: JSONElement {
+        switch self.contents {
+        case .object: return .object
+        case .array: return .array
+        case .string: return .string
+        case .number(let nsNumber):
+            return Int(exactly: nsNumber) != nil ? .integer : .decimal
+        case .bool: return .boolean
+        case .null: return .null
+        case .unknown: return .unknown
+        }
+    }
+}
+
+
 extension JSONNode: Equatable {
 
     public static func ==(lhs: JSONNode, rhs: JSONNode) -> Bool {

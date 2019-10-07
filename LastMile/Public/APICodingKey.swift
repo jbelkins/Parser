@@ -28,36 +28,31 @@ import Foundation
 public struct APICodingKey: Equatable {
     public let hashKey: String?
     public let arrayIndex: Int?
-    public var jsonType: JSONElement
+    public let jsonNode: JSONNode?
     public var swiftType: Any.Type?
-    public var idKey: String?
-    public var id: String?
-}
+    private var decodableType: APIDecodable.Type? { return swiftType as? APIDecodable.Type }
+    public var idKey: String? { return decodableType?.idKey }
+    public var id: String? { return decodableType?.id(from: jsonNode) }
 
-
-public func ==(lhs: APICodingKey, rhs: APICodingKey) -> Bool {
-    return lhs as CodingKey == rhs as CodingKey
-}
-
-
-public func ==(lhs: CodingKey, rhs: CodingKey) -> Bool {
-    return lhs.stringValue == rhs.stringValue && lhs.intValue == rhs.intValue
+    public static func ==(lhs: APICodingKey, rhs: APICodingKey) -> Bool {
+        return lhs.stringValue == rhs.stringValue && lhs.intValue == rhs.intValue
+    }
 }
 
 
 extension APICodingKey {
 
-    init(codingKey: CodingKey) {
+    init(codingKey: CodingKey, jsonNode: JSONNode?) {
         let hashKey = codingKey.intValue == nil ? codingKey.stringValue : nil
-        self.init(hashKey: hashKey, arrayIndex: codingKey.intValue, jsonType: .unknown, swiftType: nil, idKey: nil, id: nil)
+        self.init(hashKey: hashKey, arrayIndex: codingKey.intValue, jsonNode: jsonNode, swiftType: nil)
     }
 
     init(hashKey: String, swiftType: Decodable.Type?) {
-        self.init(hashKey: hashKey, arrayIndex: nil, jsonType: .unknown, swiftType: swiftType, idKey: nil, id: nil)
+        self.init(hashKey: hashKey, arrayIndex: nil, jsonNode: nil, swiftType: swiftType)
     }
 
     init(arrayIndex: Int, swiftType: Decodable.Type?) {
-        self.init(hashKey: nil, arrayIndex: arrayIndex, jsonType: .unknown, swiftType: swiftType, idKey: nil, id: nil)
+        self.init(hashKey: nil, arrayIndex: arrayIndex, jsonNode: nil, swiftType: swiftType)
     }
 }
 

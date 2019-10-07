@@ -48,17 +48,15 @@ extension DecodingError: Equatable {
 fileprivate extension Array where Element == CodingKey {
 
     func isSamePath(`as` other: [CodingKey]) -> Bool {
-        guard count == other.count else { return false }
-        for (lhs, rhs) in zip(self, other) {
-            if !(lhs == rhs) { return false }
-        }
-        return true
+        return self.map { CodingKeyBox(key: $0) } == other.map { CodingKeyBox(key: $0) }
     }
 }
 
-fileprivate extension CodingKey {
 
-    static func ==(lhs: CodingKey, rhs: CodingKey) -> Bool {
-        return lhs.stringValue == rhs.stringValue && lhs.intValue == rhs.intValue
+struct CodingKeyBox: Equatable {
+    let key: CodingKey
+
+    static func ==(lhs: CodingKeyBox, rhs: CodingKeyBox) -> Bool {
+        return lhs.key.stringValue == rhs.key.stringValue && lhs.key.intValue == rhs.key.intValue
     }
 }

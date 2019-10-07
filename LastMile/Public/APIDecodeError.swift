@@ -36,6 +36,11 @@ public struct APIDecodeError {
         self.reason = reason
     }
 
+    public init(path: [APICodingKey], actual: JSONNode?) {
+        self.path = path
+        reason = .unexpectedJSONType(actual: actual?.type ?? .absent)
+    }
+
     public init(path: [APICodingKey], actual: JSONElement) {
         self.path = path
         reason = .unexpectedJSONType(actual: actual)

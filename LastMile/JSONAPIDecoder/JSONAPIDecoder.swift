@@ -37,8 +37,7 @@ public class JSONAPIDecoder: APIDecoder {
     let errorTarget: JSONAPIDecoder?
 
     init(codingKey: CodingKey, node: JSONNode?, parent: JSONAPIDecoder?, errorTarget: JSONAPIDecoder?, options: [String: Any]) {
-        self.key = APICodingKey(codingKey: codingKey)
-        self.key.jsonType = JSONElement.type(for: node)
+        self.key = APICodingKey(codingKey: codingKey, jsonNode: node)
         self.node = node
         self.parent = parent
         self.errorTarget = errorTarget
@@ -137,10 +136,10 @@ public class JSONAPIDecoder: APIDecoder {
     // MARK: - Private methods
 
     private func decode<DecodedType: APIDecodable>(type: DecodedType.Type, required: Bool, min: Int?, max: Int?, countsAreMandatory: Bool) -> DecodedType? {
-        tagKey(type: type)
+        key.swiftType = type
         guard (node != nil && !(node?.contents == .null && type != NSNull.self)) || type.alwaysSucceeds else {
             if required {
-                let error = APIDecodeError(path: path, actual: key.jsonType)
+                let error = APIDecodeError(path: path, actual: node)
                 recordError(error)
             }
             return nil
@@ -159,11 +158,5 @@ public class JSONAPIDecoder: APIDecoder {
             }
         }
         return parsed
-    }
-
-    private func tagKey(type: APIDecodable.Type) {
-        key.swiftType = key.swiftType ?? type
-        key.idKey = key.idKey ?? type.idKey
-        key.id = key.id ?? type.id(from: node)
     }
 }
