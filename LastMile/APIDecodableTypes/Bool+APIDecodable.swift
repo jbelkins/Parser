@@ -29,7 +29,7 @@ extension Bool: APIDecodable {
     
     public init?(from decoder: APIDecoder) {
         guard case .bool(let bool) = decoder.node?.contents else {
-            let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
+            let error = APIDecodeError(path: decoder.path, actual: decoder.node)
             decoder.recordError(error)
             return nil
         }

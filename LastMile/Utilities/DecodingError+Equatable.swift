@@ -38,27 +38,17 @@ extension DecodingError: Equatable {
              (.keyNotFound(_, let lhsContext), .keyNotFound(_, let rhsContext)),
              (.typeMismatch(_, let lhsContext), .typeMismatch(_, let rhsContext)),
              (.valueNotFound(_, let lhsContext), .valueNotFound(_, let rhsContext)):
-            return lhsContext.codingPath.isSamePath(as: rhsContext.codingPath)
+            return lhsContext.codingPath.map { CodingKeyBox(key: $0) } == rhsContext.codingPath.map { CodingKeyBox(key: $0) }
         default: return false
         }
     }
 }
 
 
-fileprivate extension Array where Element == CodingKey {
+struct CodingKeyBox: Equatable {
+    let key: CodingKey
 
-    func isSamePath(`as` other: [CodingKey]) -> Bool {
-        guard count == other.count else { return false }
-        for (lhs, rhs) in zip(self, other) {
-            if !(lhs == rhs) { return false }
-        }
-        return true
-    }
-}
-
-fileprivate extension CodingKey {
-
-    static func ==(lhs: CodingKey, rhs: CodingKey) -> Bool {
-        return lhs.stringValue == rhs.stringValue && lhs.intValue == rhs.intValue
+    static func ==(lhs: CodingKeyBox, rhs: CodingKeyBox) -> Bool {
+        return lhs.key.stringValue == rhs.key.stringValue && lhs.key.intValue == rhs.key.intValue
     }
 }

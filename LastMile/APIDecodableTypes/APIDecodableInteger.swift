@@ -36,7 +36,7 @@ extension APIDecodableInteger {
 
     public init?(from decoder: APIDecoder) {
         guard case .number(let nsNumber) = decoder.node?.contents, !nsNumber.isBoolean else {
-            let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
+            let error = APIDecodeError(path: decoder.path, actual: decoder.node)
             decoder.recordError(error)
             return nil
         }
