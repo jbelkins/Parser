@@ -35,18 +35,4 @@ public enum JSONElement: String, Equatable {
     case null = "Null"
     case absent = "no value present"
     case unknown = "Unknown"
-
-    static func type(`for` node: JSONNode?) -> JSONElement {
-        guard let contents = node?.contents else { return .absent }
-        switch contents {
-        case .object: return .object
-        case .array: return .array
-        case .string: return .string
-        case .number(let nsNumber):
-            return Int(exactly: nsNumber) != nil ? .integer : .decimal
-        case .bool: return .boolean
-        case .null: return .null
-        case .unknown: return .unknown
-        }
-    }
 }

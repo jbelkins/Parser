@@ -43,10 +43,11 @@ class BoolTests: XCTestCase {
         let json = ["bool": true]
         let data = try! JSONSerialization.data(withJSONObject: json, options: [])
         let result = APIDataDecoder().decode(data: data, to: BoolContainer.self)
-        guard let decoded = result.value?.bool else {
-            XCTFail("Boolean failed to decode"); return
+        if let decoded = result.value?.bool {
+            XCTAssertTrue(decoded)
+        } else {
+            XCTFail("Boolean failed to decode")
         }
-        XCTAssertTrue(decoded)
         XCTAssertEqual(result.errors, [])
     }
 
@@ -54,10 +55,11 @@ class BoolTests: XCTestCase {
         let json = ["bool": false]
         let data = try! JSONSerialization.data(withJSONObject: json, options: [])
         let result = APIDataDecoder().decode(data: data, to: BoolContainer.self)
-        guard let decoded = result.value?.bool else {
-            XCTFail("Boolean failed to decode"); return
+        if let decoded = result.value?.bool {
+            XCTAssertFalse(decoded)
+        } else {
+            XCTFail("Boolean failed to decode")
         }
-        XCTAssertFalse(decoded)
         XCTAssertEqual(result.errors, [])
     }
 

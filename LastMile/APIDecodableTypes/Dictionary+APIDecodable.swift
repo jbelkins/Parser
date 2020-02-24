@@ -30,7 +30,7 @@ extension Dictionary: APIDecodable where Key == String, Value: APIDecodable {
 
     public init?(from decoder: APIDecoder) {
         guard case .object(let jsonDict) = decoder.node?.contents else {
-            let error = APIDecodeError(path: decoder.path, actual: decoder.key.jsonType)
+            let error = APIDecodeError(path: decoder.path, actual: decoder.node)
             decoder.recordError(error)
             return nil
         }

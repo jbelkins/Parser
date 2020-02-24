@@ -77,46 +77,46 @@ class CollectionTests: XCTestCase {
     func test_SwiftArray100() {
         setupArray(count: 100)
         measure {
-            runSwiftArrayDecoderPerformanceTest(count: 100)
+            runSwiftCodableArrayPerformanceTest()
         }
     }
 
     func test_LastMileArray100() {
         setupArray(count: 100)
         measure {
-            runLastMileArrayDecoderPerformanceTest(count: 100)
+            runLastMileArrayPerformanceTest()
         }
     }
 
     func test_SwiftArray1000() {
         setupArray(count: 1000)
         measure {
-            runSwiftArrayDecoderPerformanceTest(count: 1000)
+            runSwiftCodableArrayPerformanceTest()
         }
     }
 
     func test_LastMileArray1000() {
         setupArray(count: 1000)
         measure {
-            runLastMileArrayDecoderPerformanceTest(count: 1000)
+            runLastMileArrayPerformanceTest()
         }
     }
 
     func test_SwiftArray10000() {
         setupArray(count: 10000)
         measure {
-            runSwiftArrayDecoderPerformanceTest(count: 10000)
+            runSwiftCodableArrayPerformanceTest()
         }
     }
 
     func test_LastMileArray10000() {
         setupArray(count: 10000)
         measure {
-            runLastMileArrayDecoderPerformanceTest(count: 10000)
+            runLastMileArrayPerformanceTest()
         }
     }
 
-    private func runSwiftArrayDecoderPerformanceTest(count: Int) {
+    private func runSwiftCodableArrayPerformanceTest() {
         do {
             let value = try JSONDecoder().decode([Element].self, from: arrayJSONData)
             XCTAssertEqual(value, array)
@@ -125,7 +125,7 @@ class CollectionTests: XCTestCase {
         }
     }
 
-    private func runLastMileArrayDecoderPerformanceTest(count: Int) {
+    private func runLastMileArrayPerformanceTest() {
         let result = APIDataDecoder().decode(data: arrayJSONData, to: [Element].self)
         XCTAssertEqual(result.value, array)
         XCTAssertEqual(result.errors.count, 0)
@@ -136,46 +136,46 @@ class CollectionTests: XCTestCase {
     func test_SwiftDict100() {
         setupDict(count: 100)
         measure {
-            runSwiftDictDecoderPerformanceTest()
+            runSwiftCodableDictPerformanceTest()
         }
     }
 
     func test_LastMileDict100() {
         setupDict(count: 100)
         measure {
-            runLastMileDictDecoderPerformanceTest()
+            runLastMileDictPerformanceTest()
         }
     }
 
     func test_SwiftDict1000() {
         setupDict(count: 1000)
         measure {
-            runSwiftDictDecoderPerformanceTest()
+            runSwiftCodableDictPerformanceTest()
         }
     }
 
     func test_LastMileDict1000() {
         setupDict(count: 1000)
         measure {
-            runLastMileDictDecoderPerformanceTest()
+            runLastMileDictPerformanceTest()
         }
     }
 
     func test_SwiftDict10000() {
         setupDict(count: 10000)
         measure {
-            runSwiftDictDecoderPerformanceTest()
+            runSwiftCodableDictPerformanceTest()
         }
     }
 
     func test_LastMileDict10000() {
         setupDict(count: 10000)
         measure {
-            runLastMileDictDecoderPerformanceTest()
+            runLastMileDictPerformanceTest()
         }
     }
 
-    func runSwiftDictDecoderPerformanceTest() {
+    func runSwiftCodableDictPerformanceTest() {
         do {
             let value = try JSONDecoder().decode([String: Element].self, from: dictJSONData)
             XCTAssertEqual(value, dict)
@@ -184,7 +184,7 @@ class CollectionTests: XCTestCase {
         }
     }
 
-    func runLastMileDictDecoderPerformanceTest() {
+    func runLastMileDictPerformanceTest() {
         let result = APIDataDecoder().decode(data: dictJSONData, to: [String: Element].self)
         XCTAssertEqual(result.value, dict)
         XCTAssertEqual(result.errors.count, 0)
