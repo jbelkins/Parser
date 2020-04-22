@@ -34,7 +34,7 @@ extension Dictionary: APIDecodable where Key == String, Value: APIDecodable {
             decoder.recordError(error)
             return nil
         }
-        let pairs: [(String, Value)] = jsonDict.compactMap { (key, _) in
+        let pairs: [(String, Value)] = jsonDict.keys.compactMap { key in
             let newDecoder = decoder[key]
             guard let value = newDecoder.decodeRequired(Value.self) else { return nil }
             return (key, value)

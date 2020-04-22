@@ -49,8 +49,6 @@ extension Element: APIDecodable {
 
 
 class CollectionTests: XCTestCase {
-    let arrayCount = 100
-    let pairCount = 100
     var array: [Element]!
     var dict: [String: Element]!
     var arrayJSONData: Data!
