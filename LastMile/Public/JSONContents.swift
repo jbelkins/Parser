@@ -46,7 +46,7 @@ extension JSONContents: Equatable {
         case (.number(let lhs), .number(let rhs)): return lhs == rhs
         case (.string(let lhs), .string(let rhs)): return lhs == rhs
         case (.bool(let lhs), .bool(let rhs)): return lhs == rhs
-        case(.null, .null): return true
+        case (.null, .null): return true
         default: return false
         }
     }
