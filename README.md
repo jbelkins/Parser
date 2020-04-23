@@ -1,4 +1,4 @@
-# LastMile [![Build Status](https://travis-ci.org/jbelkins/LastMile-iOS.svg?branch=master)](https://travis-ci.org/jbelkins/LastMile-iOS)
+# LastMile [![CircleCI](https://circleci.com/gh/jbelkins/LastMile-iOS.svg?style=shield)](https://circleci.com/gh/jbelkins/LastMile-iOS)
 Robust decoding of model objects, tailored for use with JSON APIs
 
 - Type-safe access to JSON from Swift
