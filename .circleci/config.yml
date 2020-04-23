@@ -4,10 +4,13 @@ version: 2
 jobs:
   unit-test:
     macos:
-      xcode: "10.1.0"
+      xcode: "11.4.1"
     shell: /bin/bash --login -eo pipefail
     steps:
       - checkout
+      - run:
+          name: Add custom config to .bash_profile
+          command: echo "source /usr/local/share/chruby/auto.sh" >> ~/.bash_profile
       - restore_cache:
           key: 1-gems-{{ checksum "Gemfile.lock" }}
       - run:
@@ -19,7 +22,7 @@ jobs:
             - vendor/bundle
       - run:
           name: Run Fastlane
-          command: bundle exec fastlane scan
+          command: bundle exec fastlane scan --scheme "LastMile"
       - run:
           name: Move test results
           command: mv fastlane/test_output/report.junit fastlane/test_output/report.xml || true
