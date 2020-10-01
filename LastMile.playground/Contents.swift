@@ -6,9 +6,9 @@ import LastMile
 // https://github.com/jbelkins/LastMile-iOS
 
 
-// For this playground to run correctly,
-// you may have to build the framework with
-// command-B first.
+// For this playground to run correctly on Xcode 12,
+// select the "LastMile" scheme,
+// then press the playground's Run button.
 
 struct Record {
     let id: Int
