@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>classNames</key>
+	<dict>
+		<key>CollectionTests</key>
+		<dict>
+			<key>test_LastMileArray100()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.0023277</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Oct 1, 2020 at 12:45:33 PM</string>
+				</dict>
+			</dict>
+			<key>test_LastMileArray1000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.021815</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Oct 1, 2020 at 12:45:33 PM</string>
+				</dict>
+			</dict>
+			<key>test_LastMileArray10000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.22163</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Oct 1, 2020 at 12:45:33 PM</string>
+				</dict>
+			</dict>
+			<key>test_LastMileDict100()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.002715</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Oct 1, 2020 at 12:45:33 PM</string>
+				</dict>
+			</dict>
+			<key>test_LastMileDict1000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.024925</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Oct 1, 2020 at 12:45:33 PM</string>
+				</dict>
+			</dict>
+			<key>test_LastMileDict10000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.25482</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Oct 1, 2020 at 12:45:33 PM</string>
+				</dict>
+			</dict>
+			<key>test_SwiftArray100()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.0014533</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Oct 1, 2020 at 12:45:33 PM</string>
+				</dict>
+			</dict>
+			<key>test_SwiftArray1000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.010156</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Oct 1, 2020 at 12:45:33 PM</string>
+				</dict>
+			</dict>
+			<key>test_SwiftArray10000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.10256</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Oct 1, 2020 at 12:45:33 PM</string>
+				</dict>
+			</dict>
+			<key>test_SwiftDict100()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.0012262</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Oct 1, 2020 at 12:45:33 PM</string>
+				</dict>
+			</dict>
+			<key>test_SwiftDict1000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.012296</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Oct 1, 2020 at 12:45:33 PM</string>
+				</dict>
+			</dict>
+			<key>test_SwiftDict10000()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.12831</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Oct 1, 2020 at 12:45:33 PM</string>
+				</dict>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>
