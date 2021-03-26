@@ -12,6 +12,6 @@ Pod::Spec.new do |spec|
   spec.osx.deployment_target = "10.9"
   spec.swift_version         = "5.0"
   spec.source                = { git: "https://github.com/jbelkins/LastMile-iOS.git", tag: "v#{spec.version}" }
-  spec.source_files          = "LastMile/**/*.swift"
+  spec.source_files          = "Sources/LastMile/**/*.swift"
   spec.framework             = "Foundation"
 end
