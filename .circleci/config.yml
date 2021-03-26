@@ -1,43 +1,21 @@
-# Specify the config version - version 2 is latest.
 version: 2
 
 jobs:
   unit-test:
     macos:
-      xcode: "12.0.0"
+      xcode: "12.4.0"
     shell: /bin/bash --login -eo pipefail
     steps:
       - checkout
       - run:
-          name: Add custom config to .bash_profile
-          command: echo "source /usr/local/share/chruby/auto.sh" >> ~/.bash_profile
-      - restore_cache:
-          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          name: Install xcpretty
+          command: gem install -N xcpretty
       - run:
-          name: Install bundled gems
-          command: bundle check --path vendor/bundle || bundle install --path vendor/bundle
-      - save_cache:
-          key: 1-gems-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-      - run:
-          name: Run Fastlane
-          command: bundle exec fastlane scan --scheme "LastMile"
-      - run:
-          name: Move test results
-          command: mv fastlane/test_output/report.junit fastlane/test_output/report.xml || true
+          name: Run Tests
+          command: xcodebuild -scheme LastMile test 2>&1 | xcpretty --simple -r junit
       - store_test_results:
-          path: fastlane/test_output
+          path: build/reports/
           destination: junit
-      - store_artifacts:
-          path: fastlane/test_output
-          destination: junit
-      - store_artifacts:
-          path: ~/Library/Logs/gym
-          destination: gym-logs
-      - store_artifacts:
-          path: ~/Library/Logs/scan
-          destination: scan-logs
 
 workflows:
   version: 2
